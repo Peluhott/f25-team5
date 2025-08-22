@@ -1,2 +1,4 @@
 # f25-team5
-# Isaiah hames
+
+Isaiah hames
+Javier Sedano
