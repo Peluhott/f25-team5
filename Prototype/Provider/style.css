@@ -1,0 +1,33 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.outer-main {
+    display: flex;
+    
+}
+
+.profile-pic {
+    height: 100px;
+    width: auto;
+    border-radius: 50px;
+}
+
+.sidebar-icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+
+.group-create {
+    display: flex;
+    flex-direction: column;
+}
