@@ -1,26 +1,53 @@
-const groups = []
+const groups = [] // will fetch these when user logins
 const people = []
+const reviews = [ // fake data to see what it looks like
+    {
+        user: "Alice",
+        rating: 5,
+        description: "Great teamwork and communication!",
+        team: "Web Devs"
+    },
+    {
+        user: "Bob",
+        rating: 4,
+        description: "Solid effort, learned a lot.",
+        team: "Design Squad"
+    },
+    {
+        user: "Charlie",
+        rating: 3,
+        description: "Project was challenging but rewarding.",
+        team: "QA Crew"
+    }
+]
 
 const mainContainer = document.querySelector('.main-content');
 
 function renderGroups(){
       mainContainer.innerHTML = ''
 
-      if(groups.length == 0){
+      if(groups.length == 0){ // if you own no groups will give you option to create
         const groupCreate = document.createElement('div')
         groupCreate.className = 'group-create'
         groupCreate.id = 'create-group-link'
+       
         const createText = document.createElement('p')
         createText.textContent = 'Create a Group'
+        
         const createIcon = document.createElement('img')
         createIcon.src = '../../images/icons8-create-64.png'
         createIcon.className = 'create-icon'
+        
         groupCreate.appendChild(createText);
         groupCreate.appendChild(createIcon);
+        
         mainContainer.appendChild(groupCreate)
 
         groupCreate.addEventListener('click', renderCreateGroupForm);
       } else {
+        //if there are groups it renders the group
+        // need to figure out the details that group will need this is temp
+        // change this to a for each arrow function loop later
         for(let group of groups){
             const groupCard = document.createElement('div');
             groupCard.className = 'group-card';
@@ -30,39 +57,94 @@ function renderGroups(){
             groupCard.appendChild(groupPicture);
 
             const groupTitle = document.createElement('p');
-            groupTitle = group.title;
+            groupTitle.textContent = group.title;
             groupCard.appendChild(groupTitle);
 
-            const groupSubTitle = document.createElement('p');
-            groupTitle = group.subtitle;
-            groupCard.appendChild(groupSubTitle);
+            const groupDescription = document.createElement('p');
+            groupDescription.textContent = group.description;
+            groupCard.appendChild(groupDescription);
 
-            const groupTypeIcon = document.createElement('img');
-            groupTypeIcon.src = group.type;
-            groupCard.appendChild(groupTypeIcon);
+            const groupState = document.createElement('p');
+            groupState.textContent = group.state;
+            groupCard.appendChild(groupState);
 
-            const groupHeartIcon = document.createElement('img');
-            groupHeartIcon.src = group.image;
-            groupCard.appendChild(groupHeartIcon);
+            const groupType = document.createElement('p');
+            groupType.textContent = group.type;
+            groupCard.appendChild(groupType);
 
-            mainContainer.appendChild(groupCard);
+            mainContainer.appendChild(groupCard); // adds the group card
+            
         }
+        //After the loop is complete it will still render create button
+        const groupCreate = document.createElement('div')
+        groupCreate.className = 'group-create'
+        groupCreate.id = 'create-group-link'
+        
+        const createText = document.createElement('p')
+        createText.textContent = 'Create a Group'
+        
+        const createIcon = document.createElement('img')
+        createIcon.src = '../../images/icons8-create-64.png'
+        createIcon.className = 'create-icon'
+        
+        groupCreate.appendChild(createText);
+        groupCreate.appendChild(createIcon);
+        
+        mainContainer.appendChild(groupCreate)
+        
+        groupCreate.addEventListener('click', renderCreateGroupForm);
       }
 
 }
 
-function renderMessages(){
-  mainContainer.innerHTML = ''
-  const text = document.createElement('p')
-  text.innerText = 'hey this works'
-  mainContainer.appendChild(text)
+function renderMessages() {
+    mainContainer.innerHTML = '';
+
+    if (reviews.length === 0) {
+        // if no reviews renders the message
+        const noReviews = document.createElement('p');
+        noReviews.textContent = 'No reviews made yet.';
+        mainContainer.appendChild(noReviews);
+    } else {
+
+        //renders reviews in array
+        const reviewsContainer = document.createElement('div');
+        reviewsContainer.className = 'reviews-container';
+
+        reviews.forEach(review => {
+            const reviewCard = document.createElement('div');
+            reviewCard.className = 'review-card';
+
+            const user = document.createElement('p');
+            user.innerHTML = `<strong>User:</strong> ${review.user}`;
+
+            const rating = document.createElement('p');
+            rating.innerHTML = `<strong>Rating:</strong> ${review.rating}`;
+
+            const description = document.createElement('p');
+            description.innerHTML = `<strong>Description:</strong> ${review.description}`;
+
+            const team = document.createElement('p');
+            team.innerHTML = `<strong>Team:</strong> ${review.team}`;
+
+            reviewCard.appendChild(user);
+            reviewCard.appendChild(rating);
+            reviewCard.appendChild(description);
+            reviewCard.appendChild(team);
+
+            reviewsContainer.appendChild(reviewCard);
+        });
+
+        mainContainer.appendChild(reviewsContainer);
+    }
 }
 
-function renderSearch(){}
+function renderSearch(){} 
 
 function renderCreateGroupForm() {
     mainContainer.innerHTML = '';
-
+     
+    // form to create a group need to decide later on what details to create with
     const form = document.createElement('form');
     form.className = 'create-group-form';
 
@@ -119,7 +201,7 @@ function renderCreateGroupForm() {
     // Append all to form
     form.appendChild(titleLabel);
     form.appendChild(titleInput);
-    form.appendChild(document.createElement('br'));
+    form.appendChild(document.createElement('br')); //space
 
     form.appendChild(descLabel);
     form.appendChild(descInput);
@@ -142,7 +224,7 @@ function renderCreateGroupForm() {
     mainContainer.appendChild(form);
 
     form.addEventListener('submit', function(e) {
-        e.preventDefault();
+        e.preventDefault(); // prevents default action which is to make a request online
         const newGroup = {
             title: titleInput.value,
             description: descInput.value,
@@ -151,11 +233,12 @@ function renderCreateGroupForm() {
             image: imageInput.value
         };
 
-        groups.push(newGroup);
-        renderGroups();
+        groups.push(newGroup); 
+        renderGroups(); //rerenders group page
     });
 }
 
+// add functionality to links in sidebar
 document.getElementById('group-link').addEventListener('click', (e) => {
     e.preventDefault();
     renderGroups();
@@ -173,6 +256,6 @@ document.getElementById('search-link').addEventListener('click', (e) => {
 
 
 
-renderGroups()
+renderGroups() //initial render
 
 
