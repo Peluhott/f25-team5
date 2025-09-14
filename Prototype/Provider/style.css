@@ -1,8 +1,21 @@
+body {
+    margin: 0
+}
 nav {
     display: flex;
     justify-content: space-between;
+    background-color: #4A4A4A;
+    padding: 10px;
 }
-
+.side-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1C77C3;
+    height: 100vh;
+    width: 15%;
+    padding: 10px;
+}
 .outer-main {
     display: flex;
     
@@ -12,12 +25,14 @@ nav {
     height: 100px;
     width: auto;
     border-radius: 50px;
+    border: solid 1px white;
 }
 
 .sidebar-icons {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 50px;
 }
 
 .main-content {
@@ -25,9 +40,22 @@ nav {
     justify-content: center;
     align-items: center;
     width: 100vw;
+    background-color: #F5F5F5;
 }
 
 .group-create {
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+}
+
+.image-rate {
+    text-align: center;
+}
+
+.icon-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
