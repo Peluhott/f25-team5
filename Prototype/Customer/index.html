@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b69a734b4d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <img src="images/logo-transparent.png" alt="" id="logo">
+        <h1>GroupLink</h1>
+    </header>
+
+    <aside>
+        <ul>
+            <a href="">
+                <li><i class="fa-solid fa-user"></i></li>
+            </a>
+
+            <div id="break"></div>
+
+            <a href="">
+                <li> <i class="fa-solid fa-house"></i></li>
+            </a>
+
+            <a href="">
+                <li> <i class="fa-solid fa-bell"></i></li>
+            </a>
+
+            <a href="">
+                <li><i class="fa-solid fa-envelope"></i></li>
+            </a>
+
+            <a href="">
+                <li><i class="fa-solid fa-people-group"></i></li>
+            </a>
+
+            <a href="" id="settings">
+                <li id="settings"><i class="fa-solid fa-gear"></i></li>
+            </a>
+        </ul>
+    </aside>
+
+    <div id="filters">
+        <form action="" id="search">
+            <input type="search" name="" id="" placeholder="What are you looking for?">
+            <input type="submit" value="Search">
+        </form>
+
+        <div id="options">
+           <div id="group-type" class="filter">Group options <i class="fa-solid fa-caret-down"></i></div>
+           <div id="leader-rating" class="filter">Minimum Rating <i class="fa-solid fa-caret-down"></i></div>
+           <div id="max-members" class="filter">Member Count <i class="fa-solid fa-caret-down"></i></div>
+        </div>
+
+        <div id="options-selected">
+            <div class="selected">Any Groups <i class="fa-solid fa-x"></i></div>
+            <div class="selected">Any Rating <i class="fa-solid fa-x"></i></div>
+            <div class="selected">Any Member # <i class="fa-solid fa-x"></i></div>
+        </div>
+
+        <form action="" id="sortby">
+            <label for="">Sort by:</label>
+            <select name="" id="">
+                <option value="">Newest</option>
+                <option value="">Oldest</option>
+            </select>
+        </form>
+    </div>
+
+
+    <div id="main-content">
+        <div class="card">
+            <img class="poster" src="images/sample-poster-1.jpeg" alt="">
+            <div class="user">
+                <img class="poster-pfp" src="images/sample-pfp-1.jpeg" alt="">
+                <h5>Joe Russell</h5>
+                <div class="card-type"><i class="fa-solid fa-code"></i>Hackathon</div>
+            </div>
+            <p class="card-description">We are looking for</p>
+            <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <div class="rating-number">4.8</div>
+                <div class="rating-reviews">(1k+)</div>
+            </div>
+            <div class="member-count">
+                <i class="fa-solid fa-people-group"></i>
+                <div class="count-number">5</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="poster" src="images/sample-poster-2.jpeg" alt="">
+            <div class="user">
+                <img class="poster-pfp" src="images/sample-pfp-2.jpeg" alt="">
+                <h5>Shelby Smart</h5>
+                <div class="card-type"><i class="fa-solid fa-code"></i>Hackathon</div>
+            </div>
+            <p class="card-description">We are looking for</p>
+            <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <div class="rating-number">4.1</div>
+                <div class="rating-reviews">(2k+)</div>
+            </div>
+            <div class="member-count">
+                <i class="fa-solid fa-people-group"></i>
+                <div class="count-number">5</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="poster" src="images/sample-poster-3.jpeg" alt="">
+            <div class="user">
+                <img class="poster-pfp" src="images/sample-pfp-3.jpeg" alt="">
+                <h5>Lisa Jones</h5>
+                <div class="card-type"><i class="fa-solid fa-handshake-angle"></i>Volunteer</div>
+            </div>
+            <p class="card-description">We are looking for</p>
+            <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <div class="rating-number">3.8</div>
+                <div class="rating-reviews">(928)</div>
+            </div>
+            <div class="member-count">
+                <i class="fa-solid fa-people-group"></i>
+                <div class="count-number">5</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="poster" src="images/sample-poster-4.jpeg" alt="">
+            <div class="user">
+                <img class="poster-pfp" src="images/sample-pfp-4.jpeg" alt="">
+                <h5>Jason Drew</h5>
+                <div class="card-type"><i class="fa-solid fa-book"></i>Study</div>
+            </div>
+            <p class="card-description">We are looking for</p>
+            <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <div class="rating-number">4.9</div>
+                <div class="rating-reviews">(823)</div>
+            </div>
+            <div class="member-count">
+                <i class="fa-solid fa-people-group"></i>
+                <div class="count-number">5</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="poster" src="images/sample-poster-5.jpeg" alt="">
+            <div class="user">
+                <img class="poster-pfp" src="images/sample-pfp-5.jpeg" alt="">
+                <h5>Jennifer Jones</h5>
+                <div class="card-type"><i class="fa-solid fa-book"></i>Study</div>
+            </div>
+            <p class="card-description">We are looking for</p>
+            <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <div class="rating-number">4.0</div>
+                <div class="rating-reviews">(2.3k+)</div>
+            </div>
+            <div class="member-count">
+                <i class="fa-solid fa-people-group"></i>
+                <div class="count-number">5</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="poster" src="images/sample-poster-6.jpeg" alt="">
+            <div class="user">
+                <img class="poster-pfp" src="images/sample-pfp-6.jpeg" alt="">
+                <h5>Marcus Powell</h5>
+                <div class="card-type"><i class="fa-solid fa-book"></i>Study</div>
+            </div>
+            <p class="card-description">We are looking for</p>
+            <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <div class="rating-number">4.7</div>
+                <div class="rating-reviews">(48)</div>
+            </div>
+            <div class="member-count">
+                <i class="fa-solid fa-people-group"></i>
+                <div class="count-number">5</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="poster" src="images/sample-poster-7.jpeg" alt="">
+            <div class="user">
+                <img class="poster-pfp" src="images/sample-pfp-7.jpeg" alt="">
+                <h5>Ethan Markson</h5>
+                <div class="card-type"><i class="fa-solid fa-book"></i>Study</div>
+            </div>
+            <p class="card-description">We are looking for</p>
+            <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <div class="rating-number">4.3</div>
+                <div class="rating-reviews">(325)</div>
+            </div>
+            <div class="member-count">
+                <i class="fa-solid fa-people-group"></i>
+                <div class="count-number">5</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="poster" src="images/sample-poster-8.jpeg" alt="">
+            <div class="user">
+                <img class="poster-pfp" src="images/sample-pfp-8.jpeg" alt="">
+                <h5>Miles Morris</h5>
+                <div class="card-type"><i class="fa-solid fa-book"></i>Study</div>
+            </div>
+            <p class="card-description">We are looking for</p>
+            <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <div class="rating-number">4.5</div>
+                <div class="rating-reviews">(821)</div>
+            </div>
+            <div class="member-count">
+                <i class="fa-solid fa-people-group"></i>
+                <div class="count-number">5</div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
