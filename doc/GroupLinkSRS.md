@@ -1,10 +1,10 @@
 # Software Requirements Specification
-## For <project name>
+## For GroupLink
 
 Version 0.1  
-Prepared by <author>  
-<organization>  
-<date created> 
+Prepared by Javier Sedano and Isaiah Hames  
+CSC340-01  
+September 17, 2025
 
 Table of Contents
 =================
@@ -37,7 +37,7 @@ Table of Contents
 ## Revision History
 | Name | Date    | Reason For Changes  | Version   |
 | ---- | ------- | ------------------- | --------- |
-|      |         |                     |           |
+|   Javier Sedano   |   9-17-25      |   Added Requirements                  |    1.0       |
 |      |         |                     |           |
 |      |         |                     |           |
 
@@ -50,8 +50,15 @@ Describe the purpose of the SRS and its intended audience.
 Identify the product whose software requirements are specified in this document, including the revision or release number. Explain what the product that is covered by this SRS will do, particularly if this SRS describes only part of the system or a single subsystem. 
 Provide a short description of the software being specified and its purpose, including relevant benefits, objectives, and goals. Relate the software to corporate goals or business strategies. If a separate vision and scope document is available, refer to it rather than duplicating its contents here.
 
-### 1.3 Definitions, Acronyms and Abbreviations                                                                                                                                                                          |
-
+### 1.3 Definitions, Acronyms and Abbreviations
+| Reference | Definition
+|-----------|-------------------------------------------------------------------------|
+|Java       |                                                                          
+|Javascript |
+|HTML       |
+|CSS        |
+|API        |
+|Springboot |                                      
 ### 1.4 References
 List any other documents or Web addresses to which this SRS refers. These may include user interface style guides, contracts, standards, system requirements specifications, use case documents, or a vision and scope document. Provide enough information so that the reader could access a copy of each reference, including title, author, version number, date, and source or location.
 
@@ -81,46 +88,55 @@ List any assumed factors (as opposed to known facts) that could affect the requi
 ## 3. Requirements
 
 ### 3.1 Functional Requirements 
-This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those requirements.
-
-The specific requirements should:
-* Be uniquely identifiable.
-* State the subject of the requirement (e.g., system, software, etc.) and what shall be done.
-* Optionally state the conditions and constraints, if any.
-* Describe every input (stimulus) into the software system, every output (response) from the software system, and all functions performed by the software system in response to an input or in support of an output.
-* Be verifiable (e.g., the requirement realization can be proven to the customer's satisfaction)
-* Conform to agreed upon syntax, keywords, and terms.
-
+- FR0: The System will allow users to create accounts as either a customer(group joiner) or provider(group creator).
+  - Each account shall have a unique identifier assigned at the time of creation in order to know what type of account it is.
+- FR1: The system shall allow providers to create a group with details including name of group, description, type, maximum number of members, location.
+- FR2: The system shall allow providers to accept or reject customers making a request to join.
+- FR3: The system shall allow providers to read and respond to reviews.
 #### 3.1.1 User interfaces
-Define the software components for which a user interface is needed. Describe the logical characteristics of each interface between the software product and the users. This may include sample screen images, any GUI standards or product family style guides that are to be followed, screen layout constraints, standard buttons and functions (e.g., help) that will appear on every screen, keyboard shortcuts, error message display standards, and so on. Details of the user interface design should be documented in a separate user interface specification.
+Web pages using HTML, CSS, and Javascript
 
-Could be further divided into Usability and Convenience requirements.
+Will be responsive and adjust whether user is on mobile or desktop browser
 
 #### 3.1.2 Hardware interfaces
-Describe the logical and physical characteristics of each interface between the software product and the hardware components of the system. This may include the supported device types, the nature of the data and control interactions between the software and the hardware, and communication protocols to be used.
+Devices that have a web browser
+
+System will run on a cloud server that supports Java
+
+Database of system will run on a cloud server that supports PostgreSQL
 
 #### 3.1.3 Software interfaces
-Describe the connections between this product and other specific software components (name and version), including databases, operating systems, tools, libraries, and integrated commercial components. Identify the data items or messages coming into the system and going out and describe the purpose of each. Describe the services needed and the nature of communications. Refer to documents that describe detailed application programming interface protocols. Identify data that will be shared across software components. If the data sharing mechanism must be implemented in a specific way (for example, use of a global data area in a multitasking operating system), specify this as an implementation constraint.
+- Java jdk 21
+- PostgreSQL 17.6
+- SpringBoot 3.5.5
 
 ### 3.2 Non Functional Requirements 
 
 #### 3.2.1 Performance
-If there are performance requirements for the product under various circumstances, state them here and explain their rationale, to help the developers understand the intent and make suitable design choices. Specify the timing relationships for real time systems. Make such requirements as specific as possible. You may need to state performance requirements for individual functional requirements or features.
+- NFR0: The GroupLink system will consume less than 100mb of memory.
+- NFR1: The novice user will be able to create and manage a group in less than 5 minutes.
+- NFR2: The novice user will be able to search and join a group in less than 5 minutes.
+- NFR3: The expert user will be able to create and manage a group in less than 2 minutes.
+- NFR4: The expert user will be able to search and join a group in less than 2 minutes.
 
 #### 3.2.2 Security
-Specify any requirements regarding security or privacy issues surrounding use of the product or protection of the data used or created by the product. Define any user identity authentication requirements. Refer to any external policies or regulations containing security issues that affect the product. Define any security or privacy certifications that must be satisfied.
+- NFR5: This system is going to be available to authorized users, using their names and passwords.
+
+- NFR6: The System shall use security best practices to protect against common web threats.
 
 #### 3.2.3 Reliability
-Specify the factors required to establish the required reliability of the software system at time of delivery.
+- NFR7: The system shall have downtime of less than 1%.
+
+- NFR8: The system shall ensure that data is permanent and not lost in the event of a crash or other system failure.
 
 #### 3.2.4 Availability
-Specify the factors required to guarantee a defined availability level for the entire system such as checkpoint, recovery, and restart.
+- NFR9: GroupLink will be available 24/7. Scheduled maintenance will be performed between 2am eastern and 4am eastern time during low activity hours to minimize conflict with users using the application.
 
 #### 3.2.5 Compliance
-Specify the requirements derived from existing standards or regulations
+- NFR10: The system shall comply with best practices for API development and coding.
 
 #### 3.2.6 Cost
-Specify monetary cost of the software product.
+- NFR11: We plan to spend zero dollars on this project.
 
 #### 3.2.7 Deadline
-Specify schedule for delivery of the software product.
+- NFR12: The final product must be delived by December 2025.
