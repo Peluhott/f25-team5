@@ -2,9 +2,9 @@
 ## For GroupLink
 
 Version 0.1  
-Prepared by <Javier Sedano and Isaiah Hames>  
-<CSC340-01>  
-<9-17-25> 
+Prepared by Javier Sedano and Isaiah Hames  
+CSC340-01  
+September 17, 2025
 
 Table of Contents
 =================
@@ -37,7 +37,7 @@ Table of Contents
 ## Revision History
 | Name | Date    | Reason For Changes  | Version   |
 | ---- | ------- | ------------------- | --------- |
-|   Javier   |   9-17-25      |   Added Requirements                  |    1.0       |
+|   Javier Sedano   |   9-17-25      |   Added Requirements                  |    1.0       |
 |      |         |                     |           |
 |      |         |                     |           |
 
