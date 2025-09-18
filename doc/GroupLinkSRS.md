@@ -61,7 +61,7 @@ The purpose of GroupLink is to connect members with a variety of groups and to c
 |HTML       |Hypertext Markup Language. This is the code that will be used to structure and design the web application and its content.
 |CSS        |Cascading Style Sheets. Will be used to add styles and appearance to the web app.
 |API        |Application Programming Interface. This will be used to interface the backend and the fronted of our application.
-|Springboot |An open-source Java-based framework used to create a micro Service. This will be used to create and run our application.                                      
+|Springboot |An open-source Java-based framework used to create a micro Service. This will be used to create and run our application.                                     
 ### 1.4 References
 Spring Framework Guide - https://spring.io/guides
 
