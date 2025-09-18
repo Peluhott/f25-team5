@@ -100,6 +100,9 @@ We will be using Java, with our program being dependent on Spring & SpringBoot, 
 - FR1: The system shall allow providers to create a group with details including name of group, description, type, maximum number of members, location.
 - FR2: The system shall allow providers to accept or reject customers making a request to join.
 - FR3: The system shall allow providers to read and respond to reviews.
+- FR4: The system shall allow customers to filter and browse through available groups
+- FR5: The system shall allow customers to apply to available groups
+- FR6: The system shall allow customers to leave reviews about provider(group leader)
 #### 3.1.1 User interfaces
 Web pages using HTML, CSS, and Javascript
 
