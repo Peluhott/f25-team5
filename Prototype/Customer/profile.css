@@ -1,0 +1,193 @@
+body {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+header{
+    padding-top: 10px;
+    display: flex;
+    margin-left: 5%;
+    height: 10vh;
+    width: 95%;
+    background-color: white;
+    justify-content: center;
+}
+
+h1 {
+    margin-top: 0.5%;
+}
+
+#logo {
+    height: 50px;
+    width: 50px;
+}
+
+
+aside {
+    position: fixed;
+    margin-top: -1%;
+    width: 5%;
+    height: 102vh;
+    background-color: #525252;
+    color: #F2BFA4;
+}
+
+#break {
+
+    margin: 5px 0 ;
+    height: 0.5vh;
+    width: 100%;
+    background-color: #F2BFA4;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-left: 0;
+    list-style-type: none;
+    height: 100%;
+}
+
+.saira-semi-condensed-regular {
+    font-family: "Saira Semi Condensed", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+li {
+    font-size: larger;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+a {
+    color: #F2BFA4;
+    text-decoration: none;
+}
+
+li:hover {
+    border-radius: 8px;
+    width: 40%;
+    color: #525252;
+    background-color: #F2BFA4;
+}
+
+#logout {
+    margin-bottom: 5%;
+    position: absolute;
+    bottom: 0;
+    width: 70%;
+}
+
+#logout:hover {
+    border-radius: 8px;
+    width: 65%;
+    color: #525252;
+    background-color: #F2BFA4;
+}
+
+#main-content {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 5%;
+    margin-left: 5%;
+    height: 100vh;
+    width: 95%;
+    background-color: white;
+    border-top: solid;
+}
+
+#change-pfp {
+    border: solid;
+    display: flex;
+    margin-top: 25px;
+    width: 70%;
+}
+
+#pfp {
+    margin: 25px;
+    border-radius: 50%;
+    height: 80%;
+    width: 30%;
+}
+
+#new-pfp {
+    font-size: xx-large;
+    margin-top: 10%;
+    margin-left: 10%;
+    height: 30%;
+    width: 40%;
+    cursor: pointer;
+}
+
+#personal-information-form {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 20px;
+    height: 40%;
+    width: 40%;
+    background-color: white;
+    border: solid;
+}
+
+.pil {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.pit {
+    width: 90%;
+    height: 15%;
+}
+
+.pis {
+    border: none;
+    padding: 10px;
+    margin-top: 3%;
+    color: #525252;
+    background-color: #F2BFA4;
+    height: 15%;
+    width: 20%;
+    cursor: pointer;
+}
+
+#change-password-form {
+    margin-top: 5%;
+    margin-left: 3px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 20px;
+    height: 40%;
+    width: 40%;
+    background-color: white;
+    border: solid;
+}
+
+.cpl {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.cpp {
+    width: 90%;
+    height: 15%;
+}
+
+.cps {
+    border: none;
+    padding: 10px;
+    margin-top: 3%;
+    color: #525252;
+    background-color: #F2BFA4;
+    height: 15%;
+    width: 20%;
+    cursor: pointer;
+}

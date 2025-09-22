@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/Prototype/Customer/images/logo-transparent.png">
+    <title>GroupLink</title>
+    <link rel="stylesheet" href="/Prototype/Customer/profile.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b69a734b4d.js" crossorigin="anonymous"></script>
+    <link
+    rel="stylesheet"
+    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/all.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-solid.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-regular.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-light.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/duotone.css"
+  />
+</head>
+<body>
+
+    <header>
+        <img src="images/logo-transparent.png" alt="" id="logo">
+        <h1>Profile</h1>
+    </header>
+
+    <aside>
+        <ul>
+
+            
+            <a href="/Prototype/Customer/profile.html" title="Profile">
+                <li><i class="fa-solid fa-user"></i></li>
+            </a>
+
+            <div id="break"></div>
+
+            <a href="/Prototype/Customer/index.html" title="Home">
+                <li> <i class="fa-solid fa-house"></i></li>
+            </a>
+
+            <a href="/Prototype/Customer/notifications.html" title="Notifications">
+                <li> <i class="fa-solid fa-bell"></i></li>
+            </a>
+
+            <a href="/Prototype/Customer/messages.html" title="Messages">
+                <li><i class="fa-solid fa-envelope"></i></li>
+            </a>
+
+            <a href="/Prototype/Customer/groups.html" title="Your Groups">
+                <li><i class="fa-solid fa-people-group"></i></li>
+            </a>
+
+            <a href="/Prototype/Login/Login.html" id="logout" title="Logout">
+                <li id="logout"><i class="fa-solid fa-door-open"></i></li>
+            </a>
+
+
+        </ul>
+    </aside>
+
+    <div id="main-content">
+
+        <div id="change-pfp">
+            <img src="/Prototype/Customer/images/template-pfp.webp" alt="" id="pfp">
+            <button id="new-pfp"><i class="fa-solid fa-arrow-up-from-bracket"></i>Upload Image</button>
+        </div>
+
+
+        <form action="" id="personal-information-form">
+            <label for="name" class="pil">Full Name:</label>
+            <input type="text" placeholder="John Doe" class="pit">
+
+            <label for="username" class="pil">Username:</label>
+            <input type="text" name="username" id="" class="pit" placeholder="jdoe123">
+
+            <label for="email" class="pil">Email:</label>
+            <input type="text" name="" id="" placeholder="jdoe@gmail.com" class="pit">
+
+            <input type="submit" value="Save Changes" class="pis">
+        </form>
+
+        <form action="" id="change-password-form">
+            <label for="current-password" class="cpl">Current Password:</label>
+            <input type="password" placeholder="John Doe" class="cpp">
+
+            <label for="new-password" class="cpl">New Password:</label>
+            <input type="password" name="username" id="" class="cpp" placeholder="jdoe123">
+
+            <label for="re-enter-password" class="cpl">Re-enter New Passoword:</label>
+            <input type="password" name="" id="" placeholder="jdoe@gmail.com" class="cpp">
+
+            <input type="submit" value="Save Changes" class="cps">
+        </form>
+    </div>
+    
+</body>
+</html>

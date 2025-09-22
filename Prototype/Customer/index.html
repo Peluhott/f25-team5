@@ -3,13 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" href="/Prototype/Customer/images/logo-transparent.png">
+    <title>GroupLink</title>
     <link rel="stylesheet" href="index.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/b69a734b4d.js" crossorigin="anonymous"></script>
+    <link
+    rel="stylesheet"
+    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/all.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-solid.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-regular.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-light.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/duotone.css"
+  />
 </head>
 <body>
     <header>
@@ -19,30 +44,30 @@
 
     <aside>
         <ul>
-            <a href="">
+            <a href="/Prototype/Customer/profile.html" title="Profile">
                 <li><i class="fa-solid fa-user"></i></li>
             </a>
 
             <div id="break"></div>
 
-            <a href="">
+            <a href="/Prototype/Customer/index.html" title="Home">
                 <li> <i class="fa-solid fa-house"></i></li>
             </a>
 
-            <a href="">
+            <a href="/Prototype/Customer/notifications.html" title="Notifications">
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
-            <a href="">
+            <a href="/Prototype/Customer/messages.html" title="Messages">
                 <li><i class="fa-solid fa-envelope"></i></li>
             </a>
 
-            <a href="">
+            <a href="/Prototype/Customer/groups.html" title="Your Groups">
                 <li><i class="fa-solid fa-people-group"></i></li>
             </a>
 
-            <a href="" id="settings">
-                <li id="settings"><i class="fa-solid fa-gear"></i></li>
+            <a href="/Prototype/Login/Login.html" id="logout" title="Logout">
+                <li id="logout"><i class="fa-solid fa-door-open"></i></li>
             </a>
         </ul>
     </aside>
@@ -57,6 +82,7 @@
            <div id="group-type" class="filter">Group options <i class="fa-solid fa-caret-down"></i></div>
            <div id="leader-rating" class="filter">Minimum Rating <i class="fa-solid fa-caret-down"></i></div>
            <div id="max-members" class="filter">Member Count <i class="fa-solid fa-caret-down"></i></div>
+           <div id="location" class="filter">Location<i class="fa-solid fa-caret-down"></i></div>
         </div>
 
         <div id="options-selected">
@@ -91,8 +117,9 @@
             </div>
             <div class="member-count">
                 <i class="fa-solid fa-people-group"></i>
-                <div class="count-number">5</div>
+                <div class="count-number">2/5</div>
             </div>
+            <div class="location"><i class="fa-regular fa-earth-americas"></i> Greensboro, NC</div>
         </div>
 
         <div class="card">
@@ -110,8 +137,9 @@
             </div>
             <div class="member-count">
                 <i class="fa-solid fa-people-group"></i>
-                <div class="count-number">5</div>
+                <div class="count-number">4/6</div>
             </div>
+            <div class="location"><i class="fa-regular fa-earth-americas"></i> Charlotte, NC</div>
         </div>
 
         <div class="card">
@@ -129,8 +157,9 @@
             </div>
             <div class="member-count">
                 <i class="fa-solid fa-people-group"></i>
-                <div class="count-number">5</div>
+                <div class="count-number">3/5</div>
             </div>
+            <div class="location"><i class="fa-regular fa-earth-americas"></i> New York, NY</div>
         </div>
 
         <div class="card">
@@ -148,8 +177,9 @@
             </div>
             <div class="member-count">
                 <i class="fa-solid fa-people-group"></i>
-                <div class="count-number">5</div>
+                <div class="count-number">3/4</div>
             </div>
+            <div class="location"><i class="fa-regular fa-earth-americas"></i> Online</div>
         </div>
 
         <div class="card">
@@ -167,8 +197,9 @@
             </div>
             <div class="member-count">
                 <i class="fa-solid fa-people-group"></i>
-                <div class="count-number">5</div>
+                <div class="count-number">2/4</div>
             </div>
+            <div class="location"><i class="fa-regular fa-earth-americas"></i> Miami, FL</div>
         </div>
 
         <div class="card">
@@ -186,8 +217,9 @@
             </div>
             <div class="member-count">
                 <i class="fa-solid fa-people-group"></i>
-                <div class="count-number">5</div>
+                <div class="count-number">2/3</div>
             </div>
+            <div class="location"><i class="fa-regular fa-earth-americas"></i> Greensboro, NC</div>
         </div>
 
         <div class="card">
@@ -205,8 +237,9 @@
             </div>
             <div class="member-count">
                 <i class="fa-solid fa-people-group"></i>
-                <div class="count-number">5</div>
+                <div class="count-number">4/7</div>
             </div>
+            <div class="location"><i class="fa-regular fa-earth-americas"></i> Chicago, IL</div>
         </div>
 
         <div class="card">
@@ -224,10 +257,11 @@
             </div>
             <div class="member-count">
                 <i class="fa-solid fa-people-group"></i>
-                <div class="count-number">5</div>
+                <div class="count-number">5/6</div>
             </div>
+            <div class="location"><i class="fa-regular fa-earth-americas"></i> Los Angles, CA</div>
         </div>
-
+        
     </div>
 </body>
 </html>

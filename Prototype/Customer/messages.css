@@ -1,0 +1,173 @@
+body {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+header{
+    padding-top: 10px;
+    display: flex;
+    margin-left: 5%;
+    height: 10vh;
+    width: 95%;
+    background-color: white;
+    justify-content: center;
+}
+
+h1 {
+    margin-top: 0.5%;
+}
+
+#logo {
+    height: 50px;
+    width: 50px;
+}
+
+
+aside {
+    position: fixed;
+    margin-top: -1%;
+    width: 5%;
+    height: 102vh;
+    background-color: #525252;
+    color: #F2BFA4;
+}
+
+#break {
+
+    margin: 5px 0 ;
+    height: 0.5vh;
+    width: 100%;
+    background-color: #F2BFA4;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-left: 0;
+    list-style-type: none;
+    height: 100%;
+}
+
+.saira-semi-condensed-regular {
+    font-family: "Saira Semi Condensed", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+li {
+    font-size: larger;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+a {
+    color: #F2BFA4;
+    text-decoration: none;
+}
+
+li:hover {
+    border-radius: 8px;
+    width: 40%;
+    color: #525252;
+    background-color: #F2BFA4;
+}
+
+#logout {
+    margin-bottom: 5%;
+    position: absolute;
+    bottom: 0;
+    width: 70%;
+}
+
+#logout:hover {
+    border-radius: 8px;
+    width: 65%;
+    color: #525252;
+    background-color: #F2BFA4;
+}
+
+#option-bar{
+    display: flex;
+    position: absolute;
+    margin-top: 6%;
+    margin-left: 5%;
+    height: 8vh;
+    width: 95%;
+}
+
+.tabs {
+    margin-top: 11px;
+    margin-left: 8px;
+    border-top-left-radius: 8%;
+    border-top-right-radius: 8%;
+    font-size: large;
+    align-content: center;
+    text-align: center;
+    font-weight: bold;
+    border: solid;
+    width: 9%;
+    height: 70%;
+    cursor: pointer;
+}
+
+.tabs:hover {
+    background-color: #cbcbcb;
+}
+
+#unread {
+    background-color: #cbcbcb;
+}
+
+#read {
+
+}
+
+#mail-box {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 5px 0;
+    margin-top: 10%;
+    margin-left: 5%;
+    height: 80vh;
+    width: 95%;
+    border-top: solid;
+}
+
+.message {
+    padding: 3px;
+    display: grid;
+    grid-template-columns: 60px 80px 200px 175px 1000px;
+    align-items: center;
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: #cbcbcb;
+}
+
+.message:hover{
+    font-weight: bold;
+    border-top: solid;
+    border-bottom: solid;
+    border-color: #cbcbcb;
+    border-width: 2px;
+    cursor: pointer;
+}
+
+input[type=checkbox] {
+}
+
+.sender {
+    font-weight: bold;
+}
+
+.subject {
+    font-weight: bold;
+}
+
+.message-preview {
+
+}

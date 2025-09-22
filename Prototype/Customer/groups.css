@@ -89,83 +89,14 @@ li:hover {
     background-color: #F2BFA4;
 }
 
-#filters {
-    position: absolute;
-    margin-top: 5%;
-    margin-left: 5%;
-    width: 95%;
-    height: 20vh;
-    background-color: white;
-}
-
-#search {
-    margin-top: 1%;
-    text-align: center;
-}
-
-input[type=search] {
-    border-top-left-radius: 8px ;
-    border-bottom-left-radius: 8px;
-    padding: 10px 0;
-    width: 40%;
-}
-
-input[type=search]::placeholder {
-    padding-left: 10px;
-}
-
-input[type=submit] {
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    padding: 10px 0;
-    margin-left: -5px;
-    width: 5%;
-    cursor: pointer;
-}
-
-#options {
-    display: flex;
-    margin-top: 15px;
-    margin-left: 5px;
-}
-
-.filter {
-    font-weight: 800;
-    padding: 5px;
-    border-radius: 8px;
-    border: solid;
-    margin: 0 5px;
-    cursor: pointer;
-}
-
-#options-selected {
-    margin-top: 5px;
-    margin-left: 10px;
-    display: flex;
-}
-
-.selected {
-    font-weight: 500;
-    padding: 3px;
-    border: solid;
-    border-radius: 8px;
-    margin-left: 5px;
-    cursor: pointer;
-}
-
-#sortby {
-    margin-left: 90%;
-    margin-top: -2%;
-}
-
 #main-content {
     position: absolute;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 15%;
+    margin-top: 5%;
     margin-left: 5%;
-    height: 120vh;
+    height: 100vh;
     width: 95%;
     background-color: white;
     border-top: solid;
@@ -227,25 +158,14 @@ h5 {
 }
 
 .card-description {
+    font-size: larger;
+    text-align: center;
+    font-weight: bold;
     overflow-wrap: normal;
     margin-top: 10px;
     margin-left: 5px;
 }
 
-.rating {
-    display: flex;
-    flex-direction: row;
-    margin-left: 5px;
-}
-
-.rating-number {
-    margin: 0 3px;
-    font-weight: bold;
-}
-
-.rating-reviews {
-    color: #525252;
-}
 
 .member-count {
     display: flex;
@@ -255,12 +175,5 @@ h5 {
 
 .count-number {
     margin: 0 3px;
-    font-weight: bold;
-}
-
-.location{
-    display: flex;
-    margin-top: 10px;
-    margin-left: 5px;
     font-weight: bold;
 }
