@@ -63,7 +63,7 @@ li {
     margin: 0 auto;
 }
 
-a {
+.sidebtn {
     color: #F2BFA4;
     text-decoration: none;
 }
@@ -176,7 +176,7 @@ input[type=submit] {
     display: flex;
     flex-direction: column;
     width: 23%;
-    height: 40%;
+    height: fit-content;
     margin: 10px;
     background-color: #F5E7DE;
 }
