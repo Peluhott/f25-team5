@@ -9,14 +9,44 @@ body {
     margin: 0;
 }
 
+
+#break {
+
+    margin: 5px 0 ;
+    height: 0.5vh;
+    width: 100%;
+    background-color: #F2BFA4;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-left: 0;
+    list-style-type: none;
+    height: 100%;
+}
+li {
+    font-size: larger;
+    padding: 20px;
+    margin: 0 auto;
+}
+.sidebtn {
+    color: #F2BFA4;
+    text-decoration: none;
+}
 aside {
     grid-area: sidebar;
-    background-color: #525252;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
     min-height: 100vh;
+    width: 75%;
+    height: 100%;
+    background-color: #525252;
+    color: #F2BFA4;
 }
 
 .profile-pic {
@@ -36,7 +66,9 @@ header {
 
 
 .main-content {
-   
+   display: flex;
+   justify-content: center;
+   align-items: center;
     
 }
 
@@ -212,4 +244,95 @@ header {
     height: 100px;
     width: 100px;
     cursor: pointer;
+}
+
+.create-group-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #F5E7DE;
+    border: 1px solid #525252;
+    border-radius: 8px;
+    padding: 32px 24px;
+    margin: 32px auto;
+    width: 420px;
+    gap: 12px;
+    font-size: 1rem;
+}
+
+.create-group-form label {
+    font-weight: bold;
+    color: black;
+    margin-bottom: 4px;
+}
+
+.create-group-form input[type="text"],
+.create-group-form textarea,
+.create-group-form input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #F2BFA4;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+}
+
+.create-group-form textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+.create-group-form button[type="submit"] {
+    background-color: #F2BFA4;
+    color: #525252;
+    border: 1px solid #525252;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.create-group-form button[type="submit"]:hover {
+    background-color: #e0a97c;
+}
+
+.comm-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    width: 100%;
+}
+
+.comm-row input[type="text"] {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.create-group-form button[type="button"] {
+    background-color: #fff;
+    color: #525252;
+    border: 1px solid #F2BFA4;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-bottom: 4px;
+    transition: background 0.2s;
+}
+
+.create-group-form button[type="button"]:hover {
+    background-color: #f2bfa4;
+    color: #fff;
+}
+
+.noti-container {
+    border: 1px solid black;
+    margin: 10px;
+    border-radius: 5%;
+    text-align: center;
+    padding: 5px;
 }

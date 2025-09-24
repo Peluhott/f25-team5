@@ -2,34 +2,55 @@ const groups = [
     {
         groupName: "GreenDevs",
         groupPic: "../Customer/images/sample-poster-2.jpeg", 
-        groupDescription: " open source development for the enviorment ",
+        groupDescription: "Open source development for the environment.",
+        groupLongDescription: "GreenDevs is dedicated to building open source software that helps protect and improve the environment. We collaborate on projects that make a real-world impact, from climate data analysis to eco-friendly apps. Join us to code for a cause and make a difference together!",
         groupType: "Charity",
         memberCount: 8,
-        people: ["Alice", "Bob", "Charlie"]
+        state: "California",
+        people: ["Alice", "Bob", "Charlie"],
+        communication: [
+            { type: "Discord", name: "GreenDevs Discord", url: "https://discord.gg/greendevs" },
+            { type: "Slack", name: "GreenDevs Slack", url: "https://greendevs.slack.com" }
+        ]
     },
     {
         groupName: "RedDevs",
         groupPic: "../Customer/images/sample-poster-1.jpeg", 
-        groupDescription: " Team to compete in Hackathon downtown ",
+        groupDescription: "Team to compete in Hackathon downtown.",
+        groupLongDescription: "RedDevs is a passionate team formed to participate in the upcoming downtown Hackathon. We focus on rapid prototyping, creative solutions, and teamwork. If you love coding under pressure and want to win, this is your squad!",
         groupType: "Hackathon",
         memberCount: 5,
-        people: ["David", "Eve", "Frank"]
+        state: "Texas",
+        people: ["David", "Eve", "Frank"],
+        communication: [
+            { type: "Discord", name: "RedDevs Hackathon", url: "https://discord.gg/reddevs" }
+        ]
     },
     {
         groupName: "BlueDevs",
         groupPic: "../Customer/images/sample-poster-7.jpeg", 
-        groupDescription: " Game Development team for tower defence game",
+        groupDescription: "Game Development team for tower defence game.",
+        groupLongDescription: "BlueDevs is working on an exciting new tower defense game. We need artists, programmers, and designers to help bring our vision to life. Join us if you want to build something fun and learn about game development!",
         groupType: "Game",
         memberCount: 3,
-        people: ["Grace", "Heidi"]
+        state: "New York",
+        people: ["Grace", "Heidi"],
+        communication: [
+            { type: "Discord", name: "BlueDevs Game Dev", url: "https://discord.gg/bluedevs" }
+        ]
     },
     {
         groupName: "OrangeDevs",
         groupPic: "../Customer/images/sample-poster-4.jpeg", 
-        groupDescription: " Study group for class 340",
+        groupDescription: "Study group for class 340.",
+        groupLongDescription: "OrangeDevs is a study group for students enrolled in class 340. We meet regularly to review material, work on assignments, and prepare for exams. All are welcome to join and collaborate!",
         groupType: "Study",
         memberCount: 4,
-        people: ["Ivan", "Judy", "Mallory"]
+        state: "Florida",
+        people: ["Ivan", "Judy", "Mallory"],
+        communication: [
+            { type: "GroupMe", name: "OrangeDevs Study", url: "https://groupme.com/orangedevs" }
+        ]
     }
 ]; // will fetch these when user logins
 const peopleApplied = [
@@ -79,6 +100,33 @@ const reviews = [
     }
 ]
 
+const notifications = [
+    {
+        type: "Application",
+        message: "User(name) has requested to join (blank) group"
+    },
+    {
+        type: "Review",
+        message: "User(name) has left a review for group(blank)"
+    },
+    {
+        type: "Group",
+        message: "User(name) has left group"
+    },
+    {
+        type: "Application",
+        message: "User(name) has requested to join (blank) group"
+    },
+    {
+        type: "Application",
+        message: "User(name) has requested to join (blank) group"
+    },
+    {
+        type: "Review",
+        message: "User(name) has left a review for group(blank)"
+    }
+]
+
 const GroupTypesIcons = {} // add photos for each group type here
 const mainContainer = document.querySelector('.main-content');
 
@@ -108,7 +156,7 @@ function renderGroups() { // renders the groups user has
         const groupContainer = document.createElement('div');
         groupContainer.className = 'group-container';
 
-        for (let group of groups) { // make it into a for each loop
+        groups.forEach((group, index) => {
             const groupCard = document.createElement('div');
             groupCard.className = 'group-card';
 
@@ -142,7 +190,7 @@ function renderGroups() { // renders the groups user has
 
             groupCard.appendChild(typeRow);
             
-            // part under ownder name and type
+            // part under owner name and type
             const groupTitle = document.createElement('h4');
             groupTitle.textContent = group.groupName;
             groupCard.appendChild(groupTitle);
@@ -157,14 +205,21 @@ function renderGroups() { // renders the groups user has
                 groupCard.appendChild(groupState);
             }
 
-            if (group.memberCount) { // just incase a user hasnt been added yet
+            if (group.memberCount) { // just in case a user hasn't been added yet
                 const memberCount = document.createElement('p');
                 memberCount.textContent = `Members: ${group.memberCount}`;
                 groupCard.appendChild(memberCount);
             }
 
+            
+            // Add click listener to groupCard
+            groupCard.style.cursor = "pointer";
+            groupCard.addEventListener('click', () => {
+                renderGroupDetail(index);
+            });
+
             groupContainer.appendChild(groupCard);
-        }
+        });
 
         // Create Group button at the end
         const groupCreate = document.createElement('div')
@@ -184,7 +239,7 @@ function renderGroups() { // renders the groups user has
         groupContainer.appendChild(groupCreate);
 
         mainContainer.appendChild(groupContainer);
-
+        //event listener for create group button
         groupCreate.addEventListener('click', renderCreateGroupForm);
     }
 }
@@ -243,27 +298,34 @@ function renderReviews() {
 
 function renderCreateGroupForm() {
     mainContainer.innerHTML = '';
-     
-    // form to create a group need to decide later on what details to create with
+
     const form = document.createElement('form');
     form.className = 'create-group-form';
-    // fix attributes to match the ones we use
-    // Title
-    const titleLabel = document.createElement('label');
-    titleLabel.textContent = 'Title:';
-    titleLabel.setAttribute('for', 'group-title');
-    const titleInput = document.createElement('input');
-    titleInput.type = 'text';
-    titleInput.id = 'group-title';
-    titleInput.required = true;
 
-    // Description
+    // Group Name
+    const nameLabel = document.createElement('label');
+    nameLabel.textContent = 'Group Name:';
+    nameLabel.setAttribute('for', 'group-name');
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.id = 'group-name';
+    nameInput.required = true;
+
+    // Group Description
     const descLabel = document.createElement('label');
-    descLabel.textContent = 'Description:';
+    descLabel.textContent = 'Short Description:';
     descLabel.setAttribute('for', 'group-desc');
     const descInput = document.createElement('textarea');
     descInput.id = 'group-desc';
     descInput.required = true;
+
+    // Group Long Description
+    const longDescLabel = document.createElement('label');
+    longDescLabel.textContent = 'Long Description:';
+    longDescLabel.setAttribute('for', 'group-long-desc');
+    const longDescInput = document.createElement('textarea');
+    longDescInput.id = 'group-long-desc';
+    longDescInput.required = true;
 
     // State
     const stateLabel = document.createElement('label');
@@ -283,15 +345,61 @@ function renderCreateGroupForm() {
     typeInput.id = 'group-type';
     typeInput.required = true;
 
-    // Image URL
-    const imageLabel = document.createElement('label');
-    imageLabel.textContent = 'Image URL:';
-    imageLabel.setAttribute('for', 'group-image');
-    const imageInput = document.createElement('input');
-    imageInput.type = 'text';
-    imageInput.id = 'group-image';
-    imageInput.placeholder = 'Paste image URL here';
-    imageInput.required = true;
+    // Fake Upload Picture Button
+    const picLabel = document.createElement('label');
+    picLabel.textContent = 'Group Picture:';
+    picLabel.setAttribute('for', 'group-pic');
+    const picInput = document.createElement('input');
+    picInput.type = 'file';
+    picInput.id = 'group-pic';
+    picInput.accept = 'image/*';
+    //fake the upload
+
+    // Communications (allow multiple)
+    const commLabel = document.createElement('label');
+    commLabel.textContent = 'Communications (type, name, url):';
+    commLabel.setAttribute('for', 'group-comm');
+    const commsDiv = document.createElement('div');
+    commsDiv.id = 'group-comm';
+
+    // Add initial communication row
+    function addCommRow() {
+        const commRow = document.createElement('div');
+        commRow.className = 'comm-row';
+
+        const commType = document.createElement('input');
+        commType.type = 'text';
+        commType.placeholder = 'Type (e.g. Discord)';
+        commType.className = 'comm-type';
+
+        const commName = document.createElement('input');
+        commName.type = 'text';
+        commName.placeholder = 'Name';
+        commName.className = 'comm-name';
+
+        const commUrl = document.createElement('input');
+        commUrl.type = 'text';
+        commUrl.placeholder = 'URL';
+        commUrl.className = 'comm-url';
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.textContent = 'Remove';
+        removeBtn.onclick = () => commRow.remove();
+
+        commRow.appendChild(commType);
+        commRow.appendChild(commName);
+        commRow.appendChild(commUrl);
+        commRow.appendChild(removeBtn);
+
+        commsDiv.appendChild(commRow);
+    }
+    addCommRow();
+
+    const addCommBtn = document.createElement('button');
+    addCommBtn.type = 'button';
+    addCommBtn.textContent = 'Add Communication';
+    addCommBtn.onclick = addCommRow;
 
     // Submit Button
     const submitBtn = document.createElement('button');
@@ -299,12 +407,16 @@ function renderCreateGroupForm() {
     submitBtn.textContent = 'Create Group';
 
     // Append all to form
-    form.appendChild(titleLabel);
-    form.appendChild(titleInput);
-    form.appendChild(document.createElement('br')); //space
+    form.appendChild(nameLabel);
+    form.appendChild(nameInput);
+    form.appendChild(document.createElement('br'));
 
     form.appendChild(descLabel);
     form.appendChild(descInput);
+    form.appendChild(document.createElement('br'));
+
+    form.appendChild(longDescLabel);
+    form.appendChild(longDescInput);
     form.appendChild(document.createElement('br'));
 
     form.appendChild(stateLabel);
@@ -315,8 +427,13 @@ function renderCreateGroupForm() {
     form.appendChild(typeInput);
     form.appendChild(document.createElement('br'));
 
-    form.appendChild(imageLabel);
-    form.appendChild(imageInput);
+    form.appendChild(picLabel);
+    form.appendChild(picInput);
+    form.appendChild(document.createElement('br'));
+
+    form.appendChild(commLabel);
+    form.appendChild(commsDiv);
+    form.appendChild(addCommBtn);
     form.appendChild(document.createElement('br'));
 
     form.appendChild(submitBtn);
@@ -324,17 +441,35 @@ function renderCreateGroupForm() {
     mainContainer.appendChild(form);
 
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // prevents default action which is to make a request online
+        e.preventDefault();
+
+        // Get communications
+        const comms = [];
+        commsDiv.querySelectorAll('.comm-row').forEach(row => {
+            const type = row.querySelector('.comm-type').value.trim();
+            const name = row.querySelector('.comm-name').value.trim();
+            const url = row.querySelector('.comm-url').value.trim();
+            if (type && name && url) {
+                comms.push({ type, name, url });
+            }
+        });
+
+        
+
         const newGroup = {
-            title: titleInput.value,
-            description: descInput.value,
+            groupName: nameInput.value,
+            groupPic: '../../Prototype/Customer/images/sample-poster-3.jpeg',
+            groupDescription: descInput.value,
+            groupLongDescription: longDescInput.value,
+            groupType: typeInput.value,
+            memberCount: 1,
             state: stateInput.value,
-            type: typeInput.value,
-            image: imageInput.value
+            people: [],
+            communication: comms
         };
 
         groups.push(newGroup); 
-        renderGroups(); //rerenders group page
+        renderGroups();
     });
 }
 
@@ -424,6 +559,100 @@ function renderPeople() {
     }
 }
 
+function renderNotifications(){
+    mainContainer.innerHTML = '';
+    const notificationsContainer = document.createElement('div')
+    notifications.forEach((notification, index) => {
+        const notiContainer = document.createElement('div')
+        notiContainer.className = 'noti-container'
+        const notiType = document.createElement('p');
+        // add class for this later
+        notiType.innerText = `Type: ${notification.type}`
+         //add class to notimessage later
+        const notiMessage = document.createElement('p');
+        notiMessage.innerText = notification.message;
+
+        notiContainer.appendChild(notiType);
+        notiContainer.appendChild(notiMessage);
+        notificationsContainer.appendChild(notiContainer);
+        mainContainer.appendChild(notificationsContainer)
+    })
+}
+
+function renderGroupDetail(index) {
+    mainContainer.innerHTML = '';
+    const group = groups[index];
+
+    const detail = document.createElement('div');
+    detail.className = 'group-detail';
+
+    // Title
+    const title = document.createElement('h2');
+    title.textContent = group.groupName;
+    detail.appendChild(title);
+
+    // State under title
+    if (group.state) {
+        const groupState = document.createElement('p');
+        groupState.textContent = `State: ${group.state}`;
+        groupState.className = 'group-state';
+        detail.appendChild(groupState);
+    }
+
+    // Picture
+    const picture = document.createElement('img');
+    picture.src = group.groupPic;
+    picture.alt = `${group.groupName} picture`;
+    picture.className = 'group-detail-image';
+    detail.appendChild(picture);
+
+    // Long Description
+    const longDesc = document.createElement('p');
+    longDesc.textContent = group.groupLongDescription || group.groupDescription;
+    longDesc.className = 'group-long-description';
+    detail.appendChild(longDesc);
+
+    // Team Communications
+    if (group.communication && group.communication.length > 0) {
+        const commHeader = document.createElement('h3');
+        commHeader.textContent = 'Team Communications';
+        detail.appendChild(commHeader);
+
+        const commList = document.createElement('ul');
+        group.communication.forEach(comm => {
+            const commItem = document.createElement('li');
+            if (comm.url) {
+                const commLink = document.createElement('a');
+                commLink.href = comm.url;
+                commLink.target = '_blank';
+                commLink.textContent = `${comm.type}: ${comm.name}`;
+                commItem.appendChild(commLink);
+            } else {
+                commItem.textContent = `${comm.type}: ${comm.name}`;
+            }
+            commList.appendChild(commItem);
+        });
+        detail.appendChild(commList);
+    }
+
+    // Members
+    if (group.people && group.people.length > 0) {
+        const membersHeader = document.createElement('h3');
+        membersHeader.textContent = 'Members';
+        detail.appendChild(membersHeader);
+
+        const membersList = document.createElement('ul');
+        group.people.forEach(member => {
+            const memberItem = document.createElement('li');
+            memberItem.textContent = member;
+            membersList.appendChild(memberItem);
+        });
+        detail.appendChild(membersList);
+    }
+
+    mainContainer.appendChild(detail);
+}
+
 // add functionality to links in sidebar
 document.getElementById('group-link').addEventListener('click', (e) => {
     e.preventDefault();
@@ -438,6 +667,16 @@ document.getElementById('people-link').addEventListener('click', (e) => {
 document.getElementById('reviews-link').addEventListener('click', (e) => {
     e.preventDefault();
     renderReviews();
+});
+
+document.getElementById('notification-link').addEventListener('click', (e) => {
+    e.preventDefault();
+    renderNotifications();
+});
+
+document.getElementById('home-page').addEventListener('click', (e) => {
+    e.preventDefault();
+    renderGroups();
 });
 
 
