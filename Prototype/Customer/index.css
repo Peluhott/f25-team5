@@ -63,6 +63,10 @@ li {
     margin: 0 auto;
 }
 
+a {
+    text-decoration: none;
+}
+
 .sidebtn {
     color: #F2BFA4;
     text-decoration: none;
@@ -171,13 +175,19 @@ input[type=submit] {
     border-top: solid;
 }
 
+.link-card {
+    color: black;
+    margin: 10px;
+    width: 23%;
+    height: fit-content;
+}
+
 .card {
     border-width: 0.5px;
     display: flex;
     flex-direction: column;
-    width: 23%;
+    width: 100%;
     height: fit-content;
-    margin: 10px;
     background-color: #F5E7DE;
 }
 
@@ -190,7 +200,7 @@ input[type=submit] {
 
 .poster {
     object-fit: cover;
-    height: 50%;
+    height: 200px;
     width: 100%;
 }
 
