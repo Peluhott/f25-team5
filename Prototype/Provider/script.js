@@ -244,6 +244,50 @@ function renderGroups() { // renders the groups user has
     }
 }
 
+function createReplyDialog(onSubmit) {
+    const dialog = document.createElement('dialog');
+    dialog.className = 'reply-dialog';
+
+    const form = document.createElement('form');
+    form.method = 'dialog';
+
+    const label = document.createElement('label');
+    label.textContent = 'Your Reply:';
+    label.setAttribute('for', 'reply-textarea');
+
+    const textarea = document.createElement('textarea');
+    textarea.id = 'reply-textarea';
+    textarea.rows = 4;
+    textarea.cols = 30;
+    textarea.required = true;
+
+    const submitBtn = document.createElement('button');
+    submitBtn.type = 'submit';
+    submitBtn.textContent = 'Send';
+
+    const cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.textContent = 'Cancel';
+
+    form.appendChild(label);
+    form.appendChild(document.createElement('br'));
+    form.appendChild(textarea);
+    form.appendChild(document.createElement('br'));
+    form.appendChild(submitBtn);
+    form.appendChild(cancelBtn);
+
+    dialog.appendChild(form);
+
+    cancelBtn.addEventListener('click', () => dialog.close());
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (onSubmit) onSubmit(textarea.value);
+        dialog.close();
+    });
+
+    return dialog;
+}
+
 function renderReviews() {
     mainContainer.innerHTML = '';
     // if no reviews put no reviews have been made yet
@@ -268,7 +312,7 @@ function renderReviews() {
 
             // name of user
             const user = document.createElement('p');
-            user.innerHTML = `<strong>User:</strong> ${review.user}`;
+            user.innerHTML = `<strong>User:</strong> ${review.user}`; // might change later , use this for now
             reviewCard.appendChild(user);
 
             // rating that the user gave
@@ -286,8 +330,22 @@ function renderReviews() {
             team.innerHTML = `<strong>Team:</strong> ${review.team}`;
             reviewCard.appendChild(team);
 
+            // Add reply button and dialog
+            const replyBtn = document.createElement('button');
+            replyBtn.textContent = 'Reply';
+            replyBtn.className = 'reply-btn';
+
+            const dialog = createReplyDialog((replyText) => {
+                alert('Reply sent: ' + replyText);
+                
+            });
+
+            reviewCard.appendChild(replyBtn);
+            reviewCard.appendChild(dialog);
+
+            replyBtn.addEventListener('click', () => dialog.showModal());
+
             reviewsContainer.appendChild(reviewCard);
-            // add button so that user can reply to review
         });
 
         mainContainer.appendChild(reviewsContainer);
@@ -302,7 +360,7 @@ function renderCreateGroupForm() {
     const form = document.createElement('form');
     form.className = 'create-group-form';
 
-    // Group Name
+    // group name for form
     const nameLabel = document.createElement('label');
     nameLabel.textContent = 'Group Name:';
     nameLabel.setAttribute('for', 'group-name');
@@ -311,7 +369,7 @@ function renderCreateGroupForm() {
     nameInput.id = 'group-name';
     nameInput.required = true;
 
-    // Group Description
+    // group description for form
     const descLabel = document.createElement('label');
     descLabel.textContent = 'Short Description:';
     descLabel.setAttribute('for', 'group-desc');
@@ -319,7 +377,7 @@ function renderCreateGroupForm() {
     descInput.id = 'group-desc';
     descInput.required = true;
 
-    // Group Long Description
+    // group long description for fom
     const longDescLabel = document.createElement('label');
     longDescLabel.textContent = 'Long Description:';
     longDescLabel.setAttribute('for', 'group-long-desc');
@@ -327,7 +385,7 @@ function renderCreateGroupForm() {
     longDescInput.id = 'group-long-desc';
     longDescInput.required = true;
 
-    // State
+    // state for form
     const stateLabel = document.createElement('label');
     stateLabel.textContent = 'State:';
     stateLabel.setAttribute('for', 'group-state');
@@ -336,7 +394,7 @@ function renderCreateGroupForm() {
     stateInput.id = 'group-state';
     stateInput.required = true;
 
-    // Type
+    // type for form
     const typeLabel = document.createElement('label');
     typeLabel.textContent = 'Type:';
     typeLabel.setAttribute('for', 'group-type');
@@ -345,7 +403,7 @@ function renderCreateGroupForm() {
     typeInput.id = 'group-type';
     typeInput.required = true;
 
-    // Fake Upload Picture Button
+    // upload picture
     const picLabel = document.createElement('label');
     picLabel.textContent = 'Group Picture:';
     picLabel.setAttribute('for', 'group-pic');
@@ -355,14 +413,14 @@ function renderCreateGroupForm() {
     picInput.accept = 'image/*';
     //fake the upload
 
-    // Communications (allow multiple)
+    // communication rows , you can add more
     const commLabel = document.createElement('label');
     commLabel.textContent = 'Communications (type, name, url):';
     commLabel.setAttribute('for', 'group-comm');
     const commsDiv = document.createElement('div');
     commsDiv.id = 'group-comm';
 
-    // Add initial communication row
+    // function to add a row
     function addCommRow() {
         const commRow = document.createElement('div');
         commRow.className = 'comm-row';
@@ -394,12 +452,12 @@ function renderCreateGroupForm() {
 
         commsDiv.appendChild(commRow);
     }
-    addCommRow();
+    addCommRow(); //first one
 
     const addCommBtn = document.createElement('button');
     addCommBtn.type = 'button';
     addCommBtn.textContent = 'Add Communication';
-    addCommBtn.onclick = addCommRow;
+    addCommBtn.onclick = addCommRow; // calls function to add row
 
     // Submit Button
     const submitBtn = document.createElement('button');
