@@ -21,7 +21,7 @@ Table of Contents
 | Name | Date    | Reason For Changes  | Version   |
 | ---- | ------- | ------------------- | --------- |
 |  Isaiah  |10/19     | Initial Design      |    1      |
-|      |         |                     |           |
+|   Javier   |   10/19      |    Add provider use-cases                 |    1.1       |
 |      |         |                     |           |
 
 ## 1. Product Overview
@@ -35,15 +35,15 @@ GroupLink is a web-based application designed to help members discover and join 
 
 #### 2.2.1 Actor: Provider (Host)
 ##### 2.2.1.1 Sign Up
-A farmer can sign up to create their profile with their name, email, password, and phone number. Emails must be unique.
+A group creator can sign up to create their profile with their name, email, password, and phone number. Emails must be unique.
 ##### 2.2.1.2 Log In
-A farmer shall be able to sign in using their registred email and password. After logging in, the farmer shall be directed their dashboard where they see an overview of their farm, boxes and stats.
+A creator shall be able to sign in using their registred email and password. After logging in, the creator shall be directed their dashboard where they see an overview of the groups that they manage.
 ##### 2.2.1.3 Update Profile
-A farmer shall be to modify their profile by going to their profile page. They can change their email, password, and farm.
-##### 2.2.1.4 Create Produce Boxes
-The farmer shall be able to create a new produce box listing. They would provide a box name, description, and price. This box will be created to be associated with only this farmer and their farm.
-##### 2.2.1.4 View Customer Stats
-A farmer will be able to view several statistics such as total revenue, total subscribers, and average ratings.
+A creator shall be to modify their profile by going to their profile page. They can change their email and password.
+##### 2.2.1.4 Create Groups
+The creator shall be able to create a new group. They would provide a group name, description, and group type. This group will be created to be associated with only this creator and its members.
+##### 2.2.1.4 View Group Stats
+A creator will be able to view several statistics such as memberships(pending or active), reviews , and average rating.
 
 #### 2.2.2 Actor: Customer (Member)
 ##### 2.2.2.1 Sign Up
@@ -58,6 +58,6 @@ Upon selecting a group, a customer shall be able to apply to the group. This gro
 A customer may write a review for a group they have joined. They will be able to rate the group host based on kindness, effectiveness, and execution.
 
 ## 3. UML Class Diagram
-![UML Class Diagram](https://github.com/csc340-uncg/f25-team0/blob/main/doc/Object-Oriented-Design/class-diagram.png)
+![UML Class Diagram](https://github.com/Peluhott/f25-team5/blob/5620903157a76ca87c32b2de5867fd098a0f44e3/doc/Object-Oriented-Design/class-diagram.png)
 ## 4. Database Schema
 ![UML Class Diagram](Database-Schema.png)
