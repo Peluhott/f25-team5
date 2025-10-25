@@ -1,1 +1,3 @@
 .vscode
+backend-api/src/main/resources/application.properties
+backend-api/target/classes/application.properties
