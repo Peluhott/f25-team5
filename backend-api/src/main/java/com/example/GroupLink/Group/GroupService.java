@@ -14,7 +14,10 @@ import com.example.GroupLink.Customer.CustomerRepository;
 import com.example.GroupLink.GroupMembership.GroupMembership;
 import com.example.GroupLink.GroupMembership.GroupMembershipRepository;
 import com.example.GroupLink.Provider.ProviderRepository;
+import com.example.GroupLink.Provider.ProviderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.example.GroupLink.Provider.Provider;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -23,22 +26,27 @@ import jakarta.transaction.Transactional;
 public class GroupService {
 
     GroupRepository groupRepository;
-    GroupMembershipRepository groupMembershipRepository; // change this name if it doesn't match yours
-    CustomerRepository customerRepository; // change this name if it doesn't match yours
+    GroupMembershipRepository groupMembershipRepository;
+    CustomerRepository customerRepository;
+    ProviderService providerService;
 
     @Autowired // beans for each one will be injected here
     public GroupService(GroupRepository groupRepository, GroupMembershipRepository groupMembershipRepository,
-            CustomerRepository customerRepository) {
+            CustomerRepository customerRepository, ProviderService providerService) {
         this.customerRepository = customerRepository;
         this.groupRepository = groupRepository;
         this.groupMembershipRepository = groupMembershipRepository;
+        this.providerService = providerService;
     }
 
-    public Optional<Group> getGroupById(@PathVariable long id) {
-        return Optional.ofNullable(groupRepository.findById(id).orElse(null));
+    public Group getGroupById(long id) {
+        return groupRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(id + " not found"));
     }
 
-    public Group createGroup(Group group) {
+    public Group createGroup(Group group, Long providerId) {
+        Provider provider = providerService.getProviderById(providerId);
+        group.setProvider(provider);
         return groupRepository.save(group);
     }
 
@@ -47,7 +55,6 @@ public class GroupService {
         Group groupToUpdate = groupRepository.findById(groupId)
                 .orElseThrow(() -> new IllegalArgumentException(groupId + " not found"));
 
-        groupToUpdate.setCreatorId(group.getCreatorId());
         groupToUpdate.setName(group.getName());
         groupToUpdate.setType(group.getType());
         groupToUpdate.setLocation(group.getLocation());
