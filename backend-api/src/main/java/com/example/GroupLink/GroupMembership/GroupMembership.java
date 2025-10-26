@@ -2,6 +2,7 @@ package com.example.GroupLink.GroupMembership;
 
 import com.example.GroupLink.Customer.Customer;
 import com.example.GroupLink.Group.Group;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,28 +29,26 @@ public class GroupMembership {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonIgnoreProperties("groupMemberships")
     private Customer customer;
     
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
+    @JsonIgnoreProperties("groupMemberships")
     private Group group;
 
     public GroupMembership() {
     }
 
-    public GroupMembership(String status, String message, Customer customer, Group group) {
+    public GroupMembership(String status, String message) {
         this.status = status;
         this.message = message;
-        this.customer = customer;
-        this.group = group;
     }
 
-    public GroupMembership(long id, String status, String message, Customer customer, Group group) {
+    public GroupMembership(long id, String status, String message) {
         this.id = id;
         this.status = status;
         this.message = message;
-        this.customer = customer;
-        this.group = group;
     }
 
     public long getId() {
