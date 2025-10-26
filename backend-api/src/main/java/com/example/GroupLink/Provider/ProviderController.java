@@ -24,6 +24,11 @@ public class ProviderController {
     @Autowired
     private ProviderService providerService;
 
+    @GetMapping("/provider/{id}")
+    public ResponseEntity<Provider> getProvider(@PathVariable Long id) {
+        return ResponseEntity.ok(providerService.getProviderById(id));
+    }
+
     @PostMapping("/provider")
     public ResponseEntity<Provider> createProvider(@RequestBody Provider provider) {
         return ResponseEntity.ok(providerService.addProvider(provider));
