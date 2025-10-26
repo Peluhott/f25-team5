@@ -20,8 +20,13 @@ public class ProviderService {
     @Autowired
     ProviderRepository providerRepository;
 
-    public Provider getProviderById(@PathVariable long id) {
-        return providerRepository.findById(id).orElse(null);
+    public Provider getProviderById(long id) {
+        return providerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(id + " not found"));
+    }
+
+    public Provider getProviderByUsername(String username) {
+        return providerRepository.findByUsername(username);
     }
 
     public Provider addProvider(Provider provider) {
