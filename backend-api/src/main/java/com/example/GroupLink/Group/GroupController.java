@@ -1,5 +1,7 @@
 package com.example.GroupLink.Group;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,7 @@ public class GroupController {
 
     @PostMapping("/group")
     public Group addGroup(@RequestBody Group group) {
-        return groupService.addGroup(group);
+        return groupService.createGroup(group);
     }
 
     @PutMapping("/group/{id}")

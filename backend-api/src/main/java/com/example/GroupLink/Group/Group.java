@@ -1,7 +1,9 @@
 package com.example.GroupLink.Group;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.example.GroupLink.GroupMembership.GroupMembership;
 import com.example.GroupLink.Provider.Provider;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -13,7 +15,7 @@ import jakarta.persistence.*;
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long groupID;
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "providerID", nullable = false)
@@ -27,7 +29,8 @@ public class Group {
      */
     @OneToMany(orphanRemoval = true, mappedBy = "group", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("group") // put the properties that it should ignore from membership here
-    private List<Membership> groupMemberships = new ArrayList<>(); // change to it match your entity if you need it to
+    private List<GroupMembership> groupMemberships = new ArrayList<>(); // change to it match your entity if you need it
+                                                                        // to
 
     @Column(nullable = false)
     private long creatorId;
@@ -41,11 +44,11 @@ public class Group {
     private boolean active;
     private String content;
 
-    public List<Membership> getMemberships() {
+    public List<GroupMembership> getMemberships() {
         return groupMemberships;
     }
 
-    public void addMembership(Membership member) {
+    public void addMembership(GroupMembership member) {
         if (member == null) {
             return;
         }
@@ -54,9 +57,13 @@ public class Group {
                                // Membership Entity
     }
 
-    public void deleteMembership(Membership member) {
+    public void deleteMembership(GroupMembership member) {
         groupMemberships.remove(member); // this removes member from list on group side
         member.setGroup(null); // this deletes the group from the member side, triggers orphan removal
+    }
+
+    public Long getGroupID() {
+        return this.id;
     }
 
     public void setCreatorId(Long creatorId) {
