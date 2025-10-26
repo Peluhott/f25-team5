@@ -21,6 +21,11 @@ public class GroupController {
     @Autowired
     private GroupService groupService;
 
+    @GetMapping("/group/{id}")
+    public Optional<Group> getGroup(@PathVariable long id) {
+        return groupService.getGroupById(id);
+    }
+
     @PostMapping("/group")
     public Group addGroup(@RequestBody Group group) {
         return groupService.createGroup(group);
