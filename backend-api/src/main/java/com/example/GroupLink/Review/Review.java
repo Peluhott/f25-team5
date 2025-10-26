@@ -23,6 +23,10 @@ public class Review {
         return membership;
     }
 
+    public void setMembership(GroupMembership membership) {
+        this.membership = membership;
+    }
+
     public void setRating(int rating) {
         this.rating = rating;
     }

@@ -21,9 +21,9 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    @PostMapping("/review")
-    public Review createReview(@RequestBody Review review) {
-        return reviewService.createReview(review);
+    @PostMapping("/review/{id}")
+    public Review createReview(@PathVariable long id, @RequestBody Review review) {
+        return reviewService.createReview(id, review);
     }
 
     @GetMapping("/review/group/{id}")
