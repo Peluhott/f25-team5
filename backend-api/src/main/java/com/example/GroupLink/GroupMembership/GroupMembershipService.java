@@ -24,10 +24,14 @@ public class GroupMembershipService {
     public List<GroupMembership> getGroupMembershipsByGroupId(Long groupId) {
         return groupMembershipRepository.findByGroupId(groupId);
     }
-    
+
+    public GroupMembership getGroupMembershipById(long membershipId) {
+        return groupMembershipRepository.getReferenceById(membershipId);
+    }
+
     public void cancelGroupMembership(Long id) {
         GroupMembership groupMembership = groupMembershipRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Group membership not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Group membership not found"));
         groupMembershipRepository.delete(groupMembership);
     }
 }
