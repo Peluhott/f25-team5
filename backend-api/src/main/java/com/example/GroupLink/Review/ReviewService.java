@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.example.GroupLink.Group.Group;
+import com.example.GroupLink.GroupMembership.GroupMembership;
+import com.example.GroupLink.GroupMembership.GroupMembershipService;
 import com.example.GroupLink.Provider.ProviderRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,14 +20,21 @@ import jakarta.transaction.Transactional;
 @Service
 public class ReviewService {
 
-    @Autowired
     ReviewRepository reviewRepository;
+    GroupMembershipService groupMembershipService;
+
+    public ReviewService(ReviewRepository reviewRepository, GroupMembershipService groupMembershipService) {
+        this.reviewRepository = reviewRepository;
+        this.groupMembershipService = groupMembershipService;
+    }
 
     public Review getReviewById(@PathVariable long id) {
         return reviewRepository.findById(id).orElse(null);
     }
 
-    public Review createReview(Review review) {
+    public Review createReview(long membershipId, Review review) {
+        GroupMembership membership = groupMembershipService.getGroupMembershipById(membershipId);
+        review.setMembership(membership);
         return reviewRepository.save(review);
     }
 

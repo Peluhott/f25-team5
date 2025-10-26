@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.GroupLink.Customer.Customer;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -27,6 +28,21 @@ public class ProviderController {
     @GetMapping("/provider/{id}")
     public ResponseEntity<Provider> getProvider(@PathVariable Long id) {
         return ResponseEntity.ok(providerService.getProviderById(id));
+    }
+
+    @PostMapping("/provider/login")
+    public ResponseEntity<?> loginProvider(@RequestBody Map<String, String> loginRequest) {
+        String username = loginRequest.get("username");
+        String password = loginRequest.get("password");
+        Provider provider = providerService.getProviderByUsername(username);
+        if (provider == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user not found");
+        }
+        if (provider.getPassword().equals(password)) {
+            return ResponseEntity.ok(provider);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("incorrect password");
+        }
     }
 
     @PostMapping("/provider")
