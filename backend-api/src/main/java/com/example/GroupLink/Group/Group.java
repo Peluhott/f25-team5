@@ -18,8 +18,8 @@ public class Group {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "provider_id", nullable = false)
-    @JsonIgnoreProperties("groups")
+    @JoinColumn(name = "providerid", nullable = false)
+    @JsonIgnoreProperties({ "groups", "hibernateLazyInitializer", "handler" })
     private Provider provider;
 
     /*
@@ -33,9 +33,6 @@ public class Group {
                                                                         // to
 
     @Column(nullable = false)
-    private long creatorId;
-
-    @Column(nullable = false)
     private String name;
 
     private String location;
@@ -43,6 +40,9 @@ public class Group {
     private int maxMem;
     private boolean active;
     private String content;
+
+    public Group() {
+    }
 
     public List<GroupMembership> getMemberships() {
         return groupMemberships;
@@ -64,14 +64,6 @@ public class Group {
 
     public Long getGroupID() {
         return this.id;
-    }
-
-    public void setCreatorId(Long creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public long getCreatorId() {
-        return creatorId;
     }
 
     public void setName(String name) {
@@ -124,5 +116,9 @@ public class Group {
 
     public Provider getProvider() {
         return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 }
