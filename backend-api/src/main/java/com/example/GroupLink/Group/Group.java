@@ -5,13 +5,16 @@ import java.util.List;
 
 import com.example.GroupLink.GroupMembership.GroupMembership;
 import com.example.GroupLink.Provider.Provider;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "groups")
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,8 +65,8 @@ public class Group {
         member.setGroup(null); // this deletes the group from the member side, triggers orphan removal
     }
 
-    public Long getGroupID() {
-        return this.id;
+    public Long getId() {
+        return id;
     }
 
     public void setName(String name) {

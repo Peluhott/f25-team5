@@ -2,7 +2,9 @@ package com.example.GroupLink.GroupMembership;
 
 import com.example.GroupLink.Customer.Customer;
 import com.example.GroupLink.Group.Group;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,8 +17,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "group_memberships")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class GroupMembership {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -31,7 +35,7 @@ public class GroupMembership {
     @JoinColumn(name = "customer_id", nullable = false)
     @JsonIgnoreProperties("groupMemberships")
     private Customer customer;
-    
+
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     @JsonIgnoreProperties("groupMemberships")
@@ -54,6 +58,7 @@ public class GroupMembership {
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -61,6 +66,7 @@ public class GroupMembership {
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -68,6 +74,7 @@ public class GroupMembership {
     public String getMessage() {
         return message;
     }
+
     public void setMessage(String message) {
         this.message = message;
     }
@@ -75,6 +82,7 @@ public class GroupMembership {
     public Customer getCustomer() {
         return customer;
     }
+
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
