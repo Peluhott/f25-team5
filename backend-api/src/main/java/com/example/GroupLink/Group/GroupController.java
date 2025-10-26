@@ -22,17 +22,17 @@ public class GroupController {
     private GroupService groupService;
 
     @GetMapping("/group/{id}")
-    public Optional<Group> getGroup(@PathVariable long id) {
+    public Group getGroup(@PathVariable long id) {
         return groupService.getGroupById(id);
     }
 
-    @PostMapping("/group")
-    public Group addGroup(@RequestBody Group group) {
-        return groupService.createGroup(group);
+    @PostMapping("/group/{id}")
+    public Group addGroup(@PathVariable long id, @RequestBody Group group) {
+        return groupService.createGroup(group, id);
     }
 
     @PutMapping("/group/{id}")
-    public Optional<Group> updateGroup(@PathVariable long id, @RequestBody Group group) {
+    public Group updateGroup(@PathVariable long id, @RequestBody Group group) {
         groupService.updateGroup(id, group);
         return groupService.getGroupById(id);
     }
