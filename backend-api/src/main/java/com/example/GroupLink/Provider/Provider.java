@@ -13,7 +13,7 @@ import jakarta.persistence.*;
 public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long providerID;
+    private long id;
 
     @Column(nullable = false)
     private String email;
@@ -34,7 +34,7 @@ public class Provider {
     }
 
     public Provider(long providerID, String email, String username, String password) {
-        this.providerID = providerID;
+        this.id = providerID;
         this.email = email;
         this.username = username;
         this.password = password;

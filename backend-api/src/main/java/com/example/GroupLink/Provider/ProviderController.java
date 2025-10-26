@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.GroupLink.Customer.Customer;
+
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 public class ProviderController {
 
@@ -20,14 +25,14 @@ public class ProviderController {
     private ProviderService providerService;
 
     @PostMapping("/provider")
-    public Provider addAnimal(@RequestBody Provider provider) {
-        return providerService.addProvider(provider);
+    public ResponseEntity<Provider> createProvider(@RequestBody Provider provider) {
+        return ResponseEntity.ok(providerService.addProvider(provider));
     }
 
     @PutMapping("/provider/{id}")
-    public Optional<Provider> updateProvider(@PathVariable long id, @RequestBody Provider provider) {
+    public ResponseEntity<Provider> updateProvider(@PathVariable long id, @RequestBody Provider provider) {
         providerService.updateProvider(id, provider);
-        return providerService.getProviderById(id);
+        return ResponseEntity.ok(providerService.getProviderById(id));
     }
 
     @DeleteMapping("provider/{id}")
