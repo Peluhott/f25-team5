@@ -1,5 +1,7 @@
 package com.example.GroupLink.Review;
 
+import com.example.GroupLink.GroupMembership.GroupMembership;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -7,21 +9,18 @@ import jakarta.persistence.*;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private long id;
 
-    @Column(nullable = false)
-    private long group_membership_id;
+    @OneToOne(optional = false)
+    @JoinColumn
+    private GroupMembership membership;
 
     private int rating;
     private String message;
     private String response;
 
-    public void setGroupID(long group_membership_id) {
-        this.group_membership_id = group_membership_id;
-    }
-
-    public long getGroupId() {
-        return group_membership_id;
+    public GroupMembership getGroup() {
+        return membership;
     }
 
     public void setRating(int rating) {

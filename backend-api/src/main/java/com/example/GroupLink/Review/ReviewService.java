@@ -14,17 +14,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.transaction.Transactional;
 
+@Service
 public class ReviewService {
 
     @Autowired
     ReviewRepository reviewRepository;
 
-    public Optional<Review> getReviewById(@PathVariable long id) {
-        return Optional.ofNullable(reviewRepository.findById(id).orElse(null));
+    public Review getReviewById(@PathVariable long id) {
+        return reviewRepository.findById(id).orElse(null);
     }
 
-    public Review addReview(Review review) {
+    public Review createReview(Review review) {
         return reviewRepository.save(review);
+    }
+
+    public List<Review> getAllReviewsForGroup(Long groupId) {
+        return reviewRepository.findByMembership_Group_id(groupId);
+    }
+
+    public List<Review> getAllReviewsForCustomer(Long customerId) {
+        return reviewRepository.findByMembership_Customer_Id(customerId);
     }
 
     @Transactional
@@ -32,7 +41,6 @@ public class ReviewService {
         Review reviewToUpdate = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException(reviewId + " not found"));
 
-        reviewToUpdate.setGroupID(review.getGroupId());
         reviewToUpdate.setMessage(review.getMessage());
         reviewToUpdate.setRating(review.getRating());
         reviewToUpdate.setResponse(review.getResponse());

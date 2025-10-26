@@ -1,5 +1,7 @@
 package com.example.GroupLink.Review;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +22,22 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @PostMapping("/review")
-    public Review addReview(@RequestBody Review review) {
-        return reviewService.addReview(review);
+    public Review createReview(@RequestBody Review review) {
+        return reviewService.createReview(review);
+    }
+
+    @GetMapping("/review/group/{id}")
+    public List<Review> getReviewsByGroup(@PathVariable long groupId) {
+        return reviewService.getAllReviewsForGroup(groupId);
+    }
+
+    @GetMapping("/review/creator/{id}")
+    public List<Review> getReviewsByCustomer(@PathVariable long customerId) {
+        return reviewService.getAllReviewsForCustomer(customerId);
     }
 
     @PutMapping("/review/{id}")
-    public Optional<Review> updateReview(@PathVariable long id, @RequestBody Review review) {
+    public Review updateReview(@PathVariable long id, @RequestBody Review review) {
         reviewService.updateReview(id, review);
         return reviewService.getReviewById(id);
     }
