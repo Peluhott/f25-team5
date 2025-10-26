@@ -18,7 +18,7 @@ public class Group {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "providerID", nullable = false)
+    @JoinColumn(name = "provider_id", nullable = false)
     @JsonIgnoreProperties("groups")
     private Provider provider;
 
