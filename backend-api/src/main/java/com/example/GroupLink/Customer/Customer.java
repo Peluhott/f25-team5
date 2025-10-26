@@ -1,10 +1,17 @@
 package com.example.GroupLink.Customer;
 
+import java.util.List;
+
+import com.example.GroupLink.GroupMembership.GroupMembership;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -24,6 +31,10 @@ public class Customer {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("customer")
+    private List<GroupMembership> groupMemberships;
 
     public Customer() {
     }
@@ -71,5 +82,9 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<GroupMembership> getGroupMemberships() {
+        return groupMemberships;
     }
 }

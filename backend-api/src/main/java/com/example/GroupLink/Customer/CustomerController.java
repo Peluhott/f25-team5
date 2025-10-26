@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/customers")
 public class CustomerController {
     
     private CustomerService customerService;
@@ -33,12 +32,12 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.updateCustomer(id, customerDetails));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/customer/{id}")
     public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
 
-    @GetMapping
+    @GetMapping("/customers")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         return ResponseEntity.ok(customerService.getAllCustomers());
     }
