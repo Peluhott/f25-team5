@@ -20,11 +20,14 @@ public class ProviderService {
     @Autowired
     ProviderRepository providerRepository;
 
-    public Optional<Provider> getProviderById(@PathVariable long id) {
-        return Optional.ofNullable(providerRepository.findById(id).orElse(null));
+    public Provider getProviderById(@PathVariable long id) {
+        return providerRepository.findById(id).orElse(null);
     }
 
     public Provider addProvider(Provider provider) {
+        if (providerRepository.existsByEmail(provider.getEmail())) {
+            throw new IllegalArgumentException("User already registed with this email");
+        }
         return providerRepository.save(provider);
     }
 
