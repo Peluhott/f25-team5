@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "group_memberships")
@@ -30,6 +31,13 @@ public class GroupMembership {
 
     @Column(nullable = true)
     private String message;
+
+    @Transient
+    private Long customerId;
+
+    @Transient
+    private Long groupId;
+
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
@@ -61,6 +69,22 @@ public class GroupMembership {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     public String getStatus() {

@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.example.GroupLink.Customer.Customer;
+import com.example.GroupLink.Group.Group;
+
 @Repository
 public interface  GroupMembershipRepository extends JpaRepository<GroupMembership, Long>{
     
-    List<GroupMembership> findByCustomerId(Long customerId);
+    List<GroupMembership> findByCustomer(Customer customer);
 
-    List<GroupMembership> findByGroupId(Long groupId);
+    List<GroupMembership> findByGroup(Group group);
 }
