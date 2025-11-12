@@ -42,6 +42,30 @@ public class ReviewService {
         return reviewRepository.findByMembership_Group_id(groupId);
     }
 
+    public double getAverageRatingForProvider(Long providerId) {
+        List<Review> reviews = reviewRepository.findByMembership_Group_Provider_Id(providerId);
+        if (reviews.isEmpty()) {
+            return 0.00;
+        }
+        int total = 0;
+        for (Review review : reviews) {
+            total += review.getRating();
+        }
+
+        int numberOfReviews = reviews.size();
+
+        return (double) total / numberOfReviews;
+    }
+
+    public int getNumberOfRatingsForProvider(Long providerId) {
+        List<Review> reviews = reviewRepository.findByMembership_Group_Provider_Id(providerId);
+        if (reviews.isEmpty()) {
+            return 0;
+        }
+
+        return reviews.size();
+    }
+
     public List<Review> getAllReviewsForCustomer(Long customerId) {
         return reviewRepository.findByMembership_Customer_Id(customerId);
     }
