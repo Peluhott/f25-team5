@@ -3,11 +3,14 @@ package com.example.GroupLink.Group;
 import java.util.List;
 import java.util.Optional;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.GroupLink.Customer.Customer;
 import com.example.GroupLink.Customer.CustomerRepository;
@@ -21,6 +24,10 @@ import com.example.GroupLink.Provider.Provider;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Service
 public class GroupService {
@@ -29,6 +36,7 @@ public class GroupService {
     GroupMembershipRepository groupMembershipRepository;
     CustomerRepository customerRepository;
     ProviderService providerService;
+    private static final Path UPLOAD_DIR = Paths.get("src/main/resources/static/groups");
 
     @Autowired // beans for each one will be injected here
     public GroupService(GroupRepository groupRepository, GroupMembershipRepository groupMembershipRepository,
@@ -44,24 +52,62 @@ public class GroupService {
                 .orElseThrow(() -> new IllegalArgumentException(id + " not found"));
     }
 
-    public Group createGroup(Group group, Long providerId) {
+    public Group createGroup(Group group, Long providerId, MultipartFile profilePicture) {
         Provider provider = providerService.getProviderById(providerId);
         group.setProvider(provider);
-        return groupRepository.save(group);
+
+        Group savedGroup = groupRepository.save(group);
+
+        if (profilePicture != null && !profilePicture.isEmpty()) {
+            String fileName = saveProfilePicture(savedGroup.getId(), profilePicture);
+            if (fileName != null) {
+                savedGroup.setProfilePicturePath(fileName);
+                savedGroup = groupRepository.save(savedGroup);
+            }
+        }
+
+        return savedGroup;
+    }
+
+    private String saveProfilePicture(Long groupId, MultipartFile file) {
+        try {
+            String original = file.getOriginalFilename();
+            if (original == null || !original.contains("."))
+                return null;
+            String ext = original.substring(original.lastIndexOf('.') + 1);
+            String fileName = "group" + groupId + "." + ext;
+            Files.createDirectories(UPLOAD_DIR);
+            Path target = UPLOAD_DIR.resolve(fileName);
+            try (InputStream in = file.getInputStream()) {
+                Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
+            }
+            return fileName;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Transactional
-    public Group updateGroup(Long groupId, Group group) {
-        Group groupToUpdate = groupRepository.findById(groupId)
-                .orElseThrow(() -> new IllegalArgumentException(groupId + " not found"));
+    public Group updateGroup(Long groupId, Group form, MultipartFile profilePicture) {
+        Group existing = groupRepository.findById(groupId)
+                .orElseThrow(() -> new IllegalArgumentException("Group " + groupId + " not found"));
 
-        groupToUpdate.setName(group.getName());
-        groupToUpdate.setType(group.getType());
-        groupToUpdate.setLocation(group.getLocation());
-        groupToUpdate.setActive(group.getActive());
-        groupToUpdate.setMaxMem(group.getMaxMem());
-        groupToUpdate.setContent(group.getContent());
-        return groupToUpdate;
+        existing.setName(form.getName());
+        existing.setType(form.getType());
+        existing.setLocation(form.getLocation());
+        existing.setActive(form.getActive());
+        existing.setMaxMem(form.getMaxMem());
+        existing.setContent(form.getContent());
+
+        if (profilePicture != null && !profilePicture.isEmpty()) {
+            String fileName = saveProfilePicture(groupId, profilePicture);
+            if (fileName != null) {
+                existing.setProfilePicturePath(fileName);
+            }
+        }
+
+        return existing;
     }
 
     public void deleteGroup(Long groupId) {
