@@ -13,8 +13,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "groups")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +21,7 @@ public class Group {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "providerid", nullable = false)
-    @JsonIgnoreProperties({ "groups", "hibernateLazyInitializer", "handler" })
+
     private Provider provider;
 
     /*
@@ -31,7 +30,7 @@ public class Group {
      * 
      */
     @OneToMany(orphanRemoval = true, mappedBy = "group", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("group") // put the properties that it should ignore from membership here
+
     private List<GroupMembership> groupMemberships = new ArrayList<>(); // change to it match your entity if you need it
                                                                         // to
 
@@ -43,8 +42,21 @@ public class Group {
     private int maxMem;
     private boolean active;
     private String content;
+    private String profilePicturePath;
 
     public Group() {
+    }
+
+    public Group(Provider provider, String name, String location, String type, int maxMem, String content,
+            String profilePicturePath) {
+        this.provider = provider;
+        this.name = name;
+        this.location = location;
+        this.type = type;
+        this.maxMem = maxMem;
+        this.content = content;
+        this.profilePicturePath = profilePicturePath;
+        this.active = true;
     }
 
     public List<GroupMembership> getMemberships() {
@@ -128,4 +140,24 @@ public class Group {
     public void setProvider(Provider provider) {
         this.provider = provider;
     }
+
+    public void setProfilePicturePath(String profilePicturePath) {
+        this.profilePicturePath = profilePicturePath;
+    }
+
+    public String getProfilePicturePath() {
+        return profilePicturePath;
+    }
+
+    public int getActiveGroupSize() {
+        int count = 0;
+        for (GroupMembership mem : groupMemberships) {
+            if ("active".equals(mem.getStatus())) {
+                count++;
+            }
+
+        }
+        return count;
+    }
+
 }
