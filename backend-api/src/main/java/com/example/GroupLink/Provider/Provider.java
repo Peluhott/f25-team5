@@ -11,8 +11,6 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "providers")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
