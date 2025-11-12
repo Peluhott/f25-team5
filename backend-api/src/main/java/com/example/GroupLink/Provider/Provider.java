@@ -32,22 +32,25 @@ public class Provider {
     @JsonIgnoreProperties("provider") // this will make sure to ignore the provider when serializing so there won't be
                                       // infinite loop
     private List<Group> groups;
+    private String profilePicturePath;
 
     public Provider() {
     }
 
-    public Provider(long providerID, String email, String username, String password) {
+    public Provider(long providerID, String email, String username, String password, String profilePicturePath) {
         this.id = providerID;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.profilePicturePath = profilePicturePath;
     }
 
-    public Provider(String email, String username, String password) {
+    public Provider(String email, String username, String password, String profilePicturePath) {
 
         this.email = email;
         this.username = username;
         this.password = password;
+        this.profilePicturePath = profilePicturePath;
     }
 
     public Long getId() {
@@ -80,5 +83,13 @@ public class Provider {
 
     public List<Group> getGroups() {
         return groups;
+    }
+
+    public void setProfilePicturePath(String profilePicturePath) {
+        this.profilePicturePath = profilePicturePath;
+    }
+
+    public String getProfilePicturePath() {
+        return profilePicturePath;
     }
 }
