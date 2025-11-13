@@ -33,18 +33,18 @@ import java.nio.file.StandardCopyOption;
 public class GroupService {
 
     GroupRepository groupRepository;
-    GroupMembershipRepository groupMembershipRepository;
+
     CustomerRepository customerRepository;
     ProviderService providerService;
     private static final Path UPLOAD_DIR = Paths.get("src/main/resources/static/groups");
 
     @Autowired // beans for each one will be injected here
-    public GroupService(GroupRepository groupRepository, GroupMembershipRepository groupMembershipRepository,
-            CustomerRepository customerRepository, ProviderService providerService) {
-        this.customerRepository = customerRepository;
+    public GroupService(GroupRepository groupRepository,
+            ProviderService providerService) {
+
         this.groupRepository = groupRepository;
-        this.groupMembershipRepository = groupMembershipRepository;
         this.providerService = providerService;
+
     }
 
     public Group getGroupById(long id) {
