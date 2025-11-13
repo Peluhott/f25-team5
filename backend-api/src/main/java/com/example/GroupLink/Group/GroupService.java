@@ -110,6 +110,12 @@ public class GroupService {
         return existing;
     }
 
+    public void updateGroupSize(Long id) {
+        Group groupToUpdate = getGroupById(id);
+        int newSize = groupToUpdate.getActiveGroupSize();
+        groupToUpdate.setActiveGroupSize(newSize);
+    }
+
     public void deleteGroup(Long groupId) {
         groupRepository.deleteById(groupId);
     }

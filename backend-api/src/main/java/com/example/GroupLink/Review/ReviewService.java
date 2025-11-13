@@ -10,10 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.GroupLink.Group.Group;
+import com.example.GroupLink.Group.GroupService;
 import com.example.GroupLink.GroupMembership.GroupMembership;
 import com.example.GroupLink.GroupMembership.GroupMembershipService;
 import com.example.GroupLink.Provider.ProviderRepository;
+import com.example.GroupLink.Provider.ProviderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.GroupLink.Provider.Provider;
 
 import jakarta.transaction.Transactional;
 
@@ -22,10 +25,15 @@ public class ReviewService {
 
     ReviewRepository reviewRepository;
     GroupMembershipService groupMembershipService;
+    ProviderService providerService;
+    GroupService groupService;
 
-    public ReviewService(ReviewRepository reviewRepository, GroupMembershipService groupMembershipService) {
+    public ReviewService(ReviewRepository reviewRepository, GroupMembershipService groupMembershipService,
+            ProviderService providerService, GroupService groupService) {
         this.reviewRepository = reviewRepository;
         this.groupMembershipService = groupMembershipService;
+        this.providerService = providerService;
+        this.groupService = groupService;
     }
 
     public Review getReviewById(@PathVariable long id) {
@@ -35,35 +43,53 @@ public class ReviewService {
     public Review createReview(long membershipId, Review review) {
         GroupMembership membership = groupMembershipService.getGroupMembershipById(membershipId);
         review.setMembership(membership);
-        return reviewRepository.save(review);
+
+        Group groupToRetrieveProvider = membership.getGroup();
+
+        Provider providerToUpdate = groupToRetrieveProvider.getProvider();
+
+        Review newReview = reviewRepository.save(review);
+
+        updateAverageRatingForProvider(providerToUpdate.getId());
+
+        return newReview;
     }
 
     public List<Review> getAllReviewsForGroup(Long groupId) {
         return reviewRepository.findByMembership_Group_id(groupId);
     }
 
-    public double getAverageRatingForProvider(Long providerId) {
+    public void updateAverageRatingForProvider(Long providerId) {
         List<Review> reviews = reviewRepository.findByMembership_Group_Provider_Id(providerId);
+        Provider provider = providerService.getProviderById(providerId);
         if (reviews.isEmpty()) {
-            return 0.00;
-        }
-        int total = 0;
-        for (Review review : reviews) {
-            total += review.getRating();
+            provider.setAverageRating(0.0);
+
+        } else {
+            int total = 0;
+            for (Review review : reviews) {
+                total += review.getRating();
+            }
+
+            int numberOfReviews = reviews.size();
+
+            double averageRating = total / numberOfReviews;
+
+            provider.setAverageRating(averageRating);
         }
 
-        int numberOfReviews = reviews.size();
-
-        return (double) total / numberOfReviews;
     }
 
-    public int getNumberOfRatingsForProvider(Long providerId) {
+    public void updateNumberOfRatingsForProvider(Long providerId) {
         List<Review> reviews = reviewRepository.findByMembership_Group_Provider_Id(providerId);
+        Provider provider = providerService.getProviderById(providerId);
         if (reviews.isEmpty()) {
-            return 0;
+            provider.setReviewCount(0);
+        } else {
+            int size = reviews.size();
+            provider.setReviewCount(size);
         }
 
-        return reviews.size();
     }
 
     public List<Review> getAllReviewsForCustomer(Long customerId) {
