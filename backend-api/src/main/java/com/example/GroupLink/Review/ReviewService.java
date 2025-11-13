@@ -51,6 +51,7 @@ public class ReviewService {
         Review newReview = reviewRepository.save(review);
 
         updateAverageRatingForProvider(providerToUpdate.getId());
+        updateNumberOfRatingsForProvider(providerToUpdate.getId());
 
         return newReview;
     }

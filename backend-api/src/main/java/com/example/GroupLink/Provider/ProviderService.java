@@ -33,11 +33,10 @@ public class ProviderService {
     // create provider
 
     ProviderRepository providerRepository;
-    ReviewService reviewService;
 
-    public ProviderService(ProviderRepository providerRepository, ReviewService reviewService) {
+    public ProviderService(ProviderRepository providerRepository) {
         this.providerRepository = providerRepository;
-        this.reviewService = reviewService;
+
     }
 
     private static final Path UPLOAD_DIR = Paths.get("src/main/resources/provider");
