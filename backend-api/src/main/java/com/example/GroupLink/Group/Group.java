@@ -40,6 +40,7 @@ public class Group {
     private String location;
     private String type;
     private int maxMem;
+    private int activeMem;
     private boolean active;
     private String content;
     private String profilePicturePath;
@@ -148,7 +149,9 @@ public class Group {
     public String getProfilePicturePath() {
         return profilePicturePath;
     }
-
+    public void setActiveGroupSize(int activeMem){
+        this.activeMem = activeMem;
+    }
     public int getActiveGroupSize() {
         int count = 0;
         for (GroupMembership mem : groupMemberships) {

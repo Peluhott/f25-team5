@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.GroupLink.GroupMembership.GroupMembershipService;
+import com.example.GroupLink.Review.ReviewRepository;
+import com.example.GroupLink.Review.ReviewService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.transaction.Transactional;
@@ -28,8 +31,14 @@ import java.nio.file.StandardCopyOption;
 public class ProviderService {
     // get by id
     // create provider
-    @Autowired
+
     ProviderRepository providerRepository;
+    ReviewService reviewService;
+
+    public ProviderService(ProviderRepository providerRepository, ReviewService reviewService) {
+        this.providerRepository = providerRepository;
+        this.reviewService = reviewService;
+    }
 
     private static final Path UPLOAD_DIR = Paths.get("src/main/resources/provider");
 

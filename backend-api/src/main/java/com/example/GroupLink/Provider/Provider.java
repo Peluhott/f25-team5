@@ -31,6 +31,8 @@ public class Provider {
                                       // infinite loop
     private List<Group> groups;
     private String profilePicturePath;
+    private double averageRating;
+    private int reviewCount;
 
     public Provider() {
     }
@@ -90,4 +92,21 @@ public class Provider {
     public String getProfilePicturePath() {
         return profilePicturePath;
     }
+
+    public Double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public int getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(int reviewCount) {
+        this.reviewCount = reviewCount;
+    }
+
 }
