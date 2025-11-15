@@ -110,6 +110,14 @@ public class Group {
         return type;
     }
 
+    public int getActiveMem() {
+        return activeMem;
+    }
+
+    public void setActiveMem(int activeMem) {
+        this.activeMem = activeMem;
+    }
+
     public void setMaxMem(int maxMem) {
         this.maxMem = maxMem;
     }
