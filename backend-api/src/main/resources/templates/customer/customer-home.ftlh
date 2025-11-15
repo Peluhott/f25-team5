@@ -104,7 +104,7 @@
     <div id="main-content">
 
         <#list groupList as group>
-        <a href="/Prototype/Customer/apply.html" class="link-card">
+        <a href="/group/details/${group.id?c}" class="link-card">
             <div class="card">
                 <img class="poster" src="${(group.profilePicturePath)!'/customer/images/sampleGroupPoster.webp'}" alt="">
                 <div class="user">
