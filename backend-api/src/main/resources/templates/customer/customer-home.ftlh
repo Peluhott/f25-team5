@@ -110,9 +110,18 @@
                 <div class="user">
                     <img class="poster-pfp" src="${(group.profilePicturePath)!'/customer/images/nullpfp.jpg'}" alt="">
                     <h5>${group.provider.username}</h5>
-                    <div class="card-type"><i class="fa-solid fa-code"></i>${group.type}</div>
+                    <#switch group.type>
+                        <#on "Hackathon">
+                        <div class="card-type"><i class="fa-solid fa-code"></i>${group.type}</div>
+                        <#on "Study">
+                        <div class="card-type"><i class="fa-solid fa-book"></i>${group.type}</div>
+                        <#on "Volunteer">
+                        <div class="card-type"><i class="fa-solid fa-handshake-angle"></i>${group.type}</div>
+                        <#default>
+                        <div class="card-type"><i class="fa-solid fa-people-line"></i>${group.type}</div>
+                    </#switch>
                 </div>
-                <p class="card-description">${group.content}</p>
+                <p class="card-group-name">${group.name}</p>
                 <div class="rating">
                     <i class="fa-solid fa-star"></i>
                     <div class="rating-number">${group.provider.averageRating}</div>

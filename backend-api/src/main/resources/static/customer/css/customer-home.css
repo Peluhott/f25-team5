@@ -237,7 +237,9 @@ h5 {
     background-color: #F2BFA4;
 }
 
-.card-description {
+.card-group-name {
+    font-weight: bold;
+    font-size: larger;
     overflow-wrap: normal;
     margin-top: 10px;
     margin-left: 5px;
