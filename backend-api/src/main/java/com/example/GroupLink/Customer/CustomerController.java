@@ -14,16 +14,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.GroupLink.Group.GroupService;
+import com.example.GroupLink.Provider.ProviderService;
 
 @Controller
 public class CustomerController {
     
     private CustomerService customerService;
     private GroupService groupService;
+    private ProviderService providerService;
 
-    public CustomerController(CustomerService customerService, GroupService groupService) {
+    public CustomerController(CustomerService customerService, GroupService groupService, ProviderService providerService) {
         this.customerService = customerService;
         this.groupService = groupService;
+        this.providerService = providerService;
     }
 
     @GetMapping("/customer/home")
@@ -31,6 +34,16 @@ public class CustomerController {
         model.addAttribute("groupList", groupService.getAllGroups());
         model.addAttribute("title", "GroupLink");
         return "customer/customer-home";
+    }
+
+    @GetMapping("/group/details/{id}")
+    public Object getGroupDetails(@PathVariable Long id, Model model){
+        long providerId = groupService.getGroupById(id).getProvider().getId();
+        model.addAttribute("group", groupService.getGroupById(id));
+        model.addAttribute("title", "Group Details");
+        model.addAttribute("memberList", groupService.getGroupMembers(id));
+        model.addAttribute("reviewList", providerService.getAllReviewsForProvider(providerId));
+        return "customer/group-details";
     }
 
     @PostMapping("/customers")
