@@ -1,6 +1,8 @@
 package com.example.GroupLink.Review;
 
+import com.example.GroupLink.Customer.Customer;
 import com.example.GroupLink.GroupMembership.GroupMembership;
+import com.example.GroupLink.Provider.Provider;
 
 import jakarta.persistence.*;
 
@@ -11,20 +13,52 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(optional = false)
-    @JoinColumn
-    private GroupMembership membership;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "providerid", nullable = false)
+    private Provider provider;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerid", nullable = false)
+    private Customer customer;
 
     private int rating;
     private String message;
     private String response;
 
-    public GroupMembership getGroup() {
-        return membership;
+    public Review() {
     }
 
-    public void setMembership(GroupMembership membership) {
-        this.membership = membership;
+    public Review(Provider provider, int rating, String message, String response, Customer customer) {
+        this.provider = provider;
+        this.rating = rating;
+        this.message = message;
+        this.response = response;
+        this.customer = customer;
+    }
+
+    public Review(long id, Provider provider, int rating, String message, String response, Customer customer) {
+        this.id = id;
+        this.provider = provider;
+        this.rating = rating;
+        this.message = message;
+        this.response = response;
+        this.customer = customer;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public void setRating(int rating) {

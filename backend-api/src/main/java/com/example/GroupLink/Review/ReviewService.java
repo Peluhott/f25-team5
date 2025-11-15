@@ -24,14 +24,11 @@ import jakarta.transaction.Transactional;
 public class ReviewService {
 
     ReviewRepository reviewRepository;
-    GroupMembershipService groupMembershipService;
     ProviderService providerService;
     GroupService groupService;
 
-    public ReviewService(ReviewRepository reviewRepository, GroupMembershipService groupMembershipService,
-            ProviderService providerService, GroupService groupService) {
+    public ReviewService(ReviewRepository reviewRepository, ProviderService providerService, GroupService groupService) {
         this.reviewRepository = reviewRepository;
-        this.groupMembershipService = groupMembershipService;
         this.providerService = providerService;
         this.groupService = groupService;
     }
@@ -40,28 +37,20 @@ public class ReviewService {
         return reviewRepository.findById(id).orElse(null);
     }
 
-    public Review createReview(long membershipId, Review review) {
-        GroupMembership membership = groupMembershipService.getGroupMembershipById(membershipId);
-        review.setMembership(membership);
-
-        Group groupToRetrieveProvider = membership.getGroup();
-
-        Provider providerToUpdate = groupToRetrieveProvider.getProvider();
+    public Review createReview(long providerId, Review review) {
+        Provider provider = providerService.getProviderById(providerId);
+        review.setProvider(provider);
 
         Review newReview = reviewRepository.save(review);
 
-        updateAverageRatingForProvider(providerToUpdate.getId());
-        updateNumberOfRatingsForProvider(providerToUpdate.getId());
+        updateAverageRatingForProvider(provider.getId());
+        updateNumberOfRatingsForProvider(provider.getId());
 
         return newReview;
     }
 
-    public List<Review> getAllReviewsForGroup(Long groupId) {
-        return reviewRepository.findByMembership_Group_id(groupId);
-    }
-
     public void updateAverageRatingForProvider(Long providerId) {
-        List<Review> reviews = reviewRepository.findByMembership_Group_Provider_Id(providerId);
+        List<Review> reviews = providerService.getAllReviewsForProvider(providerId);
         Provider provider = providerService.getProviderById(providerId);
         if (reviews.isEmpty()) {
             provider.setAverageRating(0.0);
@@ -82,7 +71,7 @@ public class ReviewService {
     }
 
     public void updateNumberOfRatingsForProvider(Long providerId) {
-        List<Review> reviews = reviewRepository.findByMembership_Group_Provider_Id(providerId);
+        List<Review> reviews = providerService.getAllReviewsForProvider(providerId);
         Provider provider = providerService.getProviderById(providerId);
         if (reviews.isEmpty()) {
             provider.setReviewCount(0);
@@ -91,10 +80,6 @@ public class ReviewService {
             provider.setReviewCount(size);
         }
 
-    }
-
-    public List<Review> getAllReviewsForCustomer(Long customerId) {
-        return reviewRepository.findByMembership_Customer_Id(customerId);
     }
 
     @Transactional

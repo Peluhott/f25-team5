@@ -124,4 +124,9 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
+    public List<GroupMembership> getGroupMembers(Long groupId) {
+        Group group = getGroupById(groupId);
+        return group.getMemberships();
+    }
+
 }

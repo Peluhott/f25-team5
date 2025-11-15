@@ -27,15 +27,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import com.example.GroupLink.Review.Review;
+
 @Service
 public class ProviderService {
     // get by id
     // create provider
 
     ProviderRepository providerRepository;
+    ReviewRepository reviewRepository;
 
-    public ProviderService(ProviderRepository providerRepository) {
+    public ProviderService(ProviderRepository providerRepository, ReviewRepository reviewRepository) {
         this.providerRepository = providerRepository;
+        this.reviewRepository = reviewRepository;
 
     }
 
@@ -108,6 +112,10 @@ public class ProviderService {
 
     public void deleteProvider(Long providerId) {
         providerRepository.deleteById(providerId);
+    }
+
+    public List<Review> getAllReviewsForProvider(Long providerId) {
+        return reviewRepository.findByProvider_Id(providerId);
     }
 
 }

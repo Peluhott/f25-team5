@@ -3,6 +3,7 @@ package com.example.GroupLink.Provider;
 import java.util.List;
 
 import com.example.GroupLink.Group.Group;
+import com.example.GroupLink.Review.Review;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -30,6 +31,11 @@ public class Provider {
     @JsonIgnoreProperties("provider") // this will make sure to ignore the provider when serializing so there won't be
                                       // infinite loop
     private List<Group> groups;
+
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("provider")
+    private List<Review> reviews;
+
     private String profilePicturePath;
     private double averageRating;
     private int reviewCount;
@@ -37,20 +43,30 @@ public class Provider {
     public Provider() {
     }
 
-    public Provider(long providerID, String email, String username, String password, String profilePicturePath) {
-        this.id = providerID;
+    public Provider(long id, String email, String username, String password, String profilePicturePath, Double averageRating,
+            int reviewCount, List<Group> groups, List<Review> reviews) {
+        this.id = id;
         this.email = email;
         this.username = username;
         this.password = password;
         this.profilePicturePath = profilePicturePath;
+        this.averageRating = averageRating;
+        this.reviewCount = reviewCount;
+        this.groups = groups;
+        this.reviews = reviews;
     }
 
-    public Provider(String email, String username, String password, String profilePicturePath) {
+    public Provider(String email, String username, String password, String profilePicturePath, Double averageRating,
+            int reviewCount, List<Group> groups, List<Review> reviews) {
 
         this.email = email;
         this.username = username;
         this.password = password;
         this.profilePicturePath = profilePicturePath;
+        this.averageRating = averageRating;
+        this.reviewCount = reviewCount;
+        this.groups = groups;
+        this.reviews = reviews;
     }
 
     public Long getId() {
@@ -107,6 +123,10 @@ public class Provider {
 
     public void setReviewCount(int reviewCount) {
         this.reviewCount = reviewCount;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
     }
 
 }
