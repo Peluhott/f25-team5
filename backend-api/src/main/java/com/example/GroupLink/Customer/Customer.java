@@ -3,6 +3,7 @@ package com.example.GroupLink.Customer;
 import java.util.List;
 
 import com.example.GroupLink.GroupMembership.GroupMembership;
+import com.example.GroupLink.Review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -39,20 +40,32 @@ public class Customer {
     @JsonIgnoreProperties("customer")
     private List<GroupMembership> groupMemberships;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("customer")
+    private List<Review> reviews;
+
+    private String profilePicturePath;
+
     public Customer() {
     }
 
-    public Customer(String email, String name, String password) {
+    public Customer(String email, String name, String password, List<GroupMembership> groupMemberships, List<Review> reviews, String profilePicturePath) {
         this.email = email;
         this.name = name;
         this.password = password;
+        this.groupMemberships = groupMemberships;
+        this.reviews = reviews;
+        this.profilePicturePath = profilePicturePath;
     }
 
-    public Customer(long id, String email, String name, String password) {
+    public Customer(long id, String email, String name, String password, List<GroupMembership> groupMemberships, List<Review> reviews, String profilePicturePath) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
+        this.groupMemberships = groupMemberships;
+        this.reviews = reviews;
+        this.profilePicturePath = profilePicturePath;
     }
 
     public long getId() {
@@ -89,5 +102,17 @@ public class Customer {
 
     public List<GroupMembership> getGroupMemberships() {
         return groupMemberships;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public String getProfilePicturePath() {
+        return profilePicturePath;
+    }
+
+    public void setProfilePicturePath(String profilePicturePath) {
+        this.profilePicturePath = profilePicturePath;
     }
 }

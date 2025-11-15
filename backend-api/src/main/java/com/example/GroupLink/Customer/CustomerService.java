@@ -1,8 +1,14 @@
 package com.example.GroupLink.Customer;
 
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -14,6 +20,8 @@ public class CustomerService {
     CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
+
+    private static final Path UPLOAD_DIR = Paths.get("src/main/resources/static/customer/images");
 
     public Customer createCustomer(Customer customer) {
         if(customerRepository.existsByEmail(customer.getEmail())) {
