@@ -158,10 +158,7 @@ h2 {
     width: 40%;
 }
 
-img {
-    width: 100%;
-    height: 100%;
-}
+
 
 #info {
     margin-left: 10%;
@@ -264,6 +261,12 @@ button {
     flex-direction: row;
     align-items: center;
     margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.reviewer-name {
+    font-weight: bold;
+    font-size: larger;
 }
 
 .reviewer-pfp {

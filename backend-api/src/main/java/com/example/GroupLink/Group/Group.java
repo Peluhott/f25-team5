@@ -49,7 +49,7 @@ public class Group {
     }
 
     public Group(Provider provider, String name, String location, String type, int maxMem, String content,
-            String profilePicturePath) {
+            String profilePicturePath, boolean active, int activeMem, List<GroupMembership> groupMemberships) {
         this.provider = provider;
         this.name = name;
         this.location = location;
@@ -58,6 +58,23 @@ public class Group {
         this.content = content;
         this.profilePicturePath = profilePicturePath;
         this.active = true;
+        this.activeMem = activeMem;
+        this.groupMemberships = groupMemberships;
+    }
+
+    public Group(long id, Provider provider, String name, String location, String type, int maxMem, String content,
+            String profilePicturePath, boolean active, int activeMem, List<GroupMembership> groupMemberships) {
+        this.id = id;
+        this.provider = provider;
+        this.name = name;
+        this.location = location;
+        this.type = type;
+        this.maxMem = maxMem;
+        this.content = content;
+        this.profilePicturePath = profilePicturePath;
+        this.active = true;
+        this.activeMem = activeMem;
+        this.groupMemberships = groupMemberships;
     }
 
     public List<GroupMembership> getMemberships() {
@@ -108,6 +125,14 @@ public class Group {
 
     public String getType() {
         return type;
+    }
+
+    public int getActiveMem() {
+        return activeMem;
+    }
+
+    public void setActiveMem(int activeMem) {
+        this.activeMem = activeMem;
     }
 
     public void setMaxMem(int maxMem) {

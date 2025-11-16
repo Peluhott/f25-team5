@@ -120,4 +120,13 @@ public class GroupService {
         groupRepository.deleteById(groupId);
     }
 
+    public List<Group> getAllGroups() {
+        return groupRepository.findAll();
+    }
+
+    public List<GroupMembership> getGroupMembers(Long groupId) {
+        Group group = getGroupById(groupId);
+        return group.getMemberships();
+    }
+
 }
