@@ -110,15 +110,12 @@ li:hover {
 input[type=search] {
     border-top-left-radius: 8px ;
     border-bottom-left-radius: 8px;
-    padding: 10px 0;
+    padding: 10px 10px;
     width: 40%;
 }
 
-input[type=search]::placeholder {
-    padding-left: 10px;
-}
 
-input[type=submit] {
+#search-btn {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     padding: 10px 0;
@@ -127,10 +124,14 @@ input[type=submit] {
     cursor: pointer;
 }
 
+h2 {
+    margin-left: 5%;
+}
+
 #options {
     display: flex;
-    margin-top: 15px;
-    margin-left: 5px;
+    margin-top: -1%;
+    margin-left: 2%;
 }
 
 .filter {
@@ -142,24 +143,14 @@ input[type=submit] {
     cursor: pointer;
 }
 
-#options-selected {
-    margin-top: 5px;
+#filter-btn{
+    background-color: #F2BFA4;
     margin-left: 10px;
-    display: flex;
-}
-
-.selected {
-    font-weight: 500;
-    padding: 3px;
-    border: solid;
+    padding: 5px;
     border-radius: 8px;
-    margin-left: 5px;
+    border: solid;
     cursor: pointer;
-}
-
-#sortby {
-    margin-left: 90%;
-    margin-top: -2%;
+    font-weight: 800;
 }
 
 #main-content {
