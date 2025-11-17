@@ -1,13 +1,17 @@
 package com.example.GroupLink.Group;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
@@ -127,6 +131,24 @@ public class GroupService {
     public List<GroupMembership> getGroupMembers(Long groupId) {
         Group group = getGroupById(groupId);
         return group.getMemberships();
+    }
+
+    public List<Group> filterGroups(String type, String location, String rating) {
+        Double providerRating = rating == null ? 0.0 : Double.parseDouble(rating);
+        return groupRepository.findByTypeContainingAndLocationContainingAndProviderAverageRatingGreaterThanEqual(
+                type,location, providerRating);
+    }
+
+    public List<String> getDistinctGroupTypes() {
+        return groupRepository.findDistinctTypes();
+    }
+
+    public List<String> getDistinctGroupLocations() {
+        return groupRepository.findDistinctLocations();
+    }
+
+    public List<Group> searchGroupsByName(String query) {
+        return groupRepository.findByNameContainingIgnoreCase(query);
     }
 
 }
