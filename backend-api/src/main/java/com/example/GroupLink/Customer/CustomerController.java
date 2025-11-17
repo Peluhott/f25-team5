@@ -50,7 +50,7 @@ public class CustomerController {
     @PostMapping("/customer/login")
     public Object loginPost(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password, Model model){
         if(customerService.authenticate(username, password)){
-            return "redirect:/customer/home";
+            return "redirect:/customer/home/" + customerService.getCustomerByUsername(username).getId();
         } else {
             model.addAttribute("error", "Invalid username or password");
             return "login/login-screen";
@@ -62,7 +62,7 @@ public class CustomerController {
     @RequestParam(value = "email") String email,
     @RequestParam(value = "password") String password,
     @RequestParam(value = "re-password") String rePassword,
-    @RequestParam(value = "profilePicture", required = false) String profilePicture,
+    @RequestParam(value = "profilePicturePath", required = false) String profilePicturePath,
     Model model){
         if(customerService.isEmailTaken(email)){
             model.addAttribute("error", "Email is already registered");
@@ -72,12 +72,24 @@ public class CustomerController {
             model.addAttribute("error", "Username is already taken");
             return "signup/customer-signup";
         }
-        customerService.createCustomer(new Customer(email, username, password, profilePicture));
+        if(!password.equals(rePassword)){
+            model.addAttribute("error", "Passwords do not match");
+            return "signup/customer-signup";
+        }
+        customerService.createCustomer(new Customer(email, username, password, profilePicturePath));
         return "redirect:/customer/login";
     }
 
-    @GetMapping("/customer/home")
-    public Object home(Model model){
+    @GetMapping("/customer/profile/{id}")
+    public Object profile(@PathVariable Long id, Model model){
+        model.addAttribute("title", "Profile");
+        return "customer/customer-profile";
+    }
+
+
+
+    @GetMapping("/customer/home/{id}")
+    public Object home(@PathVariable Long id, Model model){
         model.addAttribute("groupList", groupService.getAllGroups());
         model.addAttribute("groupLocations", groupService.getDistinctGroupLocations());
         model.addAttribute("groupTypes", groupService.getDistinctGroupTypes());
@@ -85,8 +97,8 @@ public class CustomerController {
         return "customer/customer-home";
     }
 
-    @GetMapping("/customer/home/search")
-    public Object searchGroups(@RequestParam(value = "query", required = false) String query, Model model){
+    @GetMapping("/customer/home/{id}/search")
+    public Object searchGroups(@PathVariable Long id, @RequestParam(value = "query", required = false) String query, Model model){
         model.addAttribute("groupLocations", groupService.getDistinctGroupLocations());
         model.addAttribute("groupTypes", groupService.getDistinctGroupTypes());
         model.addAttribute("groupList", groupService.searchGroupsByName(query));
@@ -94,8 +106,8 @@ public class CustomerController {
         return "customer/customer-home";
     }
 
-    @GetMapping("/customer/home/filter")
-    public Object Groups(@RequestParam(value = "type", required = false) String type,
+    @GetMapping("/customer/home/{id}/filter")
+    public Object Groups(@PathVariable Long id, @RequestParam(value = "type", required = false) String type,
     @RequestParam(value = "location", required = false) String location, 
     @RequestParam(value = "rating", required = false) String rating ,Model model){
         model.addAttribute("groupLocations", groupService.getDistinctGroupLocations());
@@ -105,8 +117,8 @@ public class CustomerController {
         return "customer/customer-home";
     }
 
-    @GetMapping("/group/details/{id}")
-    public Object getGroupDetails(@PathVariable Long id, Model model){
+    @GetMapping("/group/details/{id}/{customerId}")
+    public Object getGroupDetails(@PathVariable Long id, @PathVariable Long customerId, Model model){
         long providerId = groupService.getGroupById(id).getProvider().getId();
         model.addAttribute("group", groupService.getGroupById(id));
         model.addAttribute("title", "Group Details");

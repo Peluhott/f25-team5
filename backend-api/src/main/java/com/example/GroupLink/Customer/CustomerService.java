@@ -44,12 +44,16 @@ public class CustomerService {
             .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
     }
 
+    public Customer getCustomerByUsername(String username) {
+        return customerRepository.findByUsername(username);
+    }
+
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
     public boolean authenticate(String username, String password) {
-        Optional<Customer> customerOptional = customerRepository.findByUsername(username);
+        Optional<Customer> customerOptional = customerRepository.findByUsername_(username);
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
             return customer.getPassword().equals(password);
