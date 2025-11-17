@@ -51,7 +51,7 @@
 
             <div id="break"></div>
 
-            <a href="/Prototype/Customer/index.html" title="Home">
+            <a href="/customer/home" title="Home">
                 <li> <i class="fa-solid fa-house"></i></li>
             </a>
 
