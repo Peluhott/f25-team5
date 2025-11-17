@@ -50,7 +50,7 @@
 
             <div id="break"></div>
 
-            <a href="/customer/home" title="Home" class="sidebtn">
+            <a href="/customer/home/${id}" title="Home" class="sidebtn">
                 <li> <i class="fa-solid fa-house"></i></li>
             </a>
 
@@ -73,7 +73,7 @@
     </aside>
 
     <div id="filters">
-        <form action="/customer/home/search" method="get" id="search">
+        <form action="/customer/home/${id}/search" method="get" id="search">
             <input type="search" name="query" id="query" placeholder="What are you looking for?">
 
             <input type="hidden" name="type" value="${type?if_exists}">
@@ -84,7 +84,7 @@
 
         <h2>Filters:</h2>
         <div id="options">
-            <form action="/customer/home/filter" method="get">
+            <form action="/customer/home/${id}/filter" method="get">
                 <label for="type">Group Types: </label>
                 <select name="type" id="type" class="filter">
                     <#assign selectedValue = RequestParameters.type!"">
@@ -124,7 +124,7 @@
     <div id="main-content">
 
         <#list groupList as group>
-        <a href="/group/details/${group.id?c}" class="link-card">
+        <a href="/group/details/${group.id?c}/${id}" class="link-card">
             <div class="card">
                 <img class="poster" src="${(group.profilePicturePath)!'/customer/images/sampleGroupPoster.webp'}" alt="">
                 <div class="user">

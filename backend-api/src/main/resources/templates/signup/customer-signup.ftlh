@@ -16,6 +16,9 @@
 
     <div id="create">
         <h3>Sign Up</h3>
+        <#if error??>
+            <p class="error" style="color: red;">${error}</p>
+        </#if>
         <form action="/customer/signup" method="post">
 
             <input type="text" name="username" id="username" placeholder="Username" required>

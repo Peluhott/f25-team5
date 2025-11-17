@@ -51,7 +51,7 @@
 
             <div id="break"></div>
 
-            <a href="/customer/home" title="Home">
+            <a href="/customer/home/${customerId}" title="Home">
                 <li> <i class="fa-solid fa-house"></i></li>
             </a>
 
@@ -86,7 +86,7 @@
             </div>
         </div>
         <div id="banner">
-            <img src="${(group.profilePicturePath)!'/customer/images/sampleGroupPoster.webp'}" alt="">
+            <img style="height: 100%; width: 100%; object-fit: cover;" src="${(group.profilePicturePath)!'/customer/images/sampleGroupPoster.webp'}" alt="" id="banner-img">
         </div>
 
         <div id="info">
@@ -113,7 +113,7 @@
                     <div class="reviewer-content">
                             <img src="${(review.customer.profilePicturePath)!'/customer/images/nullpfp.jpg'}" alt="" class="reviewer-pfp">
                         <div class="review-content">
-                            <div class="reviewer-name">${review.customer.name}</div>
+                            <div class="reviewer-name">${review.customer.username}</div>
                             <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i> ${review.rating}</div>
                         </div>
                     </div>
