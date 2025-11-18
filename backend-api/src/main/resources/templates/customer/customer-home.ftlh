@@ -44,7 +44,7 @@
     
     <aside>
         <ul>
-            <a href="/Prototype/Customer/profile.html" title="Profile" class="sidebtn">
+            <a href="/customer/profile/${id}" title="Profile" class="sidebtn">
                 <li><i class="fa-solid fa-user"></i></li>
             </a>
 
@@ -137,6 +137,10 @@
                         <div class="card-type"><i class="fa-solid fa-book"></i>${group.type}</div>
                         <#on "Volunteer">
                         <div class="card-type"><i class="fa-solid fa-handshake-angle"></i>${group.type}</div>
+                        <#on "Gaming">
+                        <div class="card-type"><i class="fa-jelly fa-regular fa-gamepad"></i>${group.type}</div>
+                        <#on "Sports">
+                        <div class="card-type"><i class="fa-duotone fa-regular fa-court-sport"></i>${group.type}</div>
                         <#default>
                         <div class="card-type"><i class="fa-solid fa-people-line"></i>${group.type}</div>
                     </#switch>

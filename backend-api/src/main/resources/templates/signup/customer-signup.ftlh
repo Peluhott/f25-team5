@@ -19,7 +19,7 @@
         <#if error??>
             <p class="error" style="color: red;">${error}</p>
         </#if>
-        <form action="/customer/signup" method="post">
+        <form action="/customer/signup" method="post" enctype="multipart/form-data">
 
             <input type="text" name="username" id="username" placeholder="Username" required>
 

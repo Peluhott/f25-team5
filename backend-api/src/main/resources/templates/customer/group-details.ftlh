@@ -45,7 +45,7 @@
 
     <aside>
         <ul>
-            <a href="/Prototype/Customer/profile.html" title="Profile">
+            <a href="/customer/profile/${customerId}" title="Profile">
                 <li><i class="fa-solid fa-user"></i></li>
             </a>
 
