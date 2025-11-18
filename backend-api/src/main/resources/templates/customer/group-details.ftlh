@@ -67,14 +67,14 @@
                 <li><i class="fa-solid fa-people-group"></i></li>
             </a>
 
-            <a href="/Prototype/Login/Login.html" id="logout" title="Logout">
+            <a href="/customer/login" id="logout" title="Logout">
                 <li id="logout"><i class="fa-solid fa-door-open"></i></li>
             </a>
         </ul>
     </aside>
     <div id="main-content">
         <h2>${group.name}</h2>
-        <img src="${(group.profilePicturePath)!'/customer/images/nullpfp.jpg'}" alt="" class="provider-pfp">
+        <img style="object-fit: cover;" src="/provider/images/${(group.provider.profilePicturePath)!'nullpfp.jpg'}" alt="" class="provider-pfp">
         <div id="provider-details">
             <div class="provider-name">${group.provider.username}</div>
             <div class="rating">
@@ -86,7 +86,7 @@
             </div>
         </div>
         <div id="banner">
-            <img style="height: 100%; width: 100%; object-fit: cover;" src="${(group.profilePicturePath)!'/customer/images/sampleGroupPoster.webp'}" alt="" id="banner-img">
+            <img style="height: 100%; width: 100%; object-fit: cover;" src="/groups/images/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="" id="banner-img">
         </div>
 
         <div id="info">
@@ -111,10 +111,21 @@
                 <#list reviewList as review>
                 <div class="review-card">
                     <div class="reviewer-content">
-                            <img src="${(review.customer.profilePicturePath)!'/customer/images/nullpfp.jpg'}" alt="" class="reviewer-pfp">
+                            <img src="/customer/images/${(review.customer.profilePicturePath)!'nullpfp.jpg'}" alt="" class="reviewer-pfp">
                         <div class="review-content">
                             <div class="reviewer-name">${review.customer.username}</div>
+                            <#switch review.rating>
+                            <#on 1>
+                            <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i> ${review.rating}</div>
+                            <#on 2>
+                            <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i> ${review.rating}</div>
+                            <#on 3>
+                            <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i> ${review.rating}</div>
+                            <#on 4>
+                            <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i></i> ${review.rating}</div>
+                            <#on 5>
                             <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i> ${review.rating}</div>
+                            </#switch>
                         </div>
                     </div>
                     <div class="review-text">

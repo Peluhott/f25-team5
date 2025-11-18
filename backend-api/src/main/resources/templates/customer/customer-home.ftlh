@@ -126,9 +126,9 @@
         <#list groupList as group>
         <a href="/group/details/${group.id?c}/${id}" class="link-card">
             <div class="card">
-                <img class="poster" src="${(group.profilePicturePath)!'/customer/images/sampleGroupPoster.webp'}" alt="">
+                <img class="poster" src="/groups/images/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="">
                 <div class="user">
-                    <img class="poster-pfp" src="${(group.profilePicturePath)!'/customer/images/nullpfp.jpg'}" alt="">
+                    <img class="poster-pfp" src="/provider/images/${(group.provider.profilePicturePath)!'nullpfp.jpg'}" alt="">
                     <h5>${group.provider.username}</h5>
                     <#switch group.type>
                         <#on "Hackathon">
@@ -140,7 +140,7 @@
                         <#on "Gaming">
                         <div class="card-type"><i class="fa-jelly fa-regular fa-gamepad"></i>${group.type}</div>
                         <#on "Sports">
-                        <div class="card-type"><i class="fa-duotone fa-regular fa-court-sport"></i>${group.type}</div>
+                        <div class="card-type"><i class="fa-sharp fa-solid fa-court-sport"></i> ${group.type}</div>
                         <#default>
                         <div class="card-type"><i class="fa-solid fa-people-line"></i>${group.type}</div>
                     </#switch>

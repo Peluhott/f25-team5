@@ -40,7 +40,7 @@ public class GroupService {
 
     CustomerRepository customerRepository;
     ProviderService providerService;
-    private static final Path UPLOAD_DIR = Paths.get("src/main/resources/static/groups");
+    private static final Path UPLOAD_DIR = Paths.get("backend-api/src/main/resources/static/groups/images/");
 
     @Autowired // beans for each one will be injected here
     public GroupService(GroupRepository groupRepository,
