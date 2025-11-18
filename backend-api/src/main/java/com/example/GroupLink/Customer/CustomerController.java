@@ -84,8 +84,9 @@ public class CustomerController {
         customer.setUsername(username);
         customer.setEmail(email);
         customer.setPassword(password);
+        model.addAttribute("success", "Account registered successfully");
         customerService.createCustomer(customer, profilePicturePath);
-        return "redirect:/customer/login";
+        return "signup/customer-signup";
     }
 
     @GetMapping("/customer/profile/{id}")
