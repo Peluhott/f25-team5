@@ -22,10 +22,32 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    private static final Path UPLOAD_DIR = Paths.get("src/main/resources/static/customer/images");
+    private static final String UPLOAD_DIR = "backend-api/src/main/resources/static/customer/images/";
 
-    public Customer createCustomer(Customer customer) {
-        return customerRepository.save(customer);
+    public Customer createCustomer(Customer customer, MultipartFile profilePicture) {
+        Customer newCustomer = customerRepository.save(customer);
+
+        String originalFileName = profilePicture.getOriginalFilename();
+
+    try {
+      if (originalFileName != null && originalFileName.contains(".")) {
+        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+        String fileName = String.valueOf(newCustomer.getId()) + "." + fileExtension;
+        Path filePath = Paths.get(UPLOAD_DIR + fileName);
+
+        InputStream inputStream = profilePicture.getInputStream();
+
+        Files.createDirectories(Paths.get(UPLOAD_DIR));// Ensure directory exists
+        Files.copy(inputStream, filePath,
+            StandardCopyOption.REPLACE_EXISTING);// Save picture file
+        newCustomer.setProfilePicturePath(fileName);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+        return customerRepository.save(newCustomer);
+
     }
 
     public Customer updateCustomer(Long id, Customer CustomerDetails){
@@ -37,6 +59,27 @@ public class CustomerService {
         customer.setPassword(CustomerDetails.getPassword());
 
         return customerRepository.save(customer);
+    }
+
+    public Customer updateCustomerPFP(Long id, Customer customer, MultipartFile profilePicture){
+        String originalFileName = profilePicture.getOriginalFilename();
+
+    try {
+      if (originalFileName != null && originalFileName.contains(".")) {
+        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+        String fileName = String.valueOf(id) + "." + fileExtension;
+        Path filePath = Paths.get(UPLOAD_DIR + fileName);
+
+        InputStream inputStream = profilePicture.getInputStream();
+        Files.deleteIfExists(filePath);
+        Files.copy(inputStream, filePath,
+            StandardCopyOption.REPLACE_EXISTING);// Save picture file
+        customer.setProfilePicturePath(fileName);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return customerRepository.save(customer);
     }
 
     public Customer getCustomerById(Long id) {
