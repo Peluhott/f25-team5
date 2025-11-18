@@ -80,34 +80,37 @@
     <div id="main-content">
 
         <div id="change-pfp">
-            <form action="">
-                
+            <form action="" id="change-pfp-form">
+                <h2>Change Profile Picture:</h2>
+                <img src="/Prototype/Customer/images/template-pfp.webp" alt="" id="current-pfp">
+                <input type="file" id="cpi">
+                <input type="submit" value="Save Changes" id="change-pfp-submit" class="cps">
             </form>
-            <img src="/Prototype/Customer/images/template-pfp.webp" alt="" id="pfp">
-            <button id="new-pfp"><i class="fa-solid fa-arrow-up-from-bracket"></i>Upload Image</button>
         </div>
 
         <form action="" id="personal-information-form">
+            <h2>Change Username:</h2>
             <label for="usernname" class="pil">New Username</label>
-            <input type="text" name="username" id="password" placeholder="John Doe" class="pit">
+            <input type="text" name="username" id="password" placeholder="Enter New Username" class="pit">
 
             <label for="email" class="pil">Email</label>
-            <input type="text" name="email" id="email" class="pit" placeholder="jdoe123">
+            <input type="text" name="email" id="email" class="pit" placeholder="Enter Current Email">
 
             <label for="password" class="pil">Password</label>
-            <input type="password" name="password" id="password" placeholder="jdoe@gmail.com" class="pit">
+            <input type="password" name="password" id="password" placeholder="Enter Current Password" class="pit">
 
             <input type="submit" value="Save Changes" class="pis">
         </form>
 
         <form action="" id="change-password-form">
+            <h2>Change Password:</h2>
             <label for="current-password" class="cpl">Current Password:</label>
             <input type="password" name="current-password" placeholder="Enter Current Password" class="cpp">
 
             <label for="new-password" class="cpl">New Password:</label>
             <input type="password" name="new-password" id="" class="cpp" placeholder="Enter New Password">
 
-            <label for="re-new-password" class="cpl">Re-enter New Passoword:</label>
+            <label for="re-new-password" class="cpl">Re-enter New Password:</label>
             <input type="password" name="re-new-password" id="" placeholder="Re-enter New Password" class="cpp">
 
             <input type="submit" value="Save Changes" class="cps">
