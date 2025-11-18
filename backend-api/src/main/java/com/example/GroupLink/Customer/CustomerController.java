@@ -1,5 +1,6 @@
 package com.example.GroupLink.Customer;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.GroupLink.Group.GroupService;
 import com.example.GroupLink.Provider.ProviderService;
@@ -62,7 +66,7 @@ public class CustomerController {
     @RequestParam(value = "email") String email,
     @RequestParam(value = "password") String password,
     @RequestParam(value = "re-password") String rePassword,
-    @RequestParam(value = "profilePicturePath", required = false) String profilePicturePath,
+    @RequestParam(value = "profilePicturePath", required = true) MultipartFile profilePicturePath,
     Model model){
         if(customerService.isEmailTaken(email)){
             model.addAttribute("error", "Email is already registered");
@@ -76,14 +80,76 @@ public class CustomerController {
             model.addAttribute("error", "Passwords do not match");
             return "signup/customer-signup";
         }
-        customerService.createCustomer(new Customer(email, username, password, profilePicturePath));
+        Customer customer = new Customer();
+        customer.setUsername(username);
+        customer.setEmail(email);
+        customer.setPassword(password);
+        customerService.createCustomer(customer, profilePicturePath);
         return "redirect:/customer/login";
     }
 
     @GetMapping("/customer/profile/{id}")
     public Object profile(@PathVariable Long id, Model model){
+        Customer customer = customerService.getCustomerById(id);
+        model.addAttribute("customer", customer);
         model.addAttribute("title", "Profile");
         return "customer/customer-profile";
+    }
+
+    @PostMapping("customer/profile/{id}/updateProfilePicture")
+    public Object updateProfilePicture(@PathVariable Long id, @RequestParam(value = "profilePicturePath") MultipartFile file,
+    RedirectAttributes model){
+        Customer customer = customerService.getCustomerById(id);
+        if (file.isEmpty()) {
+            model.addFlashAttribute("errorPFP", "Please select a file.");
+            return "redirect:/customer/profile/" + id;
+        }
+        customerService.updateCustomerPFP(id, customer, file);
+        model.addFlashAttribute("successPFP", "Profile picture updated successfully");
+        return "redirect:/customer/profile/" + id;
+    }
+
+    @PostMapping("/customer/profile/{id}/updateUsername")
+    public Object updateUsername(@PathVariable Long id, @RequestParam(value = "username") String username,
+    @RequestParam(value = "email") String email,
+    @RequestParam(value = "password") String password, RedirectAttributes model){
+        Customer customer = customerService.getCustomerById(id);
+        if(customerService.isUsernameTaken(username) && !customer.getUsername().equals(username)){
+            model.addFlashAttribute("error", "Username is already taken");
+            return "redirect:/customer/profile/" + id;
+        }
+        if(!customer.getEmail().equals(email)){
+            model.addFlashAttribute("error", "Email does not match");
+            return "redirect:/customer/profile/" + id;
+        }
+        if(!customer.getPassword().equals(password)){
+            model.addFlashAttribute("error", "Incorrect password");
+            return "redirect:/customer/profile/" + id;
+        }
+        customer.setUsername(username);
+        customerService.updateCustomer(id, customer);
+        model.addFlashAttribute("success", "Username updated successfully");
+        return "redirect:/customer/profile/" + id;
+    }
+
+    @PostMapping("/customer/profile/{id}/updatePassword")
+    public Object updatePassword(@PathVariable Long id, 
+    @RequestParam(value = "current-password") String currentPassword,
+    @RequestParam(value = "password") String newPassword,
+    @RequestParam(value = "re-password") String rePassword, RedirectAttributes model){
+        Customer customer = customerService.getCustomerById(id);
+        if(!customer.getPassword().equals(currentPassword)){
+            model.addFlashAttribute("errorPassword", "Current password is incorrect");
+            return "redirect:/customer/profile/" + id;
+        }
+        if(!newPassword.equals(rePassword)){
+            model.addFlashAttribute("errorPassword", "New passwords do not match");
+            return "redirect:/customer/profile/" + id;
+        }
+        customer.setPassword(newPassword);
+        customerService.updateCustomer(id, customer);
+        model.addFlashAttribute("successPassword", "Password updated successfully");
+        return "redirect:/customer/profile/" + id + "?success=passwordUpdated";
     }
 
 
@@ -125,32 +191,6 @@ public class CustomerController {
         model.addAttribute("memberList", groupService.getGroupMembers(id));
         model.addAttribute("reviewList", providerService.getAllReviewsForProvider(providerId));
         return "customer/group-details";
-    }
-
-    @PostMapping("/customers")
-    public ResponseEntity<Customer> createCustomer(@Validated @RequestBody Customer customer) {
-        return ResponseEntity.ok(customerService.createCustomer(customer));
-    }
-
-    @PutMapping("/customer/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @Validated @RequestBody Customer customerDetails) {
-        return ResponseEntity.ok(customerService.updateCustomer(id, customerDetails));
-    }
-
-    @GetMapping("/customer/{id}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
-        return ResponseEntity.ok(customerService.getCustomerById(id));
-    }
-
-    @GetMapping("/customers")
-    public ResponseEntity<List<Customer>> getAllCustomers() {
-        return ResponseEntity.ok(customerService.getAllCustomers());
-    }
-
-    @DeleteMapping("/customer/{id}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
-        customerService.deleteCustomer(id);
-        return ResponseEntity.noContent().build();
     }
 
 }
