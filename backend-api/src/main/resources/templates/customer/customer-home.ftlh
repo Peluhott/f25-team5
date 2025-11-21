@@ -44,13 +44,13 @@
     
     <aside>
         <ul>
-            <a href="/Prototype/Customer/profile.html" title="Profile" class="sidebtn">
+            <a href="/customer/profile/${id}" title="Profile" class="sidebtn">
                 <li><i class="fa-solid fa-user"></i></li>
             </a>
 
             <div id="break"></div>
 
-            <a href="/Prototype/Customer/index.html" title="Home" class="sidebtn">
+            <a href="/customer/home/${id}" title="Home" class="sidebtn">
                 <li> <i class="fa-solid fa-house"></i></li>
             </a>
 
@@ -66,49 +66,69 @@
                 <li><i class="fa-solid fa-people-group"></i></li>
             </a>
 
-            <a href="/Prototype/Login/Login.html" id="logout" title="Logout" class="sidebtn">
+            <a href="/customer/login" id="logout" title="Logout" class="sidebtn">
                 <li id="logout"><i class="fa-solid fa-door-open"></i></li>
             </a>
         </ul>
     </aside>
 
     <div id="filters">
-        <form action="" id="search">
-            <input type="search" name="" id="" placeholder="What are you looking for?">
-            <input type="submit" value="Search">
+        <form action="/customer/home/${id}/search" method="get" id="search">
+            <input type="search" name="query" id="query" placeholder="What are you looking for?">
+
+            <input type="hidden" name="type" value="${type?if_exists}">
+            <input type="hidden" name="location" value="${location?if_exists}">
+            <input type="hidden" name="rating" value="${rating?if_exists}">
+            <button type="submit" id="search-btn">Search</button>
         </form>
 
+        <h2>Filters:</h2>
         <div id="options">
-           <div id="group-type" class="filter">Group options <i class="fa-solid fa-caret-down"></i></div>
-           <div id="leader-rating" class="filter">Minimum Rating <i class="fa-solid fa-caret-down"></i></div>
-           <div id="max-members" class="filter">Member Count <i class="fa-solid fa-caret-down"></i></div>
-           <div id="location" class="filter">Location<i class="fa-solid fa-caret-down"></i></div>
-        </div>
+            <form action="/customer/home/${id}/filter" method="get">
+                <label for="type">Group Types: </label>
+                <select name="type" id="type" class="filter">
+                    <#assign selectedValue = RequestParameters.type!"">
+                    <option value="" <#if "" == selectedValue>selected="selected"</#if>> Any Group Type </option>
+                    <#list groupTypes as type>
+                        <option value="${type}" <#if type == selectedValue>selected="selected"</#if>> ${type} </option>
+                    </#list>
+                </select>
+                <label for="location">Locations: </label>
+                <select name="location" id="location" class="filter">
+                    <#assign selectedValue = RequestParameters.location!"" >
+                    <option value="" <#if "" == selectedValue>selected="selected"</#if>> Any Location </option>
+                    <#list groupLocations as location>
+                        <option value="${location}" <#if location == selectedValue>selected="selected"</#if>> ${location} </option>
+                    </#list>
+                </select> 
 
-        <div id="options-selected">
-            <div class="selected">Any Groups <i class="fa-solid fa-x"></i></div>
-            <div class="selected">Any Rating <i class="fa-solid fa-x"></i></div>
-            <div class="selected">Any Member # <i class="fa-solid fa-x"></i></div>
-        </div>
+                <label for="rating">Host Rating: </label>
+                <select name="rating" id="rating" class="filter">
+                    <#assign selectedValue = RequestParameters.rating!"0.0" >
+                    <option value="0.0" <#if "0.0" == selectedValue>selected="selected"</#if>> Any Rating </option>
+                    <option value="5.0" <#if "5.0" == selectedValue>selected="selected"</#if>> 5 Stars </option>
+                    <option value="4.0" <#if "4.0" == selectedValue>selected="selected"</#if>> 4 Stars & Up </option>
+                    <option value="3.0" <#if "3.0" == selectedValue>selected="selected"</#if>> 3 Stars & Up </option>
+                    <option value="2.0" <#if "2.0" == selectedValue>selected="selected"</#if>> 2 Stars & Up </option>
+                    <option value="1.0" <#if "1.0" == selectedValue>selected="selected"</#if>> 1 Star & Up </option>
+                </select>
 
-        <form action="" id="sortby">
-            <label for="">Sort by:</label>
-            <select name="" id="">
-                <option value="">Newest</option>
-                <option value="">Oldest</option>
-            </select>
-        </form>
+                <input type="hidden" name="query" value="${query?if_exists}">
+                
+                <button type="submit" id="filter-btn">Filter</button>
+            </form>
+        </div>
     </div>
 
 
     <div id="main-content">
 
         <#list groupList as group>
-        <a href="/group/details/${group.id?c}" class="link-card">
+        <a href="/group/details/${group.id?c}/${id}" class="link-card">
             <div class="card">
-                <img class="poster" src="${(group.profilePicturePath)!'/customer/images/sampleGroupPoster.webp'}" alt="">
+                <img class="poster" src="/groups/images/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="">
                 <div class="user">
-                    <img class="poster-pfp" src="${(group.profilePicturePath)!'/customer/images/nullpfp.jpg'}" alt="">
+                    <img class="poster-pfp" src="/provider/images/${(group.provider.profilePicturePath)!'nullpfp.jpg'}" alt="">
                     <h5>${group.provider.username}</h5>
                     <#switch group.type>
                         <#on "Hackathon">
@@ -117,6 +137,10 @@
                         <div class="card-type"><i class="fa-solid fa-book"></i>${group.type}</div>
                         <#on "Volunteer">
                         <div class="card-type"><i class="fa-solid fa-handshake-angle"></i>${group.type}</div>
+                        <#on "Gaming">
+                        <div class="card-type"><i class="fa-jelly fa-regular fa-gamepad"></i>${group.type}</div>
+                        <#on "Sports">
+                        <div class="card-type"><i class="fa-sharp fa-solid fa-court-sport"></i> ${group.type}</div>
                         <#default>
                         <div class="card-type"><i class="fa-solid fa-people-line"></i>${group.type}</div>
                     </#switch>
@@ -134,6 +158,9 @@
                 <div class="location"><i class="fa-regular fa-earth-americas"></i> ${group.location}</div>
             </div>
         </a>
+
+        <#else>
+            <p id="no-results" style="font-size: xx-large; font-weight: bold; margin-left: 30%; margin-top: 10%;">No groups found matching your criteria. <i class="fa-light fa-face-disappointed"></i></p>
         </#list>
         
     </div>

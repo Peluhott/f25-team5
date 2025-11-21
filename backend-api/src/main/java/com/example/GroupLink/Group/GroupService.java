@@ -1,14 +1,17 @@
 package com.example.GroupLink.Group;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,7 +40,7 @@ public class GroupService {
 
     CustomerRepository customerRepository;
     ProviderService providerService;
-    private static final Path UPLOAD_DIR = Paths.get("backend-api/src/main/resources/static/groups");
+    private static final Path UPLOAD_DIR = Paths.get("backend-api/src/main/resources/static/groups/images/");
 
     @Autowired // beans for each one will be injected here
     public GroupService(GroupRepository groupRepository,
@@ -139,6 +142,24 @@ public class GroupService {
             }
         }
         return activeMems;
+    }
+
+    public List<Group> filterGroups(String type, String location, String rating) {
+        Double providerRating = rating == null ? 0.0 : Double.parseDouble(rating);
+        return groupRepository.findByTypeContainingAndLocationContainingAndProviderAverageRatingGreaterThanEqual(
+                type,location, providerRating);
+    }
+
+    public List<String> getDistinctGroupTypes() {
+        return groupRepository.findDistinctTypes();
+    }
+
+    public List<String> getDistinctGroupLocations() {
+        return groupRepository.findDistinctLocations();
+    }
+
+    public List<Group> searchGroupsByName(String query) {
+        return groupRepository.findByNameContainingIgnoreCase(query);
     }
 
 }

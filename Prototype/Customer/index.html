@@ -75,29 +75,50 @@
     <div id="filters">
         <form action="" id="search">
             <input type="search" name="" id="" placeholder="What are you looking for?">
-            <input type="submit" value="Search">
+            <input type="submit" value="Search" id="search-btn">
         </form>
 
+        <h2>Filters</h2>
         <div id="options">
-           <div id="group-type" class="filter">Group options <i class="fa-solid fa-caret-down"></i></div>
-           <div id="leader-rating" class="filter">Minimum Rating <i class="fa-solid fa-caret-down"></i></div>
-           <div id="max-members" class="filter">Member Count <i class="fa-solid fa-caret-down"></i></div>
-           <div id="location" class="filter">Location<i class="fa-solid fa-caret-down"></i></div>
-        </div>
+            <form action="">
+                <label for="filter-options">Filter by:</label>
+                <select name="group-type" id="group-type" class="filter">
+                    <option value="">All Group Types</option>
+                    <option value="">Hackathon</option>
+                    <option value="">Study</option>
+                    <option value="">Volunteer</option>
+                </select>
 
-        <div id="options-selected">
-            <div class="selected">Any Groups <i class="fa-solid fa-x"></i></div>
-            <div class="selected">Any Rating <i class="fa-solid fa-x"></i></div>
-            <div class="selected">Any Member # <i class="fa-solid fa-x"></i></div>
-        </div>
+                <label for="minimum-rating">Minimum Rating:</label>
+                <select name="minimum-rating" id="minimum-rating" class="filter">
+                    <option value="">All Ratings</option>
+                    <option value=""> 1-2 </option>
+                    <option value=""> 2-3 </option>
+                    <option value=""> 4-5 </option>
+                </select>
 
-        <form action="" id="sortby">
-            <label for="">Sort by:</label>
-            <select name="" id="">
-                <option value="">Newest</option>
-                <option value="">Oldest</option>
-            </select>
-        </form>
+                <select name="member-count" id="member-count" class="filter">
+                    <option value="">Any Size Group</option>
+                    <option value=""> 1-5 </option>
+                    <option value=""> 5-10 </option>
+                    <option value=""> 10-20 </option>
+                    <option value=""> 20-50 </option>
+                    <option value=""> 50-100 </option>
+                    <option value=""> 100+ </option>
+                </select>
+
+                <select name="location" id="location" class="filter">
+                    <option value="">Any Location</option>
+                    <option value=""> Online </option>
+                </select> 
+
+                <select name="sortby" id="sortby" class="filter">
+                    <option value="">Newest</option>
+                    <option value="">Oldest</option>
+                </select>
+                <input type="submit" value="Filter" id="filter-btn">
+            </form>
+        </div>
     </div>
 
 

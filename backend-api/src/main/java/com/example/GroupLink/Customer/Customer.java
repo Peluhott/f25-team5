@@ -31,7 +31,7 @@ public class Customer {
     private String email;
 
     @Column(nullable = false)
-    private String name;
+    private String username;
 
     @Column(nullable = false)
     private String password;
@@ -49,19 +49,26 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String email, String name, String password, List<GroupMembership> groupMemberships, List<Review> reviews, String profilePicturePath) {
+    public Customer(String email, String username, String password, String profilePicturePath) {
         this.email = email;
-        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.profilePicturePath = profilePicturePath;
+    }
+
+    public Customer(String email, String username, String password, List<GroupMembership> groupMemberships, List<Review> reviews, String profilePicturePath) {
+        this.email = email;
+        this.username = username;
         this.password = password;
         this.groupMemberships = groupMemberships;
         this.reviews = reviews;
         this.profilePicturePath = profilePicturePath;
     }
 
-    public Customer(long id, String email, String name, String password, List<GroupMembership> groupMemberships, List<Review> reviews, String profilePicturePath) {
+    public Customer(long id, String email, String username, String password, List<GroupMembership> groupMemberships, List<Review> reviews, String profilePicturePath) {
         this.id = id;
         this.email = email;
-        this.name = name;
+        this.username = username;
         this.password = password;
         this.groupMemberships = groupMemberships;
         this.reviews = reviews;
@@ -84,12 +91,12 @@ public class Customer {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

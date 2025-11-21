@@ -47,12 +47,11 @@ input {
     box-sizing: border-box;
 }
 
-#signup{
+input[type=submit] {
     text-decoration: none;
     padding: 15px 0;
-    height: 2vh;
+    height: 5%;
     width: 60%;
-    margin-left: 20%;
     color: white;
     font-weight: bold;
     background-color: rgb(0, 0, 0);
