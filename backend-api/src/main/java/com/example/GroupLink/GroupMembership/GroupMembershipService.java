@@ -1,5 +1,6 @@
 package com.example.GroupLink.GroupMembership;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -16,7 +17,8 @@ public class GroupMembershipService {
     private CustomerService customerService;
     private GroupService groupService;
 
-    public GroupMembershipService(GroupMembershipRepository groupMembershipRepository, CustomerService customerService, GroupService groupService) {
+    public GroupMembershipService(GroupMembershipRepository groupMembershipRepository, CustomerService customerService,
+            GroupService groupService) {
         this.groupMembershipRepository = groupMembershipRepository;
         this.customerService = customerService;
         this.groupService = groupService;
@@ -42,6 +44,30 @@ public class GroupMembershipService {
 
     public GroupMembership getGroupMembershipById(long membershipId) {
         return groupMembershipRepository.getReferenceById(membershipId);
+    }
+
+    public void updateGroupMembershipStatus(Long id, String status) {
+        GroupMembership membershipToUpdate = getGroupMembershipById(id);
+        membershipToUpdate.setStatus(status);
+
+        groupMembershipRepository.save(membershipToUpdate);
+
+    }
+
+    public List<GroupMembership> getPendingApplicationsByProvider(Long id) {
+        List<GroupMembership> memberships = groupMembershipRepository.findByGroup_Provider_Id(id);
+        List<GroupMembership> pendingMem = new ArrayList<>();
+
+        if (memberships != null) {
+            for (GroupMembership m : memberships) {
+                String status = m.getStatus();
+                if (status != null && "pending".equalsIgnoreCase(status.trim())) {
+                    pendingMem.add(m);
+                }
+            }
+        }
+
+        return pendingMem;
     }
 
     public void cancelGroupMembership(Long id) {

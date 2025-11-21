@@ -1,5 +1,6 @@
 package com.example.GroupLink.Group;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class GroupService {
 
     CustomerRepository customerRepository;
     ProviderService providerService;
-    private static final Path UPLOAD_DIR = Paths.get("src/main/resources/static/groups");
+    private static final Path UPLOAD_DIR = Paths.get("backend-api/src/main/resources/static/groups");
 
     @Autowired // beans for each one will be injected here
     public GroupService(GroupRepository groupRepository,
@@ -81,7 +82,7 @@ public class GroupService {
             try (InputStream in = file.getInputStream()) {
                 Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
             }
-            return fileName;
+            return "groups/" + fileName;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -124,9 +125,20 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
+    public List<Group> getAllGroupsForProvider(Long providerId) {
+        return groupRepository.findByProvider_Id(providerId);
+    }
+
     public List<GroupMembership> getGroupMembers(Long groupId) {
         Group group = getGroupById(groupId);
-        return group.getMemberships();
+        List<GroupMembership> activeMems = new ArrayList<>();
+
+        for (GroupMembership mem : group.getMemberships()) {
+            if (mem.getStatus().equalsIgnoreCase("active")) {
+                activeMems.add(mem);
+            }
+        }
+        return activeMems;
     }
 
 }
