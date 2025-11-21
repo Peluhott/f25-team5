@@ -85,7 +85,7 @@ public class GroupService {
             try (InputStream in = file.getInputStream()) {
                 Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
             }
-            return fileName;
+            return "groups/" + fileName;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -128,9 +128,20 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
+    public List<Group> getAllGroupsForProvider(Long providerId) {
+        return groupRepository.findByProvider_Id(providerId);
+    }
+
     public List<GroupMembership> getGroupMembers(Long groupId) {
         Group group = getGroupById(groupId);
-        return group.getMemberships();
+        List<GroupMembership> activeMems = new ArrayList<>();
+
+        for (GroupMembership mem : group.getMemberships()) {
+            if (mem.getStatus().equalsIgnoreCase("active")) {
+                activeMems.add(mem);
+            }
+        }
+        return activeMems;
     }
 
     public List<Group> filterGroups(String type, String location, String rating) {

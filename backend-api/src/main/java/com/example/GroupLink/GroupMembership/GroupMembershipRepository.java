@@ -9,9 +9,11 @@ import com.example.GroupLink.Customer.Customer;
 import com.example.GroupLink.Group.Group;
 
 @Repository
-public interface  GroupMembershipRepository extends JpaRepository<GroupMembership, Long>{
-    
+public interface GroupMembershipRepository extends JpaRepository<GroupMembership, Long> {
+
     List<GroupMembership> findByCustomer(Customer customer);
 
     List<GroupMembership> findByGroup(Group group);
+
+    List<GroupMembership> findByGroup_Provider_Id(Long providerId);
 }
