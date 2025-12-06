@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Long> {
     // create group
+    List<Group> findByProvider_Id(Long providerId);
+
     public List<Group> findByTypeContainingAndLocationContainingAndProviderAverageRatingGreaterThanEqual(
             String type, String location, Double rating);
 

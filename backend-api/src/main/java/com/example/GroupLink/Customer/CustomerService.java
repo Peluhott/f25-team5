@@ -11,6 +11,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.GroupLink.CustomerNotification.CustomerNotification;
+import com.example.GroupLink.Group.Group;
+import com.example.GroupLink.GroupMembership.GroupMembership;
+
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -110,6 +114,26 @@ public class CustomerService {
 
     public boolean isUsernameTaken(String username) {
         return customerRepository.existsByUsername(username);
+    }
+
+    public List<CustomerNotification> getCustomerNotifications(Long customerId) {
+        Customer customer = getCustomerById(customerId);
+        return customerRepository.findAllNotificationsByIdDesc(customer.getId());
+    }
+
+    public List<GroupMembership> getCustomerActiveGroupMemberships(Long customerId) {
+        Customer customer = getCustomerById(customerId);
+        return customerRepository.findAcceptedActiveGroupMembershipsByIdDesc(customer.getId());
+    }
+
+    public List<GroupMembership> getCustomerInactiveGroupMemberships(Long customerId) {
+        Customer customer = getCustomerById(customerId);
+        return customerRepository.findAcceptedInactiveGroupMembershipsByIdDesc(customer.getId());
+    }
+
+    public List<GroupMembership> getCustomerPendingGroupMemberships(Long customerId) {
+        Customer customer = getCustomerById(customerId);
+        return customerRepository.findPendingGroupMembershipsByIdDesc(customer.getId());
     }
 
     public void deleteCustomer(Long id) {
