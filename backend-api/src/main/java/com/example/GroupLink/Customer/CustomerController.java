@@ -1,20 +1,10 @@
 package com.example.GroupLink.Customer;
 
-import java.lang.ProcessBuilder.Redirect;
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -192,6 +182,24 @@ public class CustomerController {
         model.addAttribute("memberList", groupService.getGroupMembers(id));
         model.addAttribute("reviewList", providerService.getAllReviewsForProvider(providerId));
         return "customer/group-details";
+    }
+
+    @GetMapping("/customer/notifications/{id}")
+    public Object getCustomerNotifications(@PathVariable Long id, Model model){
+        model.addAttribute("customer", customerService.getCustomerById(id));
+        model.addAttribute("notificationsList", customerService.getCustomerNotifications(id));
+        model.addAttribute("title", "Notifications");
+        return "customer/customer-notification";
+    }
+
+    @GetMapping("/customer/groups/{id}")
+    public Object getCustomerGroups(@PathVariable Long id, Model model){
+        model.addAttribute("customer", customerService.getCustomerById(id));
+        model.addAttribute("activeGroupMembershipsList", customerService.getCustomerActiveGroupMemberships(id));
+        model.addAttribute("inactiveGroupMembershipsList", customerService.getCustomerInactiveGroupMemberships(id));
+        model.addAttribute("pendingGroupMembershipsList", customerService.getCustomerPendingGroupMemberships(id));
+        model.addAttribute("title", "My Groups");
+        return "customer/customer-groups";
     }
 
 }

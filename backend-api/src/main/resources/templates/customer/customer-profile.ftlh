@@ -57,7 +57,7 @@
                 <li> <i class="fa-solid fa-house"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/notifications.html" title="Notifications">
+            <a href="/customer/notifications/${id}" title="Notifications">
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
@@ -65,7 +65,7 @@
                 <li><i class="fa-solid fa-envelope"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/groups.html" title="Your Groups">
+            <a href="/customer/groups/${id}" title="Your Groups">
                 <li><i class="fa-solid fa-people-group"></i></li>
             </a>
 

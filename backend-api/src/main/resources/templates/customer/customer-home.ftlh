@@ -54,7 +54,7 @@
                 <li> <i class="fa-solid fa-house"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/notifications.html" title="Notifications" class="sidebtn">
+            <a href="/customer/notifications/${id}" title="Notifications" class="sidebtn">
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
@@ -62,7 +62,7 @@
                 <li><i class="fa-solid fa-envelope"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/groups.html" title="Your Groups" class="sidebtn">
+            <a href="/customer/groups/${id}" title="Your Groups" class="sidebtn">
                 <li><i class="fa-solid fa-people-group"></i></li>
             </a>
 
@@ -160,7 +160,7 @@
         </a>
 
         <#else>
-            <p id="no-results" style="font-size: xx-large; font-weight: bold; margin-left: 30%; margin-top: 10%;">No groups found matching your criteria. <i class="fa-light fa-face-disappointed"></i></p>
+            <p id="no-results" style="font-size: xx-large; font-weight: bold; margin-left: 40%; margin-top: 15%;">No groups found<i class="fa-light fa-face-disappointed"></i></p>
         </#list>
         
     </div>

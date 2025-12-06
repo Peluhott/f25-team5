@@ -2,6 +2,7 @@ package com.example.GroupLink.Customer;
 
 import java.util.List;
 
+import com.example.GroupLink.CustomerNotification.CustomerNotification;
 import com.example.GroupLink.GroupMembership.GroupMembership;
 import com.example.GroupLink.Review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -44,6 +45,10 @@ public class Customer {
     @JsonIgnoreProperties("customer")
     private List<Review> reviews;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("customer")
+    private List<CustomerNotification> notifications;
+
     private String profilePicturePath;
 
     public Customer() {
@@ -56,22 +61,24 @@ public class Customer {
         this.profilePicturePath = profilePicturePath;
     }
 
-    public Customer(String email, String username, String password, List<GroupMembership> groupMemberships, List<Review> reviews, String profilePicturePath) {
+    public Customer(String email, String username, String password, List<GroupMembership> groupMemberships, List<Review> reviews, List<CustomerNotification> customerNotifications, String profilePicturePath) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.groupMemberships = groupMemberships;
         this.reviews = reviews;
+        this.notifications = customerNotifications;
         this.profilePicturePath = profilePicturePath;
     }
 
-    public Customer(long id, String email, String username, String password, List<GroupMembership> groupMemberships, List<Review> reviews, String profilePicturePath) {
+    public Customer(long id, String email, String username, String password, List<GroupMembership> groupMemberships, List<Review> reviews, List<CustomerNotification> customerNotifications,String profilePicturePath) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.password = password;
         this.groupMemberships = groupMemberships;
         this.reviews = reviews;
+        this.notifications = customerNotifications;
         this.profilePicturePath = profilePicturePath;
     }
 
@@ -113,6 +120,10 @@ public class Customer {
 
     public List<Review> getReviews() {
         return reviews;
+    }
+
+    public List<CustomerNotification> getNotifications() {
+        return notifications;
     }
 
     public String getProfilePicturePath() {
