@@ -174,7 +174,7 @@ h2 {
 .card {
     border-width: 0.5px;
     border: solid;
-    border-color: lightgray;
+    border-color: black;
     display: flex;
     flex-direction: column;
     width: 100%;
