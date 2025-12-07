@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,33 +10,21 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/b69a734b4d.js" crossorigin="anonymous"></script>
     <link
-    rel="stylesheet"
-    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/all.css"
-  />
+        href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b69a734b4d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.0/css/all.css" />
 
-  <link
-    rel="stylesheet"
-    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-solid.css"
-  />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-solid.css" />
 
-  <link
-    rel="stylesheet"
-    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-regular.css"
-  />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-regular.css" />
 
-  <link
-    rel="stylesheet"
-    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-light.css"
-  />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-light.css" />
 
-  <link
-    rel="stylesheet"
-    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/duotone.css"
-  />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.0/css/duotone.css" />
 </head>
+
 <body>
 
     <header>
@@ -63,7 +52,7 @@
                 <li><i class="fa-solid fa-envelope"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/groups.html" title="Your Groups">
+            <a href="/customer/groups/${customerId}" title="Your Groups">
                 <li><i class="fa-solid fa-people-group"></i></li>
             </a>
 
@@ -74,31 +63,45 @@
     </aside>
     <div id="main-content">
         <h2>${group.name}</h2>
-        <img style="object-fit: cover;" src="/provider/images/${(group.provider.profilePicturePath)!'nullpfp.jpg'}" alt="" class="provider-pfp">
+        <img style="object-fit: cover;" src="/provider/images/${(group.provider.profilePicturePath)!'nullpfp.jpg'}"
+            alt="" class="provider-pfp">
         <div id="provider-details">
             <div class="provider-name">${group.provider.username}</div>
             <div class="rating">
                 <div id="stars">
-                    <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i>
+                    <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
+                        class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
+                        class="fa-sharp fa-solid fa-star"></i>
                 </div>
                 <div class="rating-number">${group.provider.averageRating}</div>
                 <div class="rating-reviews">(${group.provider.reviewCount} reviews)</div>
             </div>
         </div>
         <div id="banner">
-            <img style="height: 100%; width: 100%; object-fit: cover;" src="/groups/images/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="" id="banner-img">
+            <img style="height: 100%; width: 100%; object-fit: cover;"
+                src="/groups/images/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="" id="banner-img">
         </div>
 
         <div id="info">
             <div class="location"><i class="fa-regular fa-earth-americas"></i>Location: ${group.location}</div>
-            <div class="member-count"><i class="fa-solid fa-people-group"></i>Member Count: ${group.activeMem}/${group.maxMem}</div>
+            <div class="member-count"><i class="fa-solid fa-people-group"></i>Member Count:
+                ${group.activeMem}/${group.maxMem}</div>
 
             <div id="actions">
-                <button id="apply"><i class="fa-solid fa-right-to-bracket"></i>Apply to group</button>
+                <#if error??>
+                    <p class="error" style="color: red; margin-bottom: -1%;">${error}</p>
+                </#if>
+                <#if success??>
+                    <p class="success" style="color: green; margin-bottom: -1%;">${success}</p>
+                </#if>
+                <form action="/group/details/${id}/${customerId}/apply" method="post" id="apply-form">
+                    <label for="message" style="font-weight: bold;">Leave a note to apply to this group...</label>
+                    <textarea name="message" rows="5" cols="20" placeholder="Hi, I would like to join your group..."
+                        required></textarea>
+                    <input type="submit" value="Apply to group" id="apply">
+                </form>
                 <button id="message"><i class="fa-solid fa-message"></i>Message host</button>
-                <button id="review"><i class="fa-solid fa-star-sharp-half-stroke"></i>Leave Review</button>
             </div>
-
         </div>
         <div id="description">
             <h3>About this Group:</h3>
@@ -109,34 +112,55 @@
             <h3>Host Reviews:</h3>
             <div class="review-cardstack">
                 <#list reviewList as review>
-                <div class="review-card">
-                    <div class="reviewer-content">
-                            <img src="/customer/images/${(review.customer.profilePicturePath)!'nullpfp.jpg'}" alt="" class="reviewer-pfp">
-                        <div class="review-content">
-                            <div class="reviewer-name">${review.customer.username}</div>
-                            <#switch review.rating>
-                            <#on 1>
-                            <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i> ${review.rating}</div>
-                            <#on 2>
-                            <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i> ${review.rating}</div>
-                            <#on 3>
-                            <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i> ${review.rating}</div>
-                            <#on 4>
-                            <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i></i> ${review.rating}</div>
-                            <#on 5>
-                            <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i> ${review.rating}</div>
-                            </#switch>
+                    <div class="review-card">
+                        <div class="reviewer-content">
+                            <img src="/customer/images/${(review.customer.profilePicturePath)!'nullpfp.jpg'}" alt=""
+                                class="reviewer-pfp">
+                            <div class="review-content">
+                                <div class="reviewer-name">${review.customer.username}</div>
+                                <#switch review.rating>
+                                    <#on 1>
+                                        <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i>
+                                            ${review.rating}</div>
+                                        <#on 2>
+                                            <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i><i
+                                                    class="fa-sharp fa-solid fa-star"></i> ${review.rating}</div>
+                                            <#on 3>
+                                                <div class="review-rating"><i class="fa-sharp fa-solid fa-star"></i><i
+                                                        class="fa-sharp fa-solid fa-star"></i><i
+                                                        class="fa-sharp fa-solid fa-star"></i> ${review.rating}</div>
+                                                <#on 4>
+                                                    <div class="review-rating"><i
+                                                            class="fa-sharp fa-solid fa-star"></i><i
+                                                            class="fa-sharp fa-solid fa-star"></i><i
+                                                            class="fa-sharp fa-solid fa-star"></i><i
+                                                            class="fa-sharp fa-solid fa-star"></i></i> ${review.rating}
+                                                    </div>
+                                                    <#on 5>
+                                                        <div class="review-rating"><i
+                                                                class="fa-sharp fa-solid fa-star"></i><i
+                                                                class="fa-sharp fa-solid fa-star"></i><i
+                                                                class="fa-sharp fa-solid fa-star"></i><i
+                                                                class="fa-sharp fa-solid fa-star"></i><i
+                                                                class="fa-sharp fa-solid fa-star"></i> ${review.rating}
+                                                        </div>
+                                </#switch>
+                            </div>
+                        </div>
+                        <div class="review-text">
+                            ${review.message}
                         </div>
                     </div>
-                    <div class="review-text">
-                        ${review.message}
-                    </div>
-                </div>
+                    <#else>
+                        <p id="no-results"
+                            style="font-size: xx-large; font-weight: bold; margin-left: 5%; margin-top: 1%;">No reviews
+                            found</p>
                 </#list>
             </div>
-            
+
         </div>
     </div>
-    
+
 </body>
+
 </html>
