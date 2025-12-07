@@ -94,9 +94,12 @@
             <div class="member-count"><i class="fa-solid fa-people-group"></i>Member Count: 1/4</div>
 
             <div id="actions">
-                <button id="apply"><i class="fa-solid fa-right-to-bracket"></i>Apply to group</button>
+                <form action="" id="apply-form">
+                    <label for="message" style="font-weight: bold;">Leave a note to apply to this group...</label>
+                    <textarea  name="message" rows="5" cols="20" placeholder="Hi, I would like to join your group..." required></textarea>
+                    <input type="submit" value="Apply to group" id="apply">
+                </form>
                 <button id="message"><i class="fa-solid fa-message"></i>Message host</button>
-                <button id="review"><i class="fa-solid fa-star-sharp-half-stroke"></i>Leave Review</button>
             </div>
 
 
