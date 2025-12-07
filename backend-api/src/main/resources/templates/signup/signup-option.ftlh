@@ -19,7 +19,7 @@
             <div id="looking">Looking for groups?</div>
         </a>
         <h4>or</h4>
-        <a href="/Prototype/Provider/ProviderSignUp.html" class="option">
+        <a href="/provider/signup" class="option">
             <div id="creating">Creating groups?</div>
         </a>
 

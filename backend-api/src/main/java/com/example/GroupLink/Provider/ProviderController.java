@@ -25,7 +25,7 @@ public class ProviderController {
 
     public ProviderController(ProviderService providerService,
             GroupMembershipService groupMembershipService,
-            ReviewService reviewServicek,
+            ReviewService reviewService,
             GroupService groupService) {
         this.providerService = providerService;
         this.groupMembershipService = groupMembershipService;
@@ -43,7 +43,7 @@ public class ProviderController {
 
     @GetMapping("/provider/login")
     public Object login() {
-        return "login/login-screen";
+        return "provider/provider-login";
     }
 
     @GetMapping("/provider/signup-options")
@@ -54,7 +54,7 @@ public class ProviderController {
     @GetMapping("/provider/signup")
     public Object signup(Model model) {
         model.addAttribute("provider", new Provider());
-        return "signup/provider-signup";
+        return "provider/provider-signup";
     }
 
     @PostMapping("/provider/login")
