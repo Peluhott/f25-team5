@@ -426,3 +426,12 @@ header {
     font-weight: normal;
     
 }
+
+.member-pfp {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 50%;      
+    border: 1px solid #e6e6e6;
+    flex: 0 0 56px;        
+}

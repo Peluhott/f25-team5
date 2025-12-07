@@ -38,4 +38,11 @@ public class GroupMembershipController {
         return "redirect:/provider/" + providerId + "/applications";
     }
 
+    @PostMapping("/application/remove")
+    public Object removeMember(@RequestParam Long membershipId, @RequestParam String status,
+            @RequestParam Long providerId) {
+        groupMembershipService.updateGroupMembershipStatus(membershipId, status);
+        return "redirect:/provider/home/" + providerId;
+    }
+
 }

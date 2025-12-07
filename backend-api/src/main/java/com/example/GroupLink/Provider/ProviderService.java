@@ -2,6 +2,7 @@ package com.example.GroupLink.Provider;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.GroupLink.Customer.Customer;
 import com.example.GroupLink.GroupMembership.GroupMembershipService;
 import com.example.GroupLink.Review.ReviewRepository;
 import com.example.GroupLink.Review.ReviewService;
@@ -27,7 +29,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.GroupLink.Review.Review;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ProviderService {
@@ -43,7 +48,7 @@ public class ProviderService {
 
     }
 
-    private static final Path UPLOAD_DIR = Paths.get("src/main/resources/provider");
+    private static final Path UPLOAD_DIR = Paths.get("backend-api/src/main/resources/static/provider/images/");
 
     public Provider getProviderById(long id) {
         return providerRepository.findById(id)
@@ -60,7 +65,7 @@ public class ProviderService {
             if (original == null || !original.contains("."))
                 return null;
             String ext = original.substring(original.lastIndexOf('.') + 1);
-            String fileName = "provider" + providerId + "." + ext;
+            String fileName = UUID.randomUUID().toString() + "provider" + providerId + "." + ext;
             Files.createDirectories(UPLOAD_DIR);
             Path target = UPLOAD_DIR.resolve(fileName);
             try (InputStream in = file.getInputStream()) {
@@ -110,12 +115,74 @@ public class ProviderService {
         return existing;
     }
 
+    public Provider updateProfilePicture(Long providerId, MultipartFile file) {
+        Provider existing = providerRepository.findById(providerId)
+                .orElseThrow(() -> new IllegalArgumentException("Provider " + providerId + " not found"));
+
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("No file uploaded");
+        }
+
+        String fileName = saveProfilePicture(providerId, file);
+        if (fileName == null) {
+            throw new IllegalArgumentException("Failed to save profile picture");
+        }
+
+        existing.setProfilePicturePath(fileName);
+        return providerRepository.save(existing);
+    }
+
+    // New: update username/email (requires current password)
+    @Transactional
+    public Provider updateProfile(Long providerId, String newUsername, String newEmail, String currentPassword) {
+        Provider existing = providerRepository.findById(providerId)
+                .orElseThrow(() -> new IllegalArgumentException("Provider " + providerId + " not found"));
+
+        if (currentPassword == null || !existing.getPassword().equals(currentPassword)) {
+            throw new IllegalArgumentException("Incorrect current password");
+        }
+
+        if (newUsername != null && !newUsername.isBlank()) {
+            existing.setUsername(newUsername);
+        }
+        if (newEmail != null && !newEmail.isBlank()) {
+            existing.setEmail(newEmail);
+        }
+
+        return providerRepository.save(existing);
+    }
+
+    // New: update password
+    @Transactional
+    public Provider updatePassword(Long providerId, String currentPassword, String newPassword, String rePassword) {
+        Provider existing = providerRepository.findById(providerId)
+                .orElseThrow(() -> new IllegalArgumentException("Provider " + providerId + " not found"));
+
+        if (currentPassword == null || !existing.getPassword().equals(currentPassword)) {
+            throw new IllegalArgumentException("Incorrect current password");
+        }
+        if (newPassword == null || !newPassword.equals(rePassword)) {
+            throw new IllegalArgumentException("New passwords do not match");
+        }
+
+        existing.setPassword(newPassword);
+        return providerRepository.save(existing);
+    }
+
     public void deleteProvider(Long providerId) {
         providerRepository.deleteById(providerId);
     }
 
     public List<Review> getAllReviewsForProvider(Long providerId) {
         return reviewRepository.findByProvider_Id(providerId);
+    }
+
+    public boolean authenticate(String username, String password) {
+        Provider provider = providerRepository.findByUsername(username);
+        if (provider != null) {
+            return provider.getPassword().equals(password);
+        }
+        return false;
     }
 
 }

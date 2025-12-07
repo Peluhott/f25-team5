@@ -2,6 +2,7 @@ package com.example.GroupLink.Review;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.io.IOException;
 import java.io.File;
 
@@ -27,7 +28,8 @@ public class ReviewService {
     ProviderService providerService;
     GroupService groupService;
 
-    public ReviewService(ReviewRepository reviewRepository, ProviderService providerService, GroupService groupService) {
+    public ReviewService(ReviewRepository reviewRepository, ProviderService providerService,
+            GroupService groupService) {
         this.reviewRepository = reviewRepository;
         this.providerService = providerService;
         this.groupService = groupService;
@@ -95,6 +97,20 @@ public class ReviewService {
 
     public void deleteReview(Long reviewId) {
         reviewRepository.deleteById(reviewId);
+    }
+
+    public List<Review> getReviewsForProvider(Long providerId) {
+        if (providerId == null)
+            return List.of();
+        return reviewRepository.findByProvider_Id(providerId);
+    }
+
+    @Transactional
+    public Review replyToReview(Long reviewId, String response) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("Review " + reviewId + " not found"));
+        review.setResponse(response);
+        return reviewRepository.save(review);
     }
 
 }
