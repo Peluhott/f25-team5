@@ -32,7 +32,7 @@
     <h1>GroupLink</h1>
   </header>
 
-  <div class="main-content">
+  <div class="group-detail-content">
 
     <div class="group-detail-top">
       <div class="group-title-block">
@@ -65,10 +65,9 @@
           <dd>${group.activeMem!0}</dd>
 
           <dt>Active</dt>
-          <dd><#if group.active?? && group.active>0>Yes<#else>No</#if></dd>
+          <dd><#if group.active?? && group.active>Yes<#else>No</#if></dd>
 
-          <dt>Profile Picture Path</dt>
-          <dd>${group.profilePicturePath! "—"}</dd>
+         
         </dl>
 
         <div class="group-content-block">
