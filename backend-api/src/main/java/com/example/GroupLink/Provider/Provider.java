@@ -2,7 +2,9 @@ package com.example.GroupLink.Provider;
 
 import java.util.List;
 
+import com.example.GroupLink.CustomerNotification.CustomerNotification;
 import com.example.GroupLink.Group.Group;
+import com.example.GroupLink.ProviderNotification.ProviderNotification;
 import com.example.GroupLink.Review.Review;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -36,6 +38,10 @@ public class Provider {
     @JsonIgnoreProperties("provider")
     private List<Review> reviews;
 
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("provider")
+    private List<ProviderNotification> notifications;
+
     private String profilePicturePath;
     private double averageRating;
     private int reviewCount;
@@ -43,8 +49,9 @@ public class Provider {
     public Provider() {
     }
 
-    public Provider(long id, String email, String username, String password, String profilePicturePath, Double averageRating,
-            int reviewCount, List<Group> groups, List<Review> reviews) {
+    public Provider(long id, String email, String username, String password, String profilePicturePath,
+            Double averageRating,
+            int reviewCount, List<Group> groups, List<Review> reviews, List<ProviderNotification> notifications) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -54,10 +61,11 @@ public class Provider {
         this.reviewCount = reviewCount;
         this.groups = groups;
         this.reviews = reviews;
+        this.notifications = notifications;
     }
 
     public Provider(String email, String username, String password, String profilePicturePath, Double averageRating,
-            int reviewCount, List<Group> groups, List<Review> reviews) {
+            int reviewCount, List<Group> groups, List<Review> reviews, List<ProviderNotification> notifications) {
 
         this.email = email;
         this.username = username;
@@ -67,6 +75,7 @@ public class Provider {
         this.reviewCount = reviewCount;
         this.groups = groups;
         this.reviews = reviews;
+        this.notifications = notifications;
     }
 
     public Long getId() {
