@@ -20,7 +20,7 @@
 <body>
     <aside>
         <ul>
-            <a href="/provider/group/1" title="Home" class="sidebtn" id="home-page">
+            <a href="/provider/home/${providerId}" title="Home" class="sidebtn" id="home-page">
                 <li><i class="fa-solid fa-house"></i></li>
             </a>
             
@@ -28,17 +28,17 @@
                 <li><i class="fa-solid fa-bell"></i></li>
             </a>
             
-            <a href="/provider/1/applications" title="Profile" class="sidebtn" id="people-link">
+            <a href="/provider/profile/${providerId}" title="Profile" class="sidebtn" id="people-link">
                 <li><i class="fa-solid fa-user"></i></li>
             </a>
 
             <div id="break"></div>
 
-            <a href="#" title="Messages" class="sidebtn" id="reviews-link">
+            <a href="/provider/${providerId}/reviews" title="Messages" class="sidebtn" id="reviews-link">
                 <li><i class="fa-solid fa-envelope"></i></li>
             </a>
 
-            <a href="#" title="Your Groups" class="sidebtn" id="group-link">
+            <a href="/provider/${providerId}/applications" title="Your Groups" class="sidebtn" id="group-link">
                 <li><i class="fa-solid fa-people-group"></i></li>
             </a>
 
@@ -58,6 +58,7 @@
         
         <div class="group-create">
         <form action="/group/create" method="post" enctype="multipart/form-data" class="create-group-form">
+            <input type="hidden" name="providerId" value="${providerId!}">
             <label>Group Name:</label>
             <input type="text" name="name" required>
 
