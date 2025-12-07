@@ -28,4 +28,12 @@ public class ReviewController {
     // update reviews
     // delete reviews
 
+    @PostMapping("/provider/{providerId}/reviews/{reviewId}/reply")
+    public String replyToReview(@PathVariable Long providerId,
+            @PathVariable Long reviewId,
+            @RequestParam("response") String response) {
+        reviewService.replyToReview(reviewId, response);
+        return "redirect:/provider/" + providerId + "/reviews";
+    }
+
 }
