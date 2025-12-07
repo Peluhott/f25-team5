@@ -22,5 +22,8 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     @Query("SELECT DISTINCT g.location FROM Group g")
     List<String> findDistinctLocations();
 
+    @Query("SELECT g FROM Group g WHERE g.active = true")
+    List<Group> findByActiveTrue();
+
    
 }

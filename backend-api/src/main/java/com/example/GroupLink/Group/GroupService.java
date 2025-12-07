@@ -128,6 +128,10 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
+    public List<Group> getAllActiveGroups() {
+        return groupRepository.findByActiveTrue();
+    }
+
     public List<Group> getAllGroupsForProvider(Long providerId) {
         return groupRepository.findByProvider_Id(providerId);
     }

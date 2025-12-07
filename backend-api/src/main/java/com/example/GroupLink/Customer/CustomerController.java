@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.GroupLink.Group.GroupService;
+import com.example.GroupLink.GroupMembership.GroupMembership;
+import com.example.GroupLink.GroupMembership.GroupMembershipService;
 import com.example.GroupLink.Provider.ProviderService;
 
 @Controller
@@ -18,11 +20,13 @@ public class CustomerController {
     private CustomerService customerService;
     private GroupService groupService;
     private ProviderService providerService;
+    private GroupMembershipService groupMembershipService;
 
-    public CustomerController(CustomerService customerService, GroupService groupService, ProviderService providerService) {
+    public CustomerController(CustomerService customerService, GroupService groupService, ProviderService providerService, GroupMembershipService groupMembershipService) {
         this.customerService = customerService;
         this.groupService = groupService;
         this.providerService = providerService;
+        this.groupMembershipService = groupMembershipService;
     }
 
     @GetMapping("/customer/login")
@@ -147,7 +151,7 @@ public class CustomerController {
 
     @GetMapping("/customer/home/{id}")
     public Object home(@PathVariable Long id, Model model){
-        model.addAttribute("groupList", groupService.getAllGroups());
+        model.addAttribute("groupList", groupService.getAllActiveGroups());
         model.addAttribute("groupLocations", groupService.getDistinctGroupLocations());
         model.addAttribute("groupTypes", groupService.getDistinctGroupTypes());
         model.addAttribute("title", "GroupLink");
@@ -184,6 +188,22 @@ public class CustomerController {
         return "customer/group-details";
     }
 
+    @PostMapping("/group/details/{id}/{customerId}/apply")
+    public Object applyToGroup(@PathVariable Long id, @PathVariable Long customerId, @RequestParam(value = "message") String message , RedirectAttributes model){
+        if(groupMembershipService.doesGroupMembershipExist(customerId, id)){
+            model.addFlashAttribute("error", "You have already applied or are a member of this group");
+            return "redirect:/group/details/" + id + "/" + customerId;
+        }
+        GroupMembership membership = new GroupMembership();
+        membership.setGroupId(id);
+        membership.setCustomerId(customerId);
+        membership.setStatus("pending");
+        membership.setMessage(message);
+        groupMembershipService.createGroupMembership(membership);
+        model.addFlashAttribute("success", "Application submitted successfully");
+        return "redirect:/group/details/" + id + "/" + customerId;
+    }
+
     @GetMapping("/customer/notifications/{id}")
     public Object getCustomerNotifications(@PathVariable Long id, Model model){
         model.addAttribute("customer", customerService.getCustomerById(id));
@@ -200,6 +220,16 @@ public class CustomerController {
         model.addAttribute("pendingGroupMembershipsList", customerService.getCustomerPendingGroupMemberships(id));
         model.addAttribute("title", "My Groups");
         return "customer/customer-groups";
+    }
+
+    @GetMapping("/customer/group/details/{id}/{customerId}")
+    public Object getCustomerGroupDetails(@PathVariable Long id, @PathVariable Long customerId, Model model){
+        long providerId = groupService.getGroupById(id).getProvider().getId();
+        model.addAttribute("group", groupService.getGroupById(id));
+        model.addAttribute("title", "Group Details");
+        model.addAttribute("memberList", groupService.getGroupMembers(id));
+        model.addAttribute("reviewList", providerService.getAllReviewsForProvider(providerId));
+        return "customer/customer-group-details";
     }
 
 }
