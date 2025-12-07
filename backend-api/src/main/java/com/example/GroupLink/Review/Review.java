@@ -49,6 +49,10 @@ public class Review {
         return provider;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setProvider(Provider provider) {
         this.provider = provider;
     }
