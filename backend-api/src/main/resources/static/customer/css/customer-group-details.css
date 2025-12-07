@@ -165,12 +165,12 @@ h2 {
     margin-left: 10%;
     border-width: 0.5px;
     margin-top: -175px;
-    padding: 5px;
+    padding-top: 5px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     width: 40%;
-    height: fit-content;
+    height: 300px;
     border: solid;
     border-color: #525252;
     background-color: #F5E7DE;
@@ -185,7 +185,7 @@ h2 {
 
 .member-count {
     display: flex;
-    margin-top: 3%;
+    margin-top: 5%;
     margin-left: 5px;
     font-weight: bold;
 }
@@ -202,25 +202,10 @@ h3 {
     border-bottom: solid;
 }
 
-#apply-form{
-    display: flex;
-    flex-direction: column;
-    margin-top: 5%;
-    width: 100%;
-    height: 30%;
-}
-textarea {
-    resize: none;
-    width: 96%;
-    margin-top: 5px;
-    padding: 10px;
-    font-size: medium;
-}
-
 #actions{
     display: flex;
     flex-direction: column;
-    margin-top: 1%;
+    margin-top: 5%;
     height: fit-content;
 }
 
@@ -233,8 +218,6 @@ button {
 
 #apply {
     background-color: #F2BFA4;
-    height: 40px;
-    font-weight: bold;
 }
 
 #apply:hover {
