@@ -16,11 +16,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.GroupLink.CustomerNotification.CustomerNotification;
+import com.example.GroupLink.CustomerNotification.CustomerNotificationService;
+
 @Controller
 public class ReviewController {
 
-    @Autowired
     private ReviewService reviewService;
+    private CustomerNotificationService customerNotificationService;
+
+    public ReviewController(ReviewService reviewService, CustomerNotificationService customerNotificationService) {
+        this.reviewService = reviewService;
+        this.customerNotificationService = customerNotificationService;
+    }
 
     // create review
     // get reviews per group
@@ -33,6 +41,11 @@ public class ReviewController {
             @PathVariable Long reviewId,
             @RequestParam("response") String response) {
         reviewService.replyToReview(reviewId, response);
+        Review review = reviewService.getReviewById(reviewId);
+        Long customerId = review.getCustomer().getId();
+        String type = "Reply";
+        String message = "A provider has responded to your review";
+        customerNotificationService.createCustomerNotification(customerId, type, message);
         return "redirect:/provider/" + providerId + "/reviews";
     }
 
