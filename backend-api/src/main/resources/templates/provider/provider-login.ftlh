@@ -26,7 +26,7 @@
             <input type="password" name="password" id="password" placeholder="Enter your password">
 
             <input type="submit" value="Login">
-            <a href="/provider/login" class="provider-login-btn">Customer Login</a>
+            <a href="/customer/login" class="provider-login-btn">Customer Login</a>
         </form>
 
         <p>Not Registered? 
