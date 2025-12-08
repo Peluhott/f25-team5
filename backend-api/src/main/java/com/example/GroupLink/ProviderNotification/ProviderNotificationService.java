@@ -3,9 +3,12 @@ package com.example.GroupLink.ProviderNotification;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.stereotype.Service;
+
 import com.example.GroupLink.ProviderNotification.ProviderNotification;
 import com.example.GroupLink.ProviderNotification.ProviderNotificationRepository;
 
+@Service
 public class ProviderNotificationService {
     private ProviderNotificationRepository providerNotificationRepository;
 
