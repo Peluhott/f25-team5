@@ -166,4 +166,9 @@ public class GroupService {
         return groupRepository.findByNameContainingIgnoreCase(query);
     }
 
+    public boolean isGroupInactive(Long groupId) {
+        Group group = getGroupById(groupId);
+        return !group.getActive();
+    }
+
 }

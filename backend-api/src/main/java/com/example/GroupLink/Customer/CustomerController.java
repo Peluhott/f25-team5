@@ -13,6 +13,8 @@ import com.example.GroupLink.Group.GroupService;
 import com.example.GroupLink.GroupMembership.GroupMembership;
 import com.example.GroupLink.GroupMembership.GroupMembershipService;
 import com.example.GroupLink.Provider.ProviderService;
+import com.example.GroupLink.Review.Review;
+import com.example.GroupLink.Review.ReviewService;
 
 @Controller
 public class CustomerController {
@@ -21,12 +23,14 @@ public class CustomerController {
     private GroupService groupService;
     private ProviderService providerService;
     private GroupMembershipService groupMembershipService;
+    private ReviewService reviewService;
 
-    public CustomerController(CustomerService customerService, GroupService groupService, ProviderService providerService, GroupMembershipService groupMembershipService) {
+    public CustomerController(CustomerService customerService, GroupService groupService, ProviderService providerService, GroupMembershipService groupMembershipService, ReviewService reviewService) {
         this.customerService = customerService;
         this.groupService = groupService;
         this.providerService = providerService;
         this.groupMembershipService = groupMembershipService;
+        this.reviewService = reviewService;
     }
 
     @GetMapping("/customer/login")
@@ -227,9 +231,42 @@ public class CustomerController {
         long providerId = groupService.getGroupById(id).getProvider().getId();
         model.addAttribute("group", groupService.getGroupById(id));
         model.addAttribute("title", "Group Details");
+        model.addAttribute("isMember", groupMembershipService.isCustomerMemberOfGroup(customerId, id));
+        model.addAttribute("isPending", groupMembershipService.isCustomerPendingInGroup(customerId, id));
+        model.addAttribute("isInactive", groupService.isGroupInactive(id));
+        model.addAttribute("isRemoved", groupMembershipService.isMembershipRemoved(customerId, id));
         model.addAttribute("memberList", groupService.getGroupMembers(id));
         model.addAttribute("reviewList", providerService.getAllReviewsForProvider(providerId));
         return "customer/customer-group-details";
+    }
+
+    @PostMapping("/customer/group/leave/{groupId}/{customerId}")
+    public Object leaveGroup(@PathVariable Long groupId, @PathVariable Long customerId, RedirectAttributes model){
+        Long membershipId = groupMembershipService.getGroupMembershipIdByCustomerAndGroup(customerId, groupId);
+        groupMembershipService.removeGroupMembership(membershipId);
+        model.addFlashAttribute("success", "You have left the group successfully");
+        return "redirect:/customer/groups/" + customerId;
+    }
+
+    @GetMapping("/customer/group/cancelApplication/{groupId}/{customerId}")
+    public Object cancelGroupApplication(@PathVariable Long groupId, @PathVariable Long customerId, RedirectAttributes model){
+        Long membershipId = groupMembershipService.getGroupMembershipIdByCustomerAndGroup(customerId, groupId);
+        groupMembershipService.cancelGroupMembership(membershipId);
+        model.addFlashAttribute("success", "You have cancelled your application successfully");
+        return "redirect:/customer/groups/" + customerId;
+    }
+
+    @PostMapping("/customer/review/{groupId}/{customerId}")
+    public Object submitReview(@PathVariable Long groupId, @PathVariable Long customerId, @RequestParam(value= "rating") int rating, @RequestParam(value = "message") String message ,RedirectAttributes model){
+        long providerId = groupService.getGroupById(groupId).getProvider().getId();
+        model.addFlashAttribute("success", "Review submitted successfully");
+        Review review = new Review();
+        review.setCustomer(customerService.getCustomerById(customerId));
+        review.setProvider(providerService.getProviderById(providerId));
+        review.setMessage(message);
+        review.setRating(rating);
+        reviewService.createReview(providerId, review);
+        return "redirect:/customer/group/details/" + groupId + "/" + customerId;
     }
 
 }
