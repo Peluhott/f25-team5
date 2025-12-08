@@ -1,5 +1,7 @@
 package com.example.GroupLink.CustomerNotification;
 
+import java.time.LocalDateTime;
+
 import com.example.GroupLink.Customer.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,7 +22,7 @@ public class CustomerNotification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String type;
 
     @Column(nullable = false)
@@ -38,6 +40,14 @@ public class CustomerNotification {
     private Customer customer;
 
     public CustomerNotification() {
+    }
+
+    public CustomerNotification(Customer customer, String type, String message, String timestamp) {
+        this.customer = customer;
+        this.type = type;
+        this.message = message;
+        this.read = false;
+        this.timestamp = timestamp;
     }
 
     public CustomerNotification(String type, String message, boolean read, String timestamp) {
@@ -102,5 +112,5 @@ public class CustomerNotification {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    
+
 }
