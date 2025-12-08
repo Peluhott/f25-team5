@@ -18,7 +18,7 @@
             <#if error??>
                 <p class="error" style="color: red;">${error}</p>
             </#if>
-        <form action="/customer/login" method="post">
+        <form action="/provider/login" method="post">
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" placeholder="Enter your username">
 
@@ -26,7 +26,7 @@
             <input type="password" name="password" id="password" placeholder="Enter your password">
 
             <input type="submit" value="Login">
-            <a href="/provider/login" class="provider-login-btn">Provider Login</a>
+            <a href="/provider/login" class="provider-login-btn">Customer Login</a>
         </form>
 
         <p>Not Registered? 

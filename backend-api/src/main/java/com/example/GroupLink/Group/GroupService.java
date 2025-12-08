@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -56,6 +57,10 @@ public class GroupService {
                 .orElseThrow(() -> new IllegalArgumentException(id + " not found"));
     }
 
+    public Group save(Group group) {
+        return groupRepository.save(group);
+    }
+
     public Group createGroup(Group group, Long providerId, MultipartFile profilePicture) {
         Provider provider = providerService.getProviderById(providerId);
         group.setProvider(provider);
@@ -79,13 +84,13 @@ public class GroupService {
             if (original == null || !original.contains("."))
                 return null;
             String ext = original.substring(original.lastIndexOf('.') + 1);
-            String fileName = "group" + groupId + "." + ext;
+            String fileName = UUID.randomUUID().toString() + "group" + groupId + "." + ext;
             Files.createDirectories(UPLOAD_DIR);
             Path target = UPLOAD_DIR.resolve(fileName);
             try (InputStream in = file.getInputStream()) {
                 Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
             }
-            return "groups/" + fileName;
+            return "groups/images/" + fileName;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -151,7 +156,7 @@ public class GroupService {
     public List<Group> filterGroups(String type, String location, String rating) {
         Double providerRating = rating == null ? 0.0 : Double.parseDouble(rating);
         return groupRepository.findByTypeContainingAndLocationContainingAndProviderAverageRatingGreaterThanEqual(
-                type,location, providerRating);
+                type, location, providerRating);
     }
 
     public List<String> getDistinctGroupTypes() {

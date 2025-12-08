@@ -73,3 +73,21 @@ body {
       margin-top: 40px;
       text-align: center;
     }
+
+    .provider-login-btn {
+    display: block;
+    width: 30%;
+    text-align: center;
+    margin: 10px auto 0;
+    padding: 10px;
+    background-color: #4CAF50; 
+    color: white;
+    border-radius: 4px;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.provider-login-btn:hover {
+    background-color: #45a049; 
+}

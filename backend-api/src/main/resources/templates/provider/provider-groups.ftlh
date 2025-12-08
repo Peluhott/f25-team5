@@ -19,16 +19,16 @@
 <body>
     <aside>
         <ul>
-            <a href="/provider/group/1" class="sidebtn" id="home-page"><li><i class="fa-solid fa-house"></i></li></a>
+            <a href="/provider/home/${providerId}" class="sidebtn" id="home-page"><li><i class="fa-solid fa-house"></i></li></a>
             <a href="#" class="sidebtn" id="notification-link"><li><i class="fa-solid fa-bell"></i></li></a>
-            <a href="/provider/1/applications" class="sidebtn" id="people-link"><li><i class="fa-solid fa-user"></i></li></a>
+            <a href="/provider/profile/${providerId}" class="sidebtn" id="people-link"><li><i class="fa-solid fa-user"></i></li></a>
 
             <div id="break"></div>
 
-            <a href="#" class="sidebtn" id="reviews-link"><li><i class="fa-solid fa-envelope"></i></li></a>
-            <a href="#" class="sidebtn" id="group-link"><li><i class="fa-solid fa-people-group"></i></li></a>
+            <a href="/provider/${providerId}/reviews" class="sidebtn" id="reviews-link"><li><i class="fa-solid fa-envelope"></i></li></a>
+            <a href="/provider/${providerId}/applications" class="sidebtn" id="group-link"><li><i class="fa-solid fa-people-group"></i></li></a>
 
-            <a href="/Prototype/Provider/Login.html" class="sidebtn" id="logout">
+            <a href="/provider/login" class="sidebtn" id="logout">
                 <li><i class="fa-solid fa-door-open"></i></li>
             </a>
         </ul>
@@ -45,8 +45,8 @@
         <#if groups?size == 0>
             <div class="group-create">
                 <p>Create a Group</p>
-                <a href="/group/create">
-                    <img src="/images/createbutton.png" class="create-icon">
+                <a href="/group/create/${providerId}">
+                    <img src="/groups/createbutton.png" class="create-icon">
                 </a>
             </div>
 
@@ -77,7 +77,7 @@
     <p class="group-members">Members: ${group.activeMem}</p>
 
     <!-- View Details Button -->
-    <a href="/group/${group.id}">
+    <a href="/provider/${providerId}/group/${group.id}">
         <button class="reply-btn">View Details</button>
     </a>
 
@@ -86,7 +86,7 @@
                 </#list>
                 <div class="group-create">
                 <p>Create a Group</p>
-                <a href="/group/create">
+                <a href="/group/create/${providerId}">
                     <img src="/groups/createbutton.png" class="create-icon">
                 </a>
             </div>

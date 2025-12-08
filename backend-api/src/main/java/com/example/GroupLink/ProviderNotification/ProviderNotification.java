@@ -1,8 +1,7 @@
-package com.example.GroupLink.CustomerNotification;
-
-import java.time.LocalDateTime;
+package com.example.GroupLink.ProviderNotification;
 
 import com.example.GroupLink.Customer.Customer;
+import com.example.GroupLink.Provider.Provider;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -15,14 +14,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "customer_notifications")
-public class CustomerNotification {
+@Table(name = "provider_notifications")
+public class ProviderNotification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String type;
 
     @Column(nullable = false)
@@ -35,29 +34,21 @@ public class CustomerNotification {
     private String timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn(name = "provider_id", nullable = false)
     @JsonIgnoreProperties("notifications")
-    private Customer customer;
+    private Provider provider;
 
-    public CustomerNotification() {
+    public ProviderNotification() {
     }
 
-    public CustomerNotification(Customer customer, String type, String message, String timestamp) {
-        this.customer = customer;
-        this.type = type;
-        this.message = message;
-        this.read = false;
-        this.timestamp = timestamp;
-    }
-
-    public CustomerNotification(String type, String message, boolean read, String timestamp) {
+    public ProviderNotification(String type, String message, boolean read, String timestamp) {
         this.type = type;
         this.message = message;
         this.read = read;
         this.timestamp = timestamp;
     }
 
-    public CustomerNotification(Long id, String type, String message, boolean read, String timestamp) {
+    public ProviderNotification(Long id, String type, String message, boolean read, String timestamp) {
         this.id = id;
         this.type = type;
         this.message = message;
@@ -105,12 +96,12 @@ public class CustomerNotification {
         this.timestamp = timestamp;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Provider getProvider() {
+        return provider;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
 }
