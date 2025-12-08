@@ -90,7 +90,7 @@ public class GroupService {
             try (InputStream in = file.getInputStream()) {
                 Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
             }
-            return "groups/" + fileName;
+            return "groups/images/" + fileName;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
