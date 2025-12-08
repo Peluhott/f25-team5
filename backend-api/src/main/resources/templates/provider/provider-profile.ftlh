@@ -134,7 +134,25 @@
 
             <input type="submit" value="Save Changes" class="cps">
         </form>
+
+        <!-- Delete provider account -->
+        <form action="/provider/profile/${id}/delete" method="post"
+              onsubmit="return confirmProviderDelete();" style="margin-top:18px;">
+            <input type="hidden" name="providerId" value="${id}">
+            <button type="submit" class="btn danger" style="background:#c62828;color:#fff;padding:10px 14px;border-radius:6px;border:none;">
+                Delete Account
+            </button>
+        </form>
+
     </div>
+
+    <script>
+        // Require typing YES to confirm sensitive delete action
+        function confirmProviderDelete() {
+            var input = prompt("Type YES to confirm account deletion. This cannot be undone.");
+            return (input === "YES");
+        }
+    </script>
     
 </body>
 </html>

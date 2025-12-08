@@ -42,7 +42,7 @@
                 <li><i class="fa-solid fa-people-group"></i></li>
             </a>
 
-            <a href="/Prototype/Provider/Login.html" id="logout" title="Logout" class="sidebtn">
+            <a href="/provider/login" id="logout" title="Logout" class="sidebtn">
                 <li><i class="fa-solid fa-door-open"></i></li>
             </a>
         </ul>
