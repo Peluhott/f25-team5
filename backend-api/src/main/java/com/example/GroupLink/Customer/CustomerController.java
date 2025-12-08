@@ -13,6 +13,8 @@ import com.example.GroupLink.Group.GroupService;
 import com.example.GroupLink.GroupMembership.GroupMembership;
 import com.example.GroupLink.GroupMembership.GroupMembershipService;
 import com.example.GroupLink.Provider.ProviderService;
+import com.example.GroupLink.ProviderNotification.ProviderNotification;
+import com.example.GroupLink.ProviderNotification.ProviderNotificationService;
 import com.example.GroupLink.Review.Review;
 import com.example.GroupLink.Review.ReviewService;
 
@@ -24,13 +26,15 @@ public class CustomerController {
     private ProviderService providerService;
     private GroupMembershipService groupMembershipService;
     private ReviewService reviewService;
+    private ProviderNotificationService providerNotificationService;
 
-    public CustomerController(CustomerService customerService, GroupService groupService, ProviderService providerService, GroupMembershipService groupMembershipService, ReviewService reviewService) {
+    public CustomerController(CustomerService customerService, GroupService groupService, ProviderService providerService, GroupMembershipService groupMembershipService, ReviewService reviewService, ProviderNotificationService providerNotificationService) {
         this.customerService = customerService;
         this.groupService = groupService;
         this.providerService = providerService;
         this.groupMembershipService = groupMembershipService;
         this.reviewService = reviewService;
+        this.providerNotificationService = providerNotificationService;
     }
 
     @GetMapping("/customer/login")
@@ -203,6 +207,14 @@ public class CustomerController {
         membership.setCustomerId(customerId);
         membership.setStatus("pending");
         membership.setMessage(message);
+
+        ProviderNotification notification = new ProviderNotification();
+        notification.setType("newApplication");
+        notification.setMessage("New application for group: " +  groupService.getGroupById(id).getName());
+        notification.setRead(false);
+        notification.setProvider(providerService.getProviderById(groupService.getGroupById(id).getProvider().getId()));
+        notification.setTimestamp("");
+        providerNotificationService.createNotification(notification);
         groupMembershipService.createGroupMembership(membership);
         model.addFlashAttribute("success", "Application submitted successfully");
         return "redirect:/group/details/" + id + "/" + customerId;
@@ -214,6 +226,20 @@ public class CustomerController {
         model.addAttribute("notificationsList", customerService.getCustomerNotifications(id));
         model.addAttribute("title", "Notifications");
         return "customer/customer-notification";
+    }
+
+    @GetMapping("customer/reviews/{id}")
+    public Object getCustomerReviews(@PathVariable Long id, Model model){
+        model.addAttribute("customer", customerService.getCustomerById(id));
+        model.addAttribute("reviewsList", reviewService.getReviewsForCustomer(id));
+        model.addAttribute("title", "My Reviews");
+        return "customer/customer-reviews";
+    }
+
+    @PostMapping("customer/review/delete/{reviewId}/{customerId}")
+    public Object deleteCustomerReview(@PathVariable Long reviewId, @PathVariable Long customerId, RedirectAttributes model){
+        reviewService.deleteReview(reviewId);
+        return "redirect:/customer/reviews/" + customerId;
     }
 
     @GetMapping("/customer/groups/{id}")
@@ -265,6 +291,16 @@ public class CustomerController {
         review.setProvider(providerService.getProviderById(providerId));
         review.setMessage(message);
         review.setRating(rating);
+        reviewService.updateAverageRatingForProvider(providerId);
+        reviewService.updateNumberOfRatingsForProvider(providerId);
+
+        ProviderNotification notification = new ProviderNotification();
+        notification.setType("newReview");
+        notification.setMessage("New review from: " + customerService.getCustomerById(customerId).getUsername());
+        notification.setRead(false);
+        notification.setProvider(providerService.getProviderById(providerId));
+        notification.setTimestamp("");
+        providerNotificationService.createNotification(notification);
         reviewService.createReview(providerId, review);
         return "redirect:/customer/group/details/" + groupId + "/" + customerId;
     }

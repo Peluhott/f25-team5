@@ -1,6 +1,5 @@
 package com.example.GroupLink.ProviderNotification;
 
-import com.example.GroupLink.Customer.Customer;
 import com.example.GroupLink.Provider.Provider;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,7 +20,7 @@ public class ProviderNotification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String type;
 
     @Column(nullable = false)

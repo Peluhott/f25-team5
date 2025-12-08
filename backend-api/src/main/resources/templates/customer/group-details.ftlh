@@ -48,7 +48,7 @@
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/messages.html" title="Your Reviews" class="sidebtn">
+            <a href="/customer/reviews/${customerId}" title="Your Reviews" class="sidebtn">
                 <li><i class="fa-solid fa-hand-holding-star"></i></li>
             </a>
 
@@ -93,7 +93,7 @@
         </div>
         <div id="banner">
             <img style="height: 100%; width: 100%; object-fit: cover;"
-                src="/groups/images/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="" id="banner-img">
+                src="/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="" id="banner-img">
         </div>
 
         <div id="info">

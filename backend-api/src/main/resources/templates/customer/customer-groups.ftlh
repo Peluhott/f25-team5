@@ -48,7 +48,7 @@
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/messages.html" title="Your Reviews" class="sidebtn">
+            <a href="/customer/reviews/${id}" title="Your Reviews" class="sidebtn">
                 <li><i class="fa-solid fa-hand-holding-star"></i></li>
             </a>
 
@@ -70,7 +70,7 @@
                 <a href="/customer/group/details/${groupMembership.group.id?c}/${id}" class="link-card" style="width: 23%;">
                         <div class="card">
                         <img class="poster"
-                            src="/groups/images/${(groupMembership.group.profilePicturePath)!'sampleGroupPoster.webp'}"
+                            src="/${(groupMembership.group.profilePicturePath)!'sampleGroupPoster.webp'}"
                             alt="">
                         <div class="user">
                             <img class="poster-pfp"
@@ -120,7 +120,7 @@
                 <a href="/customer/group/details/${groupMembership.group.id?c}/${id}" class="link-card" style="width: 23%;">
                     <div class="card">
                         <img class="poster"
-                            src="/groups/images/${(groupMembership.group.profilePicturePath)!'sampleGroupPoster.webp'}"
+                            src="/${(groupMembership.group.profilePicturePath)!'sampleGroupPoster.webp'}"
                             alt="">
                         <div class="user">
                             <img class="poster-pfp"
@@ -170,7 +170,7 @@
                 <a href="/customer/group/details/${groupMembership.group.id?c}/${id}" class="link-card">
                     <div class="card">
                         <img class="poster"
-                            src="/groups/images/${(groupMembership.group.profilePicturePath)!'sampleGroupPoster.webp'}"
+                            src="/${(groupMembership.group.profilePicturePath)!'sampleGroupPoster.webp'}"
                             alt="">
                         <div class="user">
                             <img class="poster-pfp"

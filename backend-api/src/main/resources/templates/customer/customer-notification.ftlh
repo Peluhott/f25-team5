@@ -48,7 +48,7 @@
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/messages.html" title="Your Reviews" class="sidebtn">
+            <a href="/customer/reviews/${id}" title="Your Reviews" class="sidebtn">
                 <li><i class="fa-solid fa-hand-holding-star"></i></li>
             </a>
 
@@ -85,7 +85,7 @@
             </div>
                 <#else>
                     <p id="no-results"
-                        style="font-size: xx-large; font-weight: bold; margin-left: 30%; margin-top: 10%;">No new
+                        style="font-size: xx-large; font-weight: bold; margin-left: 40%; margin-top: 10%;">No new
                         notifications. <i class="fa-regular fa-face-smile"></i></p>
         </#list>
     </div>

@@ -1,14 +1,11 @@
 package com.example.GroupLink.GroupMembership;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.GroupLink.Customer.Customer;
 import com.example.GroupLink.Customer.CustomerService;
-import com.example.GroupLink.CustomerNotification.CustomerNotification;
 import com.example.GroupLink.CustomerNotification.CustomerNotificationService;
 import com.example.GroupLink.Group.GroupService;
 
@@ -40,12 +37,12 @@ public class GroupMembershipController {
         String message = "";
         if (status.equalsIgnoreCase("active")) {
             type = "accepted";
-            message = "you have been accepted into a group!";
+            message = "You've been accepted into "+ mem.getGroup().getName();
         } else {
             type = "rejected";
-            message = "your application was denied";
+            message = "Your application was denied for " + mem.getGroup().getName();
         }
-
+        groupMembershipService.updateGroupMembershipStatus(membershipId, type);
         customerNotificationService.createCustomerNotification(customerId, type, message);
         return "redirect:/provider/" + providerId + "/applications";
     }

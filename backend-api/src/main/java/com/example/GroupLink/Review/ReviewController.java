@@ -44,7 +44,7 @@ public class ReviewController {
         Review review = reviewService.getReviewById(reviewId);
         Long customerId = review.getCustomer().getId();
         String type = "Reply";
-        String message = "A provider has responded to your review";
+        String message = review.getProvider().getUsername() + " has responded to your review";
         customerNotificationService.createCustomerNotification(customerId, type, message);
         return "redirect:/provider/" + providerId + "/reviews";
     }

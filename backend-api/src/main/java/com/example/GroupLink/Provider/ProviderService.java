@@ -184,5 +184,11 @@ public class ProviderService {
         }
         return false;
     }
+    
+    public long getProviderIdByReviewId(Long reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("Review " + reviewId + " not found"));
+        return review.getProvider().getId();
+    }
 
 }
