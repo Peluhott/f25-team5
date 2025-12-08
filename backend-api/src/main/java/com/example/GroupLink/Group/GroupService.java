@@ -64,6 +64,7 @@ public class GroupService {
     public Group createGroup(Group group, Long providerId, MultipartFile profilePicture) {
         Provider provider = providerService.getProviderById(providerId);
         group.setProvider(provider);
+        group.setActive(true);
 
         Group savedGroup = groupRepository.save(group);
 
