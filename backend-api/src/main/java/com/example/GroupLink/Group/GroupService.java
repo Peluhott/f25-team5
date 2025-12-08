@@ -133,6 +133,10 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
+    public List<Group> getAllActiveGroups() {
+        return groupRepository.findByActiveTrue();
+    }
+
     public List<Group> getAllGroupsForProvider(Long providerId) {
         return groupRepository.findByProvider_Id(providerId);
     }
@@ -165,6 +169,11 @@ public class GroupService {
 
     public List<Group> searchGroupsByName(String query) {
         return groupRepository.findByNameContainingIgnoreCase(query);
+    }
+
+    public boolean isGroupInactive(Long groupId) {
+        Group group = getGroupById(groupId);
+        return !group.getActive();
     }
 
 }

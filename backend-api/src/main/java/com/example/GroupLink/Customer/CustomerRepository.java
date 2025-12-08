@@ -25,7 +25,7 @@ public interface  CustomerRepository extends JpaRepository<Customer, Long>{
     @Query("SELECT gm FROM GroupMembership gm WHERE gm.customer.id = ?1 AND gm.status = 'accepted' AND gm.group.active = true ORDER BY gm.id DESC")
     List<GroupMembership> findAcceptedActiveGroupMembershipsByIdDesc(Long id);
 
-    @Query("SELECT gm FROM GroupMembership gm WHERE gm.customer.id = ?1 AND gm.status = 'accepted' AND gm.group.active = false ORDER BY gm.id DESC")
+    @Query("SELECT gm FROM GroupMembership gm WHERE gm.customer.id = ?1 AND gm.status = 'accepted' AND gm.group.active = false OR gm.status = 'removed' ORDER BY gm.id DESC")
     List<GroupMembership> findAcceptedInactiveGroupMembershipsByIdDesc(Long id);
 
     @Query("SELECT gm FROM GroupMembership gm WHERE gm.customer.id = ?1 AND gm.status = 'pending' ORDER BY gm.id DESC")

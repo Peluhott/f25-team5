@@ -34,6 +34,17 @@ public class GroupMembershipService {
         return groupMembershipRepository.save(groupMembership);
     }
 
+    public boolean doesGroupMembershipExist(Long customerId, Long groupId) {
+        List<GroupMembership> memberships = groupMembershipRepository.findByCustomer(
+                customerService.getCustomerById(customerId));
+        for (GroupMembership membership : memberships) {
+            if (membership.getGroup().getId().equals(groupId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<GroupMembership> getGroupMembershipsByCustomer(Customer customer) {
         return groupMembershipRepository.findByCustomer(customer);
     }
@@ -70,9 +81,63 @@ public class GroupMembershipService {
         return pendingMem;
     }
 
+    public long getGroupMembershipIdByCustomerAndGroup(Long customerId, Long groupId) {
+        List<GroupMembership> memberships = groupMembershipRepository.findByCustomer(
+                customerService.getCustomerById(customerId));
+        for (GroupMembership membership : memberships) {
+            if (membership.getGroup().getId().equals(groupId)) {
+                return membership.getId();
+            }
+        }
+        throw new IllegalArgumentException("Group membership not found for the given customer and group IDs");
+    }
+
+    public boolean isCustomerMemberOfGroup(Long customerId, Long groupId) {
+        List<GroupMembership> memberships = groupMembershipRepository.findByCustomer(
+                customerService.getCustomerById(customerId));
+        for (GroupMembership membership : memberships) {
+            if (membership.getGroup().getId().equals(groupId)
+                    && "accepted".equalsIgnoreCase(membership.getStatus().trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isCustomerPendingInGroup(Long customerId, Long groupId) {
+        List<GroupMembership> memberships = groupMembershipRepository.findByCustomer(
+                customerService.getCustomerById(customerId));
+        for (GroupMembership membership : memberships) {
+            if (membership.getGroup().getId().equals(groupId)
+                    && "pending".equalsIgnoreCase(membership.getStatus().trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isMembershipRemoved(Long customerId, Long groupId) {
+        List<GroupMembership> memberships = groupMembershipRepository.findByCustomer(
+                customerService.getCustomerById(customerId));
+        for (GroupMembership membership : memberships) {
+            if (membership.getGroup().getId().equals(groupId)
+                    && "removed".equalsIgnoreCase(membership.getStatus().trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void cancelGroupMembership(Long id) {
         GroupMembership groupMembership = groupMembershipRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Group membership not found"));
         groupMembershipRepository.delete(groupMembership);
+    }
+
+    public GroupMembership removeGroupMembership(Long id) {
+        GroupMembership groupMembership = groupMembershipRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Group membership not found"));
+        groupMembership.setStatus("removed");
+        return groupMembershipRepository.save(groupMembership);
     }
 }

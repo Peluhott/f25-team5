@@ -10,7 +10,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.GroupLink.Group.GroupService;
+import com.example.GroupLink.GroupMembership.GroupMembership;
+import com.example.GroupLink.GroupMembership.GroupMembershipService;
 import com.example.GroupLink.Provider.ProviderService;
+import com.example.GroupLink.Review.Review;
+import com.example.GroupLink.Review.ReviewService;
 
 @Controller
 public class CustomerController {
@@ -18,11 +22,15 @@ public class CustomerController {
     private CustomerService customerService;
     private GroupService groupService;
     private ProviderService providerService;
+    private GroupMembershipService groupMembershipService;
+    private ReviewService reviewService;
 
-    public CustomerController(CustomerService customerService, GroupService groupService, ProviderService providerService) {
+    public CustomerController(CustomerService customerService, GroupService groupService, ProviderService providerService, GroupMembershipService groupMembershipService, ReviewService reviewService) {
         this.customerService = customerService;
         this.groupService = groupService;
         this.providerService = providerService;
+        this.groupMembershipService = groupMembershipService;
+        this.reviewService = reviewService;
     }
 
     @GetMapping("/customer/login")
@@ -147,7 +155,7 @@ public class CustomerController {
 
     @GetMapping("/customer/home/{id}")
     public Object home(@PathVariable Long id, Model model){
-        model.addAttribute("groupList", groupService.getAllGroups());
+        model.addAttribute("groupList", groupService.getAllActiveGroups());
         model.addAttribute("groupLocations", groupService.getDistinctGroupLocations());
         model.addAttribute("groupTypes", groupService.getDistinctGroupTypes());
         model.addAttribute("title", "GroupLink");
@@ -184,6 +192,22 @@ public class CustomerController {
         return "customer/group-details";
     }
 
+    @PostMapping("/group/details/{id}/{customerId}/apply")
+    public Object applyToGroup(@PathVariable Long id, @PathVariable Long customerId, @RequestParam(value = "message") String message , RedirectAttributes model){
+        if(groupMembershipService.doesGroupMembershipExist(customerId, id)){
+            model.addFlashAttribute("error", "You have already applied or are a member of this group");
+            return "redirect:/group/details/" + id + "/" + customerId;
+        }
+        GroupMembership membership = new GroupMembership();
+        membership.setGroupId(id);
+        membership.setCustomerId(customerId);
+        membership.setStatus("pending");
+        membership.setMessage(message);
+        groupMembershipService.createGroupMembership(membership);
+        model.addFlashAttribute("success", "Application submitted successfully");
+        return "redirect:/group/details/" + id + "/" + customerId;
+    }
+
     @GetMapping("/customer/notifications/{id}")
     public Object getCustomerNotifications(@PathVariable Long id, Model model){
         model.addAttribute("customer", customerService.getCustomerById(id));
@@ -200,6 +224,49 @@ public class CustomerController {
         model.addAttribute("pendingGroupMembershipsList", customerService.getCustomerPendingGroupMemberships(id));
         model.addAttribute("title", "My Groups");
         return "customer/customer-groups";
+    }
+
+    @GetMapping("/customer/group/details/{id}/{customerId}")
+    public Object getCustomerGroupDetails(@PathVariable Long id, @PathVariable Long customerId, Model model){
+        long providerId = groupService.getGroupById(id).getProvider().getId();
+        model.addAttribute("group", groupService.getGroupById(id));
+        model.addAttribute("title", "Group Details");
+        model.addAttribute("isMember", groupMembershipService.isCustomerMemberOfGroup(customerId, id));
+        model.addAttribute("isPending", groupMembershipService.isCustomerPendingInGroup(customerId, id));
+        model.addAttribute("isInactive", groupService.isGroupInactive(id));
+        model.addAttribute("isRemoved", groupMembershipService.isMembershipRemoved(customerId, id));
+        model.addAttribute("memberList", groupService.getGroupMembers(id));
+        model.addAttribute("reviewList", providerService.getAllReviewsForProvider(providerId));
+        return "customer/customer-group-details";
+    }
+
+    @PostMapping("/customer/group/leave/{groupId}/{customerId}")
+    public Object leaveGroup(@PathVariable Long groupId, @PathVariable Long customerId, RedirectAttributes model){
+        Long membershipId = groupMembershipService.getGroupMembershipIdByCustomerAndGroup(customerId, groupId);
+        groupMembershipService.removeGroupMembership(membershipId);
+        model.addFlashAttribute("success", "You have left the group successfully");
+        return "redirect:/customer/groups/" + customerId;
+    }
+
+    @GetMapping("/customer/group/cancelApplication/{groupId}/{customerId}")
+    public Object cancelGroupApplication(@PathVariable Long groupId, @PathVariable Long customerId, RedirectAttributes model){
+        Long membershipId = groupMembershipService.getGroupMembershipIdByCustomerAndGroup(customerId, groupId);
+        groupMembershipService.cancelGroupMembership(membershipId);
+        model.addFlashAttribute("success", "You have cancelled your application successfully");
+        return "redirect:/customer/groups/" + customerId;
+    }
+
+    @PostMapping("/customer/review/{groupId}/{customerId}")
+    public Object submitReview(@PathVariable Long groupId, @PathVariable Long customerId, @RequestParam(value= "rating") int rating, @RequestParam(value = "message") String message ,RedirectAttributes model){
+        long providerId = groupService.getGroupById(groupId).getProvider().getId();
+        model.addFlashAttribute("success", "Review submitted successfully");
+        Review review = new Review();
+        review.setCustomer(customerService.getCustomerById(customerId));
+        review.setProvider(providerService.getProviderById(providerId));
+        review.setMessage(message);
+        review.setRating(rating);
+        reviewService.createReview(providerId, review);
+        return "redirect:/customer/group/details/" + groupId + "/" + customerId;
     }
 
 }

@@ -165,15 +165,12 @@ h2 {
     margin-left: 10%;
     border-width: 0.5px;
     margin-top: -175px;
-    padding: 5px;
+    padding-top: 5px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     width: 40%;
-    height: fit-content;
-    border: solid;
-    border-color: #525252;
-    background-color: #F5E7DE;
+    height: auto;
 }
 
 .location{
@@ -202,21 +199,6 @@ h3 {
     border-bottom: solid;
 }
 
-#apply-form{
-    display: flex;
-    flex-direction: column;
-    margin-top: 1%;
-    width: 100%;
-    height: 30%;
-}
-textarea {
-    resize: none;
-    width: 96%;
-    margin-top: 5px;
-    padding: 10px;
-    font-size: medium;
-}
-
 #actions{
     display: flex;
     flex-direction: column;
@@ -224,7 +206,7 @@ textarea {
     height: fit-content;
 }
 
-button {
+#actions .actionBTN {
     height: 50px;
     width: 100%;
     font-weight: bold;
@@ -233,25 +215,52 @@ button {
 
 #apply {
     background-color: #F2BFA4;
-    height: 40px;
-    font-weight: bold;
 }
 
 #apply:hover {
     background-color: #E6C3AD;
 }
 
-#message {
-    background-color: rgb(113, 113, 234);
+#leave{
+    background-color: rgb(113, 234, 113);
     margin-top: 10px;
 }
 
-#message:hover {
-    background-color: rgb(91, 91, 189);
+#leave:hover {
+    background-color: rgb(91, 189, 91);
+}
+
+#cancel {
+    background-color: rgb(234, 113, 113);
+    margin-top: 10px;
+}
+
+#cancel:hover {
+    background-color: rgb(189, 91, 91);
+}
+
+#actions #review-form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1%;
+    margin-bottom: -80%;
+    width: 100%;
+}
+#actions #review-form textarea {
+    resize: none;
+    width: 96%;
+    margin-top: 5px;
+    padding: 10px;
+    font-size: medium;
 }
 
 #review {
-    margin-top: 10px;
+    height: 40px;
+    font-weight: bold;
+}
+
+#review:hover {
+    cursor: pointer;
 }
 
 #host-reviews {

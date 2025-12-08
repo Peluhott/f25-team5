@@ -34,29 +34,29 @@
 
     <aside>
         <ul>
-            <a href="/customer/profile/${id}" title="Profile">
+            <a href="/customer/profile/${id}" title="Profile" class="sidebtn">
                 <li><i class="fa-solid fa-user"></i></li>
             </a>
 
             <div id="break"></div>
 
-            <a href="/customer/home/${id}" title="Home">
+            <a href="/customer/home/${id}" title="Home" class="sidebtn">
                 <li> <i class="fa-solid fa-house"></i></li>
             </a>
 
-            <a href="/customer/notifications/${id}" title="Notifications">
+            <a href="/customer/notifications/${id}" title="Notifications" class="sidebtn">
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/messages.html" title="Messages">
-                <li><i class="fa-solid fa-envelope"></i></li>
+            <a href="/Prototype/Customer/messages.html" title="Your Reviews" class="sidebtn">
+                <li><i class="fa-solid fa-hand-holding-star"></i></li>
             </a>
 
-            <a href="/customer/groups/${id}" title="Your Groups">
+            <a href="/customer/groups/${id}" title="Your Groups" class="sidebtn">
                 <li><i class="fa-solid fa-people-group"></i></li>
             </a>
 
-            <a href="/customer/login" id="logout" title="Logout">
+            <a href="/customer/login" id="logout" title="Logout" class="sidebtn">
                 <li id="logout"><i class="fa-solid fa-door-open"></i></li>
             </a>
         </ul>
@@ -67,63 +67,49 @@
         <div id="active-groups">
             <h2>Active Groups:</h2>
             <#list activeGroupMembershipsList as groupMembership>
-            <div class="card">
-                <img class="poster" src="/groups/images/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="">
-                <div class="user">
-                    <img class="poster-pfp" src="/provider/images/${(group.provider.profilePicturePath)!'nullpfp.jpg'}" alt="">
-                    <h5>${groupMembership.group.provider.username}</h5>
-                    <#switch groupMembership.group.type>
-                        <#on "Hackathon">
-                        <div class="card-type"><i class="fa-solid fa-code"></i>${groupMembership.group.type}</div>
-                        <#on "Study">
-                        <div class="card-type"><i class="fa-solid fa-book"></i>${groupMembership.group.type}</div>
-                        <#on "Volunteer">
-                        <div class="card-type"><i class="fa-solid fa-handshake-angle"></i>${groupMembership.group.type}</div>
-                        <#on "Gaming">
-                        <div class="card-type"><i class="fa-jelly fa-regular fa-gamepad"></i>${groupMembership.group.type}</div>
-                        <#on "Sports">
-                        <div class="card-type"><i class="fa-sharp fa-solid fa-court-sport"></i> ${groupMembership.group.type}</div>
-                        <#default>
-                        <div class="card-type"><i class="fa-solid fa-people-line"></i>${groupMembership.group.type}</div>
-                    </#switch>
-                </div>
-                <p class="card-description">${groupMembership.group.name}</p>
-                <p class="card-description">View Group</p>
-            </div>
-            <#else>
-            <p id="no-results" style="font-size: xx-large; font-weight: bold; margin-left: 40%; margin-top: 1%;">No active groups found</p>
-            </#list>
-        </div>
-
-        <div id="inactive-groups">
-            <h2>Inactive Groups:</h2>
-
-            <#list inactiveGroupMembershipsList as groupMembership>
-            <div class="card">
-                <img class="poster" src="/groups/images/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="">
-                <div class="user">
-                    <img class="poster-pfp" src="/provider/images/${(group.provider.profilePicturePath)!'nullpfp.jpg'}" alt="">
-                    <h5>${groupMembership.group.provider.username}</h5>
-                    <#switch groupMembership.group.type>
-                        <#on "Hackathon">
-                        <div class="card-type"><i class="fa-solid fa-code"></i>${groupMembership.group.type}</div>
-                        <#on "Study">
-                        <div class="card-type"><i class="fa-solid fa-book"></i>${groupMembership.group.type}</div>
-                        <#on "Volunteer">
-                        <div class="card-type"><i class="fa-solid fa-handshake-angle"></i>${groupMembership.group.type}</div>
-                        <#on "Gaming">
-                        <div class="card-type"><i class="fa-jelly fa-regular fa-gamepad"></i>${groupMembership.group.type}</div>
-                        <#on "Sports">
-                        <div class="card-type"><i class="fa-sharp fa-solid fa-court-sport"></i> ${groupMembership.group.type}</div>
-                        <#default>
-                        <div class="card-type"><i class="fa-solid fa-people-line"></i>${groupMembership.group.type}</div>
-                    </#switch>
-                </div>
-                <p class="card-description">${groupMembership.group.name}</p>
-                <p class="card-description">View Group</p>
-            </div>
-            <#else>
-            <p id="no-results" style="font-size: xx-large; font-weight: bold; margin-left: 40%; margin-top: 1%;">No inactive groups found</p>
+                <a href="/customer/group/details/${groupMembership.group.id?c}/${id}" class="link-card" style="width: 23%;">
+                        <div class="card">
+                        <img class="poster"
+                            src="/groups/images/${(groupMembership.group.profilePicturePath)!'sampleGroupPoster.webp'}"
+                            alt="">
+                        <div class="user">
+                            <img class="poster-pfp"
+                                src="/provider/images/${(groupMembership.group.provider.profilePicturePath)!'nullpfp.jpg'}"
+                                alt="">
+                            <h5>${groupMembership.group.provider.username}</h5>
+                            <#switch groupMembership.group.type>
+                                <#on "Hackathon">
+                                    <div class="card-type"><i class="fa-solid fa-code"></i>${groupMembership.group.type}
+                                    </div>
+                                    <#on "Study">
+                                        <div class="card-type"><i
+                                                class="fa-solid fa-book"></i>${groupMembership.group.type}</div>
+                                        <#on "Volunteer">
+                                            <div class="card-type"><i
+                                                    class="fa-solid fa-handshake-angle"></i>${groupMembership.group.type}
+                                            </div>
+                                            <#on "Gaming">
+                                                <div class="card-type"><i
+                                                        class="fa-jelly fa-regular fa-gamepad"></i>${groupMembership.group.type}
+                                                </div>
+                                                <#on "Sports">
+                                                    <div class="card-type"><i
+                                                            class="fa-sharp fa-solid fa-court-sport"></i>
+                                                        ${groupMembership.group.type}</div>
+                                                    <#default>
+                                                        <div class="card-type"><i
+                                                                class="fa-solid fa-people-line"></i>${groupMembership.group.type}
+                                                        </div>
+                            </#switch>
+                        </div>
+                        <p class="card-description">${groupMembership.group.name}</p>
+                        <p class="card-description">View Group</p>
+                    </div>
+                </a>
+                <#else>
+                    <p id="no-results"
+                        style="font-size: xx-large; font-weight: bold; margin-left: 40%; margin-top: 1%;">No active
+                        groups found</p>
             </#list>
         </div>
 
@@ -131,31 +117,99 @@
             <h2>Pending Group Memberships:</h2>
 
             <#list pendingGroupMembershipsList as groupMembership>
-            <div class="card">
-                <img class="poster" src="/groups/images/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="">
-                <div class="user">
-                    <img class="poster-pfp" src="/provider/images/${(group.provider.profilePicturePath)!'nullpfp.jpg'}" alt="">
-                    <h5>${groupMembership.group.provider.username}</h5>
-                    <#switch groupMembership.group.type>
-                        <#on "Hackathon">
-                        <div class="card-type"><i class="fa-solid fa-code"></i>${groupMembership.group.type}</div>
-                        <#on "Study">
-                        <div class="card-type"><i class="fa-solid fa-book"></i>${groupMembership.group.type}</div>
-                        <#on "Volunteer">
-                        <div class="card-type"><i class="fa-solid fa-handshake-angle"></i>${groupMembership.group.type}</div>
-                        <#on "Gaming">
-                        <div class="card-type"><i class="fa-jelly fa-regular fa-gamepad"></i>${groupMembership.group.type}</div>
-                        <#on "Sports">
-                        <div class="card-type"><i class="fa-sharp fa-solid fa-court-sport"></i> ${groupMembership.group.type}</div>
-                        <#default>
-                        <div class="card-type"><i class="fa-solid fa-people-line"></i>${groupMembership.group.type}</div>
-                    </#switch>
-                </div>
-                <p class="card-description">${groupMembership.group.name}</p>
-                <p class="card-description">View Group</p>
-            </div>
-            <#else>
-            <p id="no-results" style="font-size: xx-large; font-weight: bold; margin-left: 40%; margin-top: 1%;">No pending memberships found</p>
+                <a href="/customer/group/details/${groupMembership.group.id?c}/${id}" class="link-card" style="width: 23%;">
+                    <div class="card">
+                        <img class="poster"
+                            src="/groups/images/${(groupMembership.group.profilePicturePath)!'sampleGroupPoster.webp'}"
+                            alt="">
+                        <div class="user">
+                            <img class="poster-pfp"
+                                src="/provider/images/${(groupMembership.group.provider.profilePicturePath)!'nullpfp.jpg'}"
+                                alt="">
+                            <h5>${groupMembership.group.provider.username}</h5>
+                            <#switch groupMembership.group.type>
+                                <#on "Hackathon">
+                                    <div class="card-type"><i class="fa-solid fa-code"></i>${groupMembership.group.type}
+                                    </div>
+                                    <#on "Study">
+                                        <div class="card-type"><i
+                                                class="fa-solid fa-book"></i>${groupMembership.group.type}</div>
+                                        <#on "Volunteer">
+                                            <div class="card-type"><i
+                                                    class="fa-solid fa-handshake-angle"></i>${groupMembership.group.type}
+                                            </div>
+                                            <#on "Gaming">
+                                                <div class="card-type"><i
+                                                        class="fa-jelly fa-regular fa-gamepad"></i>${groupMembership.group.type}
+                                                </div>
+                                                <#on "Sports">
+                                                    <div class="card-type"><i
+                                                            class="fa-sharp fa-solid fa-court-sport"></i>
+                                                        ${groupMembership.group.type}</div>
+                                                    <#default>
+                                                        <div class="card-type"><i
+                                                                class="fa-solid fa-people-line"></i>${groupMembership.group.type}
+                                                        </div>
+                            </#switch>
+                        </div>
+                        <p class="card-description">${groupMembership.group.name}</p>
+                        <p class="card-description">View Group</p>
+                    </div>
+                </a>
+                <#else>
+                    <p id="no-results"
+                        style="font-size: xx-large; font-weight: bold; margin-left: 40%; margin-top: 1%;">No pending
+                        memberships found</p>
+            </#list>
+        </div>
+
+        <div id="inactive-groups">
+            <h2>Inactive Groups:</h2>
+
+            <#list inactiveGroupMembershipsList as groupMembership>
+                <a href="/customer/group/details/${groupMembership.group.id?c}/${id}" class="link-card">
+                    <div class="card">
+                        <img class="poster"
+                            src="/groups/images/${(groupMembership.group.profilePicturePath)!'sampleGroupPoster.webp'}"
+                            alt="">
+                        <div class="user">
+                            <img class="poster-pfp"
+                                src="/provider/images/${(groupMembership.group.provider.profilePicturePath)!'nullpfp.jpg'}"
+                                alt="">
+                            <h5>${groupMembership.group.provider.username}</h5>
+                            <#switch groupMembership.group.type>
+                                <#on "Hackathon">
+                                    <div class="card-type"><i class="fa-solid fa-code"></i>${groupMembership.group.type}
+                                    </div>
+                                    <#on "Study">
+                                        <div class="card-type"><i
+                                                class="fa-solid fa-book"></i>${groupMembership.group.type}</div>
+                                        <#on "Volunteer">
+                                            <div class="card-type"><i
+                                                    class="fa-solid fa-handshake-angle"></i>${groupMembership.group.type}
+                                            </div>
+                                            <#on "Gaming">
+                                                <div class="card-type"><i
+                                                        class="fa-jelly fa-regular fa-gamepad"></i>${groupMembership.group.type}
+                                                </div>
+                                                <#on "Sports">
+                                                    <div class="card-type"><i
+                                                            class="fa-sharp fa-solid fa-court-sport"></i>
+                                                        ${groupMembership.group.type}</div>
+                                                    <#default>
+                                                        <div class="card-type"><i
+                                                                class="fa-solid fa-people-line"></i>${groupMembership.group.type}
+                                                        </div>
+                            </#switch>
+                        </div>
+                        <p class="card-description">${groupMembership.group.name}</p>
+                        <p class="card-description">View Group</p>
+                    </div>
+                </a>
+                <#else>
+                    <p id="no-results"
+                        style="font-size: xx-large; font-weight: bold; margin-left: 40%; margin-top: 1%;">No inactive
+                        groups found</p>
             </#list>
         </div>
     </div>

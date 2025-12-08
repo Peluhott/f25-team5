@@ -64,6 +64,10 @@ li {
 }
 
 a {
+    text-decoration: none;
+}
+
+.sidebtn {
     color: #F2BFA4;
     text-decoration: none;
 }
@@ -136,6 +140,13 @@ h2 {
     background-color: white;
 }
 
+.link-card {
+    color: black;
+    margin: 10px;
+    width: 23%;
+    height: fit-content;
+}
+
 .card {
     border-width: 0.5px;
     border: solid;
@@ -143,7 +154,7 @@ h2 {
     display: flex;
     margin: 10px;
     flex-direction: column;
-    width: 23%;
+    width: 100%;
     height: fit-content;
     background-color: #F5E7DE;
 }
