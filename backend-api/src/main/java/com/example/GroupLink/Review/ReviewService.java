@@ -26,13 +26,15 @@ public class ReviewService {
 
     ReviewRepository reviewRepository;
     ProviderService providerService;
+    ProviderRepository providerRepository;
     GroupService groupService;
 
     public ReviewService(ReviewRepository reviewRepository, ProviderService providerService,
-            GroupService groupService) {
+            GroupService groupService, ProviderRepository providerRepository) {
         this.reviewRepository = reviewRepository;
         this.providerService = providerService;
         this.groupService = groupService;
+        this.providerRepository = providerRepository;
     }
 
     public Review getReviewById(@PathVariable long id) {
@@ -69,7 +71,7 @@ public class ReviewService {
 
             provider.setAverageRating(averageRating);
         }
-
+        providerRepository.save(provider);
     }
 
     public void updateNumberOfRatingsForProvider(Long providerId) {
@@ -81,7 +83,7 @@ public class ReviewService {
             int size = reviews.size();
             provider.setReviewCount(size);
         }
-
+        providerRepository.save(provider);
     }
 
     @Transactional
@@ -96,7 +98,10 @@ public class ReviewService {
     }
 
     public void deleteReview(Long reviewId) {
+        Provider provider = providerService.getProviderById(providerService.getProviderIdByReviewId(reviewId));
         reviewRepository.deleteById(reviewId);
+        updateAverageRatingForProvider(provider.getId());
+        updateNumberOfRatingsForProvider(provider.getId());
     }
 
     public List<Review> getReviewsForProvider(Long providerId) {
@@ -111,6 +116,12 @@ public class ReviewService {
                 .orElseThrow(() -> new IllegalArgumentException("Review " + reviewId + " not found"));
         review.setResponse(response);
         return reviewRepository.save(review);
+    }
+
+    public List<Review> getReviewsForCustomer(Long customerId) {
+        if (customerId == null)
+            return List.of();
+        return reviewRepository.findByCustomer_Id(customerId);
     }
 
 }
