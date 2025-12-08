@@ -21,13 +21,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.GroupLink.CustomerNotification.CustomerNotificationService;
 import com.example.GroupLink.GroupMembership.GroupMembership;
 
 @Controller
 public class GroupController {
 
-    @Autowired
     private GroupService groupService;
+    private CustomerNotificationService customerNotificationService;
+
+    public GroupController(GroupService groupService, CustomerNotificationService customerNotificationService) {
+        this.groupService = groupService;
+        this.customerNotificationService = customerNotificationService;
+    }
 
     @GetMapping("provider/group/{id}")
     public Object getGroups(@PathVariable Long id, Model model) {
@@ -99,6 +105,19 @@ public class GroupController {
         try {
             groupService.updateGroup(groupId, group, picture);
             return "redirect:/provider/" + providerId + "/group/" + groupId;
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/provider/" + providerId + "/group/" + groupId + "/edit";
+        }
+    }
+
+    @PostMapping("/provider/{providerId}/group/{groupId}/delete")
+    public String deleteGroup(@PathVariable Long providerId,
+            @PathVariable Long groupId,
+            RedirectAttributes redirectAttributes) {
+        try {
+            groupService.deleteGroup(groupId);
+            return "redirect:/provider/home/" + providerId;
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/provider/" + providerId + "/group/" + groupId + "/edit";
