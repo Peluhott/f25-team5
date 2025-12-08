@@ -48,7 +48,7 @@
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/messages.html" title="Your Reviews" class="sidebtn">
+            <a href="/customer/reviews/${customerId}" title="Your Reviews" class="sidebtn">
                 <li><i class="fa-solid fa-hand-holding-star"></i></li>
             </a>
 
@@ -78,7 +78,7 @@
                                 <#elseif group.provider.averageRating < 4>
                                     <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
                                         class="fa-sharp fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>
-                                    <#elseif group.provider.averageRating <= 5>
+                                    <#elseif group.provider.averageRating < 5>
                                         <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
                                             class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>
                                             <#else>
@@ -93,7 +93,7 @@
     </div>
     <div id="banner">
         <img style="height: 100%; width: 100%; object-fit: cover;"
-            src="/groups/images/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="" id="banner-img">
+            src="/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="" id="banner-img">
     </div>
 
     <div id="info">
@@ -107,8 +107,8 @@
             </#if>
             <#if (isInactive?? && isInactive) || (isRemoved?? && isRemoved)>
                 <form action="/customer/review/${id}/${customerId}" method="post" id="review-form">
-                    <label for="rating">Host Rating:</label>
-                    <select name="rating" id="" style="width: 20%;">
+                    <label for="rating" style="font-weight: bold;">Host Rating:</label>
+                    <select name="rating" id="" style="width: 20%; background-color: #F2BFA4;">
                         <option value="5">5 Stars</option>
                         <option value="4">4 Stars</option>
                         <option value="3">3 Stars</option>
@@ -117,7 +117,7 @@
                     </select>
                     <label for="message" style="font-weight: bold;">Write a message for your review.</label>
                     <textarea name="message" rows="5" cols="20" placeholder="The host was amazing to work with..."
-                        required></textarea>
+                        required style="background-color: #F2BFA4;"></textarea>
                     <button id="review" type="submit" style="font-weight: bold;"><i
                             class="fa-solid fa-star-sharp-half-stroke"></i>Leave Review</button>
                 </form>

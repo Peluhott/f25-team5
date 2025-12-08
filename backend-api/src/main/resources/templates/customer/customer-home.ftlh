@@ -58,7 +58,7 @@
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/messages.html" title="Your Reviews" class="sidebtn">
+            <a href="/customer/reviews/${id}" title="Your Reviews" class="sidebtn">
                 <li><i class="fa-solid fa-hand-holding-star"></i></li>
             </a>
 
@@ -126,7 +126,7 @@
         <#list groupList as group>
         <a href="/group/details/${group.id?c}/${id}" class="link-card">
             <div class="card">
-                <img class="poster" src="/groups/images/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="">
+                <img class="poster" src="/${(group.profilePicturePath)!'sampleGroupPoster.webp'}" alt="">
                 <div class="user">
                     <img class="poster-pfp" src="/provider/images/${(group.provider.profilePicturePath)!'nullpfp.jpg'}" alt="">
                     <h5>${group.provider.username}</h5>
