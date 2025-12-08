@@ -4,10 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Collections;
 
+import com.example.GroupLink.CustomerNotification.CustomerNotification;
+import com.example.GroupLink.CustomerNotification.CustomerNotificationService;
 import com.example.GroupLink.Group.Group;
 import com.example.GroupLink.Group.GroupService;
 import com.example.GroupLink.GroupMembership.GroupMembership;
@@ -22,15 +25,18 @@ public class ProviderController {
     private GroupMembershipService groupMembershipService;
     private ReviewService reviewService;
     private GroupService groupService;
+    private CustomerNotificationService customerNotificationService;
 
     public ProviderController(ProviderService providerService,
             GroupMembershipService groupMembershipService,
             ReviewService reviewService,
-            GroupService groupService) {
+            GroupService groupService,
+            CustomerNotificationService customerNotificationService) {
         this.providerService = providerService;
         this.groupMembershipService = groupMembershipService;
         this.reviewService = reviewService;
         this.groupService = groupService;
+        this.customerNotificationService = customerNotificationService;
     }
 
     @GetMapping("/provider/{id}/applications")
@@ -191,6 +197,17 @@ public class ProviderController {
         model.addAttribute("reviews", reviews);
         model.addAttribute("providerId", providerId);
         return "provider/provider-reviews";
+    }
+
+    @PostMapping("/provider/profile/{id}/delete")
+    public String deleteProvider(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            providerService.deleteProvider(id);
+            return "redirect:/provider/login";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/provider/profile/" + id;
+        }
     }
 
 }
