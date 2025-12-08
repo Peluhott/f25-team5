@@ -61,8 +61,8 @@
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/messages.html" title="Messages">
-                <li><i class="fa-solid fa-envelope"></i></li>
+            <a href="/Prototype/Customer/messages.html" title="Your Reviews" class="sidebtn">
+                <li><i class="fa-solid fa-hand-holding-star"></i></li>
             </a>
 
             <a href="/customer/groups/${id}" title="Your Groups">

@@ -48,8 +48,8 @@
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
-            <a href="/Prototype/Customer/messages.html" title="Messages">
-                <li><i class="fa-solid fa-envelope"></i></li>
+            <a href="/Prototype/Customer/messages.html" title="Your Reviews" class="sidebtn">
+                <li><i class="fa-solid fa-hand-holding-star"></i></li>
             </a>
 
             <a href="/customer/groups/${customerId}" title="Your Groups">
@@ -69,9 +69,23 @@
             <div class="provider-name">${group.provider.username}</div>
             <div class="rating">
                 <div id="stars">
-                    <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
-                        class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
-                        class="fa-sharp fa-solid fa-star"></i>
+                    <#if group.provider.averageRating < 1>
+                     <i class="fa-solid fa-star-half"></i>
+                        <#elseif group.provider.averageRating < 2>
+                            <i class="fa-sharp fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>
+                            <#elseif group.provider.averageRating < 3>
+                                <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>
+                                <#elseif group.provider.averageRating < 4>
+                                    <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
+                                        class="fa-sharp fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>
+                                    <#elseif group.provider.averageRating <= 5>
+                                        <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
+                                            class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>
+                                            <#else>
+                                                <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
+                                                    class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
+                                                    class="fa-sharp fa-solid fa-star"></i>
+                    </#if>
                 </div>
                 <div class="rating-number">${group.provider.averageRating}</div>
                 <div class="rating-reviews">(${group.provider.reviewCount} reviews)</div>
@@ -94,13 +108,12 @@
                 <#if success??>
                     <p class="success" style="color: green; margin-bottom: -1%;">${success}</p>
                 </#if>
-                <form action="/group/details/${id}/${customerId}/apply" method="post" id="apply-form">
-                    <label for="message" style="font-weight: bold;">Leave a note to apply to this group...</label>
+                <form action="/group/details/${id}/${customerId}/apply" method="post" id="apply-form" style="margin-top: 1%;">
+                    <label for="message" style="font-weight: bold;">Send a message to apply to this group...</label>
                     <textarea name="message" rows="5" cols="20" placeholder="Hi, I would like to join your group..."
                         required></textarea>
                     <input type="submit" value="Apply to group" id="apply">
                 </form>
-                <button id="message"><i class="fa-solid fa-message"></i>Message host</button>
             </div>
         </div>
         <div id="description">
