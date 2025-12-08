@@ -28,7 +28,7 @@
             <a href="/provider/${providerId}/reviews" class="sidebtn" id="reviews-link"><li><i class="fa-solid fa-envelope"></i></li></a>
             <a href="/provider/${providerId}/applications" class="sidebtn" id="group-link"><li><i class="fa-solid fa-people-group"></i></li></a>
 
-            <a href="/Prototype/Provider/Login.html" class="sidebtn" id="logout">
+            <a href="/provider/login" class="sidebtn" id="logout">
                 <li><i class="fa-solid fa-door-open"></i></li>
             </a>
         </ul>
@@ -45,8 +45,8 @@
         <#if groups?size == 0>
             <div class="group-create">
                 <p>Create a Group</p>
-                <a href="/group/create">
-                    <img src="/images/createbutton.png" class="create-icon">
+                <a href="/group/create/${providerId}">
+                    <img src="/groups/createbutton.png" class="create-icon">
                 </a>
             </div>
 
@@ -77,7 +77,7 @@
     <p class="group-members">Members: ${group.activeMem}</p>
 
     <!-- View Details Button -->
-    <a href="/provider/${provider.id}/group/${group.id}">
+    <a href="/provider/${providerId}/group/${group.id}">
         <button class="reply-btn">View Details</button>
     </a>
 

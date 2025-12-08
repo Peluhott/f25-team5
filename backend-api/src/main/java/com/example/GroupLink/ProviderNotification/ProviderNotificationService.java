@@ -3,8 +3,8 @@ package com.example.GroupLink.ProviderNotification;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.example.GroupLink.CustomerNotification.CustomerNotification;
-import com.example.GroupLink.CustomerNotification.CustomerNotificationRepository;
+import com.example.GroupLink.ProviderNotification.ProviderNotification;
+import com.example.GroupLink.ProviderNotification.ProviderNotificationRepository;
 
 public class ProviderNotificationService {
     private ProviderNotificationRepository providerNotificationRepository;
