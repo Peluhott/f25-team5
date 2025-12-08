@@ -69,9 +69,10 @@
             <select name="type" required>
                 <option value="">Select type...</option>
                 <option value="Hackathon">Hackathon</option>
-                <option value="Startup">Startup</option>
-                <option value="School">School</option>
-                <option value="Charity">Charity</option>
+                <option value="Study">Study</option>
+                <option value="Sports">Sports</option>
+                <option value="Volunteer">Volunteer</option>
+                <option value="Gaming">Gaming</option>
             </select>
 
             <label>Max Members:</label>

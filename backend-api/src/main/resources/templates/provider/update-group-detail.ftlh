@@ -62,16 +62,19 @@
                 <select name="type" required>
                     <option value="">Select type...</option>
                     <option value="Hackathon" <#if group.type == "Hackathon">selected</#if>>Hackathon</option>
-                    <option value="Startup"   <#if group.type == "Startup">selected</#if>>Startup</option>
-                    <option value="School"    <#if group.type == "School">selected</#if>>School</option>
-                    <option value="Charity"   <#if group.type == "Charity">selected</#if>>Charity</option>
+                    <option value="Gaming"   <#if group.type == "Gaming">selected</#if>>Gaming</option>
+                    <option value="Sports"    <#if group.type == "Sports">selected</#if>>Sports</option>
+                    <option value="Volunteer"   <#if group.type == "Volunteer">selected</#if>>Volunteer</option>
+                    <option value="Study"     <#if group.type == "Study">selected</#if>>Study</option>
+
 
                     <#-- allow existing custom type to appear as selected -->
                     <#if group.type?? &&
                          (group.type != "Hackathon" &&
-                          group.type != "Startup" &&
-                          group.type != "School" &&
-                          group.type != "Charity")>
+                          group.type != "Study" &&
+                          group.type != "Gaming" &&
+                          group.type != "Sports" &&
+                          group.type != "Volunteer")>
                         <option value="${group.type}" selected>${group.type}</option>
                     </#if>
                 </select>
