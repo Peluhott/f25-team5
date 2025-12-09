@@ -64,7 +64,7 @@ public class GroupMembershipController {
         Customer customer = mem.getCustomer();
         Long customerId = customer.getId();
         String type = "rejected";
-        String message = "you have been removed from a group!";
+        String message = "you have been removed from " + mem.getGroup().getName();
         Group group = mem.getGroup();
         group.setActiveMem(group.getActiveMem() - 1);
         groupRepository.save(group);

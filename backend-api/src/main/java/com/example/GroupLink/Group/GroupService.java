@@ -127,7 +127,9 @@ public class GroupService {
     }
 
     public void deleteGroup(Long groupId) {
-        groupRepository.deleteById(groupId);
+        Group group = getGroupById(groupId);
+        group.setActive(false);
+        groupRepository.save(group);
     }
 
     public List<Group> getAllGroups() {

@@ -78,7 +78,7 @@
                                 <#elseif group.provider.averageRating < 4>
                                     <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
                                         class="fa-sharp fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>
-                                    <#elseif group.provider.averageRating <= 5>
+                                    <#elseif group.provider.averageRating < 5>
                                         <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
                                             class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>
                                             <#else>

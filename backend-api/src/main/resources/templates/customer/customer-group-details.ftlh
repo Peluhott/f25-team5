@@ -80,7 +80,7 @@
                                         class="fa-sharp fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>
                                     <#elseif group.provider.averageRating < 5>
                                         <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
-                                            class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>
+                                            class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i>
                                             <#else>
                                                 <i class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
                                                     class="fa-sharp fa-solid fa-star"></i><i class="fa-sharp fa-solid fa-star"></i><i
@@ -105,7 +105,7 @@
             <#if success??>
                 <p class="success" style="color: green; margin-bottom: -1%; margin-top: 1%;">${success}</p>
             </#if>
-            <#if (isInactive?? && !isInactive) || (isRemoved?? && !isRemoved)>
+            <#if (isInactive?? && isInactive) || (isRemoved?? && isRemoved)>
                 <form action="/customer/review/${id}/${customerId}" method="post" id="review-form">
                     <label for="rating" style="font-weight: bold;">Host Rating:</label>
                     <select name="rating" id="" style="width: 20%; background-color: #F2BFA4;">
