@@ -15,7 +15,7 @@
   <aside>
     <ul>
       <a href="/provider/home/${providerId}" class="sidebtn" id="home-page"><li><i class="fa-solid fa-house"></i></li></a>
-      <a href="#" class="sidebtn" id="notification-link"><li><i class="fa-solid fa-bell"></i></li></a>
+      <a href="/provider/${providerId}/notifications" class="sidebtn" id="notification-link"><li><i class="fa-solid fa-bell"></i></li></a>
       <a href="/provider/profile/${providerId}" class="sidebtn" id="people-link"><li><i class="fa-solid fa-user"></i></li></a>
 
       <div id="break"></div>

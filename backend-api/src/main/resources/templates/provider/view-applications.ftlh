@@ -24,7 +24,7 @@
                 <li><i class="fa-solid fa-house"></i></li>
             </a>
             
-            <a href="#" title="Notifications" class="sidebtn" id="notification-link">
+            <a href="/provider/${providerId}/notifications" title="Notifications" class="sidebtn" id="notification-link">
                 <li><i class="fa-solid fa-bell"></i></li>
             </a>
             

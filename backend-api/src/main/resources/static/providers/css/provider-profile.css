@@ -204,3 +204,24 @@ li:hover {
     width: 20%;
     cursor: pointer;
 }
+
+.delete-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.btn-danger {
+    background:#c62828;
+    color:#fff;
+    padding:10px 14px;
+    border-radius:6px;
+    border:none;
+    cursor:pointer;
+    font-size:14px;
+    transition: background 0.2s ease;
+}
+
+.btn-danger:hover {
+    background:#b71c1c;
+}

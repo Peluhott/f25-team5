@@ -20,7 +20,7 @@
     <aside>
         <ul>
             <a href="/provider/home/${providerId}" class="sidebtn" id="home-page"><li><i class="fa-solid fa-house"></i></li></a>
-            <a href="#" class="sidebtn" id="notification-link"><li><i class="fa-solid fa-bell"></i></li></a>
+            <a href="/provider/${providerId}/notifications" class="sidebtn" id="notification-link"><li><i class="fa-solid fa-bell"></i></li></a>
             <a href="/provider/profile/${providerId}" class="sidebtn" id="people-link"><li><i class="fa-solid fa-user"></i></li></a>
 
             <div id="break"></div>
@@ -65,16 +65,16 @@
 
     <!-- Group Description -->
     <#if group.content?? && group.content?has_content>
-        <p class="group-description">${group.content}</p>
+        <p class="group-description"><strong>Description: </strong>${group.content}</p>
     </#if>
 
     <!-- Group Location -->
     <#if group.location?? && group.location?has_content>
-        <p class="group-location">Location: ${group.location}</p>
+        <p class="group-location"><strong>Location: </strong> ${group.location}</p>
     </#if>
 
     <!-- Member Count -->
-    <p class="group-members">Members: ${group.activeMem}</p>
+    <p class="group-members"><strong>Members: </strong>${group.activeMem}</p>
 
     <!-- View Details Button -->
     <a href="/provider/${providerId}/group/${group.id}">
