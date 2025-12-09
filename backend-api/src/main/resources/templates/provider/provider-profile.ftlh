@@ -6,7 +6,7 @@
     <link rel="icon" href="/Prototype/Customer/images/logo-transparent.png">
     <title>GroupLink - Provider Profile</title>
     
-  <link rel="stylesheet" href="/customer/css/customer-profile.css">
+  <link rel="stylesheet" href="/providers/css/provider-profile.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,7 +58,7 @@
                 <li> <i class="fa-solid fa-house"></i></li>
             </a>
 
-            <a href="/provider/notifications/${id}" title="Notifications">
+            <a href="/provider/${providerId}/notifications" title="Notifications">
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
@@ -93,6 +93,14 @@
                 <input type="file" name="profilePicturePath" id="cpi">
                 <input type="submit" value="Save Changes" id="change-pfp-submit" class="cps">
             </form>
+            <!-- Delete provider account -->
+        <form action="/provider/profile/${id}/delete" method="post"
+              onsubmit="return confirmProviderDelete();">
+            <input type="hidden" name="providerId" value="${id}">
+            <button type="submit" class="btn-danger">
+                Delete Account
+            </button>
+        </form>
         </div>
 
         <form action="/provider/profile/${id}/updateUsername" method="post" id="personal-information-form">
@@ -135,14 +143,7 @@
             <input type="submit" value="Save Changes" class="cps">
         </form>
 
-        <!-- Delete provider account -->
-        <form action="/provider/profile/${id}/delete" method="post"
-              onsubmit="return confirmProviderDelete();" style="margin-top:18px;">
-            <input type="hidden" name="providerId" value="${id}">
-            <button type="submit" class="btn danger" style="background:#c62828;color:#fff;padding:10px 14px;border-radius:6px;border:none;">
-                Delete Account
-            </button>
-        </form>
+        
 
     </div>
 

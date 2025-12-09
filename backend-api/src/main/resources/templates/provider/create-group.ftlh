@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-regular.css"/>
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.0/css/sharp-light.css"/>
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.0/css/duotone.css"/>
+    <script src="/providers/js/script.js" defer></script>
+
 </head>
 <body>
     <aside>
@@ -24,7 +26,7 @@
                 <li><i class="fa-solid fa-house"></i></li>
             </a>
             
-            <a href="#" title="Notifications" class="sidebtn" id="notification-link">
+            <a href="/provider/${providerId}/notifications" title="Notifications" class="sidebtn" id="notification-link">
                 <li><i class="fa-solid fa-bell"></i></li>
             </a>
             
@@ -48,10 +50,10 @@
         </ul>
     </aside>
 
-    <header>
-        <img src="<#if logoPath??>${logoPath}<#else>../Customer/images/logo-transparent.png</#if>" alt="" id="logo">
-        <h1>${appName! "GroupLink"}</h1>
-    </header>
+     <header>
+    <img src="/customer/images/logo-transparent.png" id="logo" alt="GroupLink logo">
+    <h1>GroupLink</h1>
+  </header>
 
     <div class="main-content">
 
@@ -63,7 +65,11 @@
             <input type="text" name="name" required>
 
             <label>Location:</label>
-            <input type="text" name="location" required>
+<div class="autocomplete-wrapper">
+    <input type="text" id="location-input" name="location" autocomplete="off" required>
+    <div id="location-suggestions" class="autocomplete-list" style="display: none;"></div>
+</div>
+
 
             <label>Type:</label>
             <select name="type" required>
