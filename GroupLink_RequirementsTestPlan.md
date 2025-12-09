@@ -1,4 +1,4 @@
-# Project-Name Requirements Testing
+# GroupLink Requirements Testing
 ## Actors
 - Provider P: Host
 - Customer C: Member
