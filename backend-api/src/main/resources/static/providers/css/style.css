@@ -532,3 +532,75 @@ header {
     color: #9ca3af;
     font-style: italic;
 }
+
+.autocomplete-wrapper {
+    position: relative;
+}
+
+.autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.autocomplete-item {
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.autocomplete-item:hover {
+    background: #f0f0f0;
+}
+
+.btn-accept,
+.btn-deny {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    transition: background 0.2s ease;
+}
+
+
+.btn-accept {
+    background-color: #007bff;
+}
+
+.btn-accept:hover {
+    background-color: #0069d9;
+}
+
+
+.btn-deny {
+    background-color: #dc3545;
+}
+
+.btn-deny:hover {
+    background-color: #c82333;
+}
+
+.group-image1 {
+    width: 150px;
+    height: 150px;
+}
+
+.preview-image {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    
+    margin: 0;
+}
