@@ -105,7 +105,7 @@
             <#if success??>
                 <p class="success" style="color: green; margin-bottom: -1%; margin-top: 1%;">${success}</p>
             </#if>
-            <#if (isInactive?? && isInactive) || (isRemoved?? && isRemoved)>
+            <#if (isInactive?? && !isInactive) || (isRemoved?? && !isRemoved)>
                 <form action="/customer/review/${id}/${customerId}" method="post" id="review-form">
                     <label for="rating" style="font-weight: bold;">Host Rating:</label>
                     <select name="rating" id="" style="width: 20%; background-color: #F2BFA4;">
