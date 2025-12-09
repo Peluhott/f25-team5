@@ -58,7 +58,7 @@
                 <li> <i class="fa-solid fa-house"></i></li>
             </a>
 
-            <a href="/provider/${providerId}/notifications" title="Notifications">
+            <a href="/provider/${id}/notifications" title="Notifications">
                 <li> <i class="fa-solid fa-bell"></i></li>
             </a>
 
