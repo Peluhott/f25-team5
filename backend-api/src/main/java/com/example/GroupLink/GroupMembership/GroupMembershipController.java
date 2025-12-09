@@ -51,7 +51,7 @@ public class GroupMembershipController {
             type = "rejected";
             message = "Your application was denied for " + mem.getGroup().getName();
         }
-        groupMembershipService.updateGroupMembershipStatus(membershipId, type);
+
         customerNotificationService.createCustomerNotification(customerId, type, message);
         return "redirect:/provider/" + providerId + "/applications";
     }
