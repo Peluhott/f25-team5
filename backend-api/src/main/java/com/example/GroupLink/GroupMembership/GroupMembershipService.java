@@ -97,7 +97,7 @@ public class GroupMembershipService {
                 customerService.getCustomerById(customerId));
         for (GroupMembership membership : memberships) {
             if (membership.getGroup().getId().equals(groupId)
-                    && "accepted".equalsIgnoreCase(membership.getStatus().trim())) {
+                    && "active".equalsIgnoreCase(membership.getStatus().trim())) {
                 return true;
             }
         }
@@ -121,7 +121,7 @@ public class GroupMembershipService {
                 customerService.getCustomerById(customerId));
         for (GroupMembership membership : memberships) {
             if (membership.getGroup().getId().equals(groupId)
-                    && "removed".equalsIgnoreCase(membership.getStatus().trim())) {
+                    && "inactive".equalsIgnoreCase(membership.getStatus().trim())) {
                 return true;
             }
         }
@@ -137,7 +137,7 @@ public class GroupMembershipService {
     public GroupMembership removeGroupMembership(Long id) {
         GroupMembership groupMembership = groupMembershipRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Group membership not found"));
-        groupMembership.setStatus("removed");
+        groupMembership.setStatus("inactive");
         return groupMembershipRepository.save(groupMembership);
     }
 }
